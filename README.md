@@ -2,5 +2,5 @@ LifeMonitor
 ============
 
 
-Quentin BAILLEUL
-Dorian BURIHABWA
+* Quentin BAILLEUL
+* Dorian BURIHABWA
