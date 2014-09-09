@@ -7,4 +7,5 @@ Contributeurs:
 * Dorian BURIHABWA
 * Maxime DOUYLLIEZ
 * Jonathan GEOFFROY
+* Edmond VAN-OVERTVELDT
 
