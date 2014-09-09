@@ -9,3 +9,4 @@ Contributeurs:
 * Maxime DOUYLLIEZ
 * Jonathan GEOFFROY
 * Edmond VAN-OVERTVELDT
+* Gregory LEFER
