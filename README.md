@@ -10,3 +10,4 @@ Contributeurs:
 * Jonathan GEOFFROY
 * Edmond VAN-OVERTVELDT
 * Gregory LEFER
+* Romain PHILIPPON
