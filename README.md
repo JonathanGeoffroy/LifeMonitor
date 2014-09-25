@@ -1,6 +1,17 @@
 LifeMonitor
 ============
 
+WARNING
+-------
+
+Before any commit check if you submit your modifications inside the good branch.
+To remind you :
++ All new features must be push in dev
++ If a feature respects DoD (meaning coded, tested, reviewed), push inside sprint-[num]
++ When the sprint is over, one of us merges sprint-[num] into master
+
+** NO DEV COMMIT IN MASTER BRANCH !!!**
+
 Contributeurs:  
 
 * Quentin BAILLEUL
