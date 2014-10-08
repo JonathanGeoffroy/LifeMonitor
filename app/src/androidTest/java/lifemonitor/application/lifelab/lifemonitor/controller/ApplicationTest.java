@@ -1,4 +1,4 @@
-package lifemonitor.application.lifelab.lifemonitor;
+package lifemonitor.application.lifelab.lifemonitor.controller;
 
 import android.app.Application;
 import android.test.ApplicationTestCase;
