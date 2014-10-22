@@ -1,31 +1,27 @@
 package lifemonitor.application.lifelab.lifemonitor;
 
+import android.test.AndroidTestCase;
+
 import junit.framework.TestCase;
 
 import java.net.MalformedURLException;
 import java.net.URL;
 
+import helpers.RESTHelper;
+
 /**
- * Created by cacciatore on 08/10/14.
- *
  * Used to test the application on a test REST url and database.
  *
- * @author Celia Cacciatore
+ * @author Celia and Jonathan on 08/10/14.
  */
-public abstract class AbstractTestCase extends TestCase {
+public abstract class AbstractTestCase extends AndroidTestCase {
 
-    protected URL RESTurlTest;
+    protected static final String TEST_REST_URL = "http://glefer.fr:9000/app_dev.php";
 
     /**
      * Sets up the REST url to test on the test database.
      */
     protected void setUp() {
-        // TODO: modify REST url
-        String url = "toto"; // To modify REST url, please modify this variable
-        try {
-            this.RESTurlTest = new URL(url);
-        } catch (MalformedURLException e) {
-            fail("Test Rest URL may be wrong : " + url);
-        }
+        RESTHelper.setRESTUrl(TEST_REST_URL);
     }
 }

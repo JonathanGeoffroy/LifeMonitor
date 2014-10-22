@@ -1,11 +1,15 @@
 package lifemonitor.application.lifelab.lifemonitor.controller;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
 
 import lifemonitor.application.lifelab.lifemonitor.R;
+import lifemonitor.application.lifelab.lifemonitor.controller.medicalRecord.AddTreatmentActivity;
 
 
 public class MyActivity extends Activity {
@@ -14,6 +18,15 @@ public class MyActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my);
+
+        /* Button to add a treatment */
+        Button button = (Button) findViewById(R.id.addTreatmentButton);
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onClickAddTreatment();
+            }
+        });
     }
 
 
@@ -34,5 +47,13 @@ public class MyActivity extends Activity {
             return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    /**
+     * Launches the activity that enables to add a treatment.
+     */
+    public void onClickAddTreatment() {
+        Intent intent = new Intent(this, AddTreatmentActivity.class);
+        startActivity(intent);
     }
 }
