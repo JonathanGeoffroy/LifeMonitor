@@ -40,7 +40,7 @@ public class RESTHelper<T> {
      * @param uri uri, begins with "/" (for example "/treatment"), will be concatenated with RESTUrl.
      * @param clazz class of objects to get.
      */
-    private void sendGETRequest(final ActivityRequester<T> requester, String uri, final Class<T> clazz) {
+    public void sendGETRequest(final ActivityRequester<T> requester, String uri, final Class<T> clazz) {
         // Instantiate the RequestQueue.
         RequestQueue queue = Volley.newRequestQueue(requester);
 
@@ -74,7 +74,7 @@ public class RESTHelper<T> {
      * @param clazz class of objects to get.
      * @return list of clazz objects.
      */
-    public List<T> parseResult(String result, Class<T> clazz) {
+    private List<T> parseResult(String result, Class<T> clazz) {
         List<T> listResult = new ArrayList<T>();
 
         // Jackson mapper
