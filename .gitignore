@@ -30,6 +30,10 @@ Thumbs.db
 #.idea/workspace.xml - remove # and delete .idea if it better suit your needs.
 .gradle
 build/
+gradle/gradle.iml
+gradle/gradle/
+gradle/gradlew
+gradle/gradlew.bat
 
 # Mac users
 .DS_Store
