@@ -11,6 +11,10 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 
+import org.codehaus.jackson.JsonParseException;
+
+import java.io.IOException;
+
 import helpers.rest.listeners.RESTListener;
 
 /**
@@ -55,14 +59,17 @@ public abstract class RESTHelper<T> {
                     String result = (String) o;
                     Log.v("RESTHelper", result);
                     // Parses the result to get a list of objects
-                    parseResult(result, clazz);
+                    try {
+                        parseResult(result, clazz);
+                    } catch (IOException e) {
+                        sendError(e);
+                    }
                 }
             },
             new Response.ErrorListener() {
                 @Override
                 public void onErrorResponse(VolleyError error) {
-                    Log.e("RESTHelper", error.toString() + " " + error.getMessage());
-                    listener.onError();
+                    sendError(error);
                 }
             });
 
@@ -70,5 +77,20 @@ public abstract class RESTHelper<T> {
         queue.add(stringRequest);
     }
 
-    protected abstract void parseResult(String result, Class<T> clazz);
+    /**
+     * Send the occurred error: write an error message into log and call listener.onError()
+     * @param error the occurred error
+     */
+    protected void sendError(Exception error) {
+        Log.e("RESTHelper", error.toString() + " " + error.getMessage());
+        listener.onError();
+    }
+
+    /**
+     * Parse the result and call listener.onGetResult
+     * @param result the (stringified) json result to parse
+     * @param clazz the class of the result
+     * @throws IOException if error occurred when the result is parsed
+     */
+    protected abstract void parseResult(String result, Class<T> clazz) throws IOException;
 }
