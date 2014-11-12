@@ -6,7 +6,10 @@ import lifemonitor.application.test.controllers.AbstractTestCase;
 
 
 public class RESTHelperTest extends AbstractTestCase{
-
+    /**
+     * AweSome Test to Test the tests
+     * @throws Exception
+     */
     public void testJacksonOnEmpty() throws Exception {
         System.out.println("test");
         RESTHelper.setRESTUrl("coucou");
