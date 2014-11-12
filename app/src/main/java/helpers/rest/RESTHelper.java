@@ -1,6 +1,5 @@
 package helpers.rest;
 
-import android.app.Activity;
 import android.content.Context;
 import android.util.Log;
 
@@ -10,8 +9,6 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
-
-import org.codehaus.jackson.JsonParseException;
 
 import java.io.IOException;
 
@@ -32,7 +29,7 @@ public abstract class RESTHelper<T> {
 
 
     private static String RESTUrl = "http://glefer.fr:9000/app_dev.php"; //TODO : give real prod address.
-    private final RESTListener<T> listener;
+    private final RESTListener listener;
 
     public static void setRESTUrl(String RESTUrl) {
         RESTHelper.RESTUrl = RESTUrl;

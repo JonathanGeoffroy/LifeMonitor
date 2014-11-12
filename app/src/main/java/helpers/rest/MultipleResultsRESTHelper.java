@@ -1,13 +1,9 @@
 package helpers.rest;
 
 import android.content.Context;
-import android.util.Log;
-
-import org.codehaus.jackson.JsonParseException;
 import org.codehaus.jackson.map.ObjectMapper;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 
 import helpers.rest.listeners.MultipleResultsRESTListener;
@@ -30,11 +26,10 @@ public class MultipleResultsRESTHelper<T> extends RESTHelper<T> {
      * Parses the result to get a list of objects.
      * @param result json result.
      * @param clazz class of objects to get.
-     * @return list of clazz objects.
      */
     @Override
     protected void parseResult(String result, Class<T> clazz) throws IOException {
-        List<T> listResults = new ArrayList<T>();
+        List<T> listResults;
 
         // Jackson mapper
         ObjectMapper mapper = new ObjectMapper();

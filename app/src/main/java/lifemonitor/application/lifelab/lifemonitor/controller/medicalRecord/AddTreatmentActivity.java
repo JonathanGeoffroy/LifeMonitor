@@ -17,7 +17,7 @@ import lifemonitor.application.lifelab.lifemonitor.R;
 
 public class AddTreatmentActivity extends FragmentActivity implements DatePickerDialog.OnDateSetListener {
 
-    public static final String DATEPICKER_TAG = "datepicker";
+    private static final String DATEPICKER_TAG = "datepicker";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

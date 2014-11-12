@@ -1,13 +1,10 @@
 package helpers.rest;
 
 import android.content.Context;
-import android.util.Log;
 
-import org.codehaus.jackson.JsonParseException;
 import org.codehaus.jackson.map.ObjectMapper;
 
 import java.io.IOException;
-import java.util.List;
 
 import helpers.rest.listeners.SingleResultRESTListener;
 
@@ -19,9 +16,9 @@ import helpers.rest.listeners.SingleResultRESTListener;
  */
 public class SingleResultRESTHelper<T> extends RESTHelper<T> {
 
-    private final SingleResultRESTListener listener;
+    private final SingleResultRESTListener<T> listener;
 
-    public SingleResultRESTHelper(Context context, SingleResultRESTListener listener) {
+    public SingleResultRESTHelper(Context context, SingleResultRESTListener<T> listener) {
         super(context, listener);
         this.listener = listener;
     }

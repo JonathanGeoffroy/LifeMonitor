@@ -17,7 +17,5 @@ public abstract class AbstractTestCase extends AndroidTestCase {
      * Sets up the REST url to test on the test database.
      */
     protected void setUp() {
-        System.out.println("test2");
-        RESTHelper.setRESTUrl("coucou");//TEST_REST_URL);
     }
 }
