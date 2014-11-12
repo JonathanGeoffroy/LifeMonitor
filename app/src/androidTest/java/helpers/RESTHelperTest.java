@@ -14,7 +14,7 @@ public class RESTHelperTest extends AbstractTestCase{
         RESTHelper.setRESTUrl("coucou");
 
        assertEquals(RESTHelper.RESTUrl,"coucou" );
-       assertEquals(true, false);
+       //assertEquals(true, false);
 
     }
 }
