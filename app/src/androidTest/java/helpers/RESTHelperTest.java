@@ -1,14 +1,19 @@
 package helpers;
 
+import java.util.ArrayList;
+
+import helpers.rest.RESTHelper;
 import lifemonitor.application.lifelab.lifemonitor.AbstractTestCase;
 
 
 public class RESTHelperTest extends AbstractTestCase{
 
     public void testJacksonOnEmpty() throws Exception {
-        //RESTHelper restHelper = new RESTHelper();
+        RESTHelper restHelper ;
         System.out.println("test");
-        //assertEquals(new ArrayList<String>(), RESTHelper.parseResult("", String.class));
+        RESTHelper.setRESTUrl("coucou");
+
+       assertEquals(RESTHelper.RESTUrl,"couco" );
 
     }
 }

@@ -2,6 +2,8 @@ package lifemonitor.application.lifelab.lifemonitor;
 
 import android.test.AndroidTestCase;
 
+import helpers.rest.RESTHelper;
+
 /**
  * Used to test the application on a test REST url and database.
  *
@@ -16,6 +18,6 @@ public abstract class AbstractTestCase extends AndroidTestCase {
      */
     protected void setUp() {
         System.out.println("test2");
-        //RESTHelper.setRESTUrl(TEST_REST_URL);
+        RESTHelper.setRESTUrl("coucou");//TEST_REST_URL);
     }
 }

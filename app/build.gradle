@@ -30,3 +30,28 @@ dependencies {
     compile 'com.mcxiaoke.volley:library:1.0.7'
     compile 'org.codehaus.jackson:jackson-mapper-asl:1.9.0'
 }
+sourceSets {
+    testLocal {
+        java.srcDir file('src/test/java')
+        resources.srcDir file('src/test/res')
+    }
+}
+
+dependencies {
+
+    testLocalCompile 'junit:junit:4.10'
+    testLocalCompile 'org.mockito:mockito-core:1.9.5'
+}
+
+task localTest(type: Test, dependsOn: assemble) {
+    testClassesDir = sourceSets.testLocal.output.classesDir
+    android.sourceSets.main.java.srcDirs.each { dir ->
+        def buildDir = dir.getAbsolutePath().split('/')
+        buildDir = (buildDir[0..(buildDir.length - 4)] + ['build', 'classes', 'debug']).join('/')
+        sourceSets.testLocal.compileClasspath += files(buildDir)
+        sourceSets.testLocal.runtimeClasspath += files(buildDir)
+    }
+    classpath = sourceSets.testLocal.runtimeClasspath
+}
+
+check.dependsOn localTest
