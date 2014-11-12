@@ -1,4 +1,4 @@
-package helpers.rest;
+package lifemonitor.application.helper.rest;
 
 import android.content.Context;
 import android.util.Log;
@@ -12,7 +12,7 @@ import com.android.volley.toolbox.Volley;
 
 import java.io.IOException;
 
-import helpers.rest.listeners.RESTListener;
+import lifemonitor.application.helper.rest.listeners.RESTListener;
 
 /**
  * Sends HTTP requests to REST service, parses JSON result to get a list of T objects and gives this list to the Requester.

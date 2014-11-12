@@ -1,8 +1,6 @@
-package lifemonitor.application.lifelab.lifemonitor;
+package lifemonitor.application.test.controllers;
 
 import android.test.AndroidTestCase;
-
-import helpers.rest.RESTHelper;
 
 /**
  * Used to test the application on a test REST url and database.

@@ -1,19 +1,14 @@
-package lifemonitor.application.lifelab.lifemonitor.controller.medicalRecord;
+package lifemonitor.application.controller.medicalRecord;
 
-import android.app.Activity;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
 import com.fourmob.datetimepicker.date.DatePickerDialog;
-import com.sleepbot.datetimepicker.time.TimePickerDialog;
-
 import java.util.Calendar;
 
-import lifemonitor.application.lifelab.lifemonitor.R;
+import lifemonitor.application.R;
 
 public class AddTreatmentActivity extends FragmentActivity implements DatePickerDialog.OnDateSetListener {
 

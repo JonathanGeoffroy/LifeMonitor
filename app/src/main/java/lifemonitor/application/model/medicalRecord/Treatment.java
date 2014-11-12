@@ -1,4 +1,4 @@
-package lifemonitor.application.lifelab.lifemonitor.model.medicalRecord;
+package lifemonitor.application.model.medicalRecord;
 
 import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 

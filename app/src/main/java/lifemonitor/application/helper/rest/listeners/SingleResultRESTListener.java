@@ -1,13 +1,9 @@
-package helpers.rest.listeners;
-
-import java.util.List;
-
-import helpers.rest.listeners.RESTListener;
+package lifemonitor.application.helper.rest.listeners;
 
 /**
  * Specific Listener for RESTHelper which returns single result as a T object
  *
- * @see helpers.rest.SingleResultRESTHelper
+ * @see lifemonitor.application.helper.rest.SingleResultRESTHelper
  *
  * @author Jonathan Geoffroy
  */

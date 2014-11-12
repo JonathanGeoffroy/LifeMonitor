@@ -1,11 +1,11 @@
-package helpers.rest.listeners;
+package lifemonitor.application.helper.rest.listeners;
 
 import java.util.List;
 
 /**
  * Specific Listener for RESTHelper which returns multiple results
  *
- * @see helpers.rest.MultipleResultsRESTHelper
+ * @see lifemonitor.application.helper.rest.MultipleResultsRESTHelper
  *
  * @author Célia Cacciatore, Jonathan Geoffroy
  */
