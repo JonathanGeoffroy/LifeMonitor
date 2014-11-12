@@ -13,7 +13,7 @@ public class RESTHelperTest extends AbstractTestCase{
         System.out.println("test");
         RESTHelper.setRESTUrl("coucou");
 
-       assertEquals(RESTHelper.RESTUrl,"couco" );
+       assertEquals(RESTHelper.RESTUrl,"coucu" );
 
     }
 }
