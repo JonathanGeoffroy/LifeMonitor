@@ -1,4 +1,4 @@
-package helpers.rest;
+package lifemonitor.application.helper.rest;
 
 import android.content.Context;
 
@@ -6,7 +6,8 @@ import org.codehaus.jackson.map.ObjectMapper;
 
 import java.io.IOException;
 
-import helpers.rest.listeners.SingleResultRESTListener;
+import lifemonitor.application.helper.rest.RESTHelper;
+import lifemonitor.application.helper.rest.listeners.SingleResultRESTListener;
 
 /**
  * Specific RESTHelper for multiple results

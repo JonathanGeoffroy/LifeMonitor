@@ -1,8 +1,8 @@
-package helpers;
+package lifemonitor.application.test.helpers;
 
 
-import helpers.rest.RESTHelper;
-import lifemonitor.application.lifelab.lifemonitor.AbstractTestCase;
+import lifemonitor.application.helper.rest.RESTHelper;
+import lifemonitor.application.test.controllers.AbstractTestCase;
 
 
 public class RESTHelperTest extends AbstractTestCase{
@@ -12,7 +12,7 @@ public class RESTHelperTest extends AbstractTestCase{
         RESTHelper.setRESTUrl("coucou");
 
        assertEquals(RESTHelper.getRESTUrl(),"coucou" );
-       //assertEquals(true, false);
+       assertEquals(true, true);
 
     }
 }

@@ -1,4 +1,4 @@
-package helpers.rest.listeners;
+package lifemonitor.application.helper.rest.listeners;
 
 /**
  * Listener for REST requests

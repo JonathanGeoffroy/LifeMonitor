@@ -1,4 +1,4 @@
-package lifemonitor.application.lifelab.lifemonitor.controller;
+package lifemonitor.application;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -8,8 +8,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 
-import lifemonitor.application.lifelab.lifemonitor.R;
-import lifemonitor.application.lifelab.lifemonitor.controller.medicalRecord.AddTreatmentActivity;
+import lifemonitor.application.controller.medicalRecord.AddTreatmentActivity;
 
 
 public class MyActivity extends Activity {
