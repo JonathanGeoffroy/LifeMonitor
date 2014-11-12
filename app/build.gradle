@@ -1,6 +1,5 @@
 apply plugin: 'com.android.application'
 
-
 android {
     compileSdkVersion 21
     buildToolsVersion "19.1.0"
@@ -12,14 +11,11 @@ android {
         versionCode 1
         versionName "1.0"
     }
-
     packagingOptions {
         exclude 'META-INF/ASL2.0'
         exclude 'META-INF/LICENSE'
         exclude 'META-INF/NOTICE'
     }
-
-    lintOptions { abortOnError false }
 }
 
 dependencies {

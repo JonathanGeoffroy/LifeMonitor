@@ -24,11 +24,14 @@ import helpers.rest.listeners.RESTListener;
  */
 public abstract class RESTHelper<T> {
 
+
+
     /**
      * REST service address.
      */
 
-    public static String RESTUrl = "http://glefer.fr:9000/app_dev.php"; //TODO : give real prod address.+ remettre private
+
+    private static String RESTUrl = "http://glefer.fr:9000/app_dev.php"; //TODO : give real prod address.
     private final RESTListener<T> listener;
 
     public static void setRESTUrl(String RESTUrl) {
@@ -94,4 +97,8 @@ public abstract class RESTHelper<T> {
      * @throws IOException if error occurred when the result is parsed
      */
     protected abstract void parseResult(String result, Class<T> clazz) throws IOException;
+
+    public static String getRESTUrl() {
+        return RESTUrl;
+    }
 }
