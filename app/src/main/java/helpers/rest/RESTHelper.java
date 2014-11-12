@@ -21,14 +21,10 @@ import helpers.rest.listeners.RESTListener;
  */
 public abstract class RESTHelper<T> {
 
-
-
     /**
      * REST service address.
      */
-
-
-    private static String RESTUrl = "http://glefer.fr:9000/app_dev.php"; //TODO : give real prod address.
+    private static String RESTUrl = "http://leferazure.cloudapp.net";
     private final RESTListener listener;
 
     public static void setRESTUrl(String RESTUrl) {

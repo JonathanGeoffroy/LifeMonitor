@@ -24,13 +24,17 @@ public class SingleResultRESTHelper<T> extends RESTHelper<T> {
     }
 
     @Override
-    protected void parseResult(String result, Class<T> clazz) throws IOException {
-        T objectResult;
+    protected void parseResult(String result, Class<T> clazz){
+        T objectResult = null;
         // Jackson mapper
         ObjectMapper mapper = new ObjectMapper();
 
         // Parses the result to get
-        objectResult = mapper.readValue(result, clazz);
+        try {
+            objectResult = mapper.readValue(result, clazz);
+        } catch (IOException e) {
+            // Object stays null
+        }
         listener.onGetResponse(objectResult);
     }
 }

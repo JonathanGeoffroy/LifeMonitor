@@ -4,6 +4,7 @@ import android.content.Context;
 import org.codehaus.jackson.map.ObjectMapper;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import helpers.rest.listeners.MultipleResultsRESTListener;
@@ -28,14 +29,18 @@ public class MultipleResultsRESTHelper<T> extends RESTHelper<T> {
      * @param clazz class of objects to get.
      */
     @Override
-    protected void parseResult(String result, Class<T> clazz) throws IOException {
+    protected void parseResult(String result, Class<T> clazz) {
         List<T> listResults;
 
         // Jackson mapper
         ObjectMapper mapper = new ObjectMapper();
 
         // Parses the result to get
-        listResults = mapper.readValue(result, mapper.getTypeFactory().constructCollectionType(List.class, clazz));
+        try {
+            listResults = mapper.readValue(result, mapper.getTypeFactory().constructCollectionType(List.class, clazz));
+        } catch (IOException e) {
+            listResults = new ArrayList<T>();
+        }
         listener.onGetResponse(listResults);
 
     }
