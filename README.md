@@ -1,6 +1,8 @@
 LifeMonitor
 ============
 
+[![Build Status](http://bouya.cloudapp.net/job/LifeMonitor-Master/badge/icon)](http://bouya.cloudapp.net/job/LifeMonitor-Master/)
+
 WARNING
 -------
 
