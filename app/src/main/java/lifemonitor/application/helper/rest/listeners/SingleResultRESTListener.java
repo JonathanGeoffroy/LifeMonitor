@@ -5,12 +5,12 @@ package lifemonitor.application.helper.rest.listeners;
  *
  * @see lifemonitor.application.helper.rest.SingleResultRESTHelper
  *
- * @author Jonathan Geoffroy
+ * @author Célia Cacciatore, Jonathan Geoffroy
  */
-public abstract class SingleResultRESTListener<T> implements RESTListener<T> {
+public interface SingleResultRESTListener<T> extends RESTListener<T> {
     /**
      * Called when REST request succeeded
      * @param result the result of the REST request
      */
-    public abstract void onGetResponse(T result);
+    public void onGetResponse(T result);
 }

@@ -9,11 +9,11 @@ import java.util.List;
  *
  * @author Célia Cacciatore, Jonathan Geoffroy
  */
-public abstract class MultipleResultsRESTListener<T> implements RESTListener<T> {
+public interface MultipleResultsRESTListener<T> extends RESTListener<T> {
 
     /**
      * Called when REST request succeeded
      * @param results the result of the REST request
      */
-    public abstract void onGetResponse(List<T> results);
+    public void onGetResponse(List<T> results);
 }
