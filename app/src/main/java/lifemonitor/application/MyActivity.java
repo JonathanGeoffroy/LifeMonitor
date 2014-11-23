@@ -9,6 +9,8 @@ import android.view.View;
 import android.widget.Button;
 
 import lifemonitor.application.controller.medicalRecord.AddTreatmentActivity;
+import lifemonitor.application.controller.medicalRecord.ShowMedicineActivity;
+
 
 
 public class MyActivity extends Activity {
@@ -24,6 +26,14 @@ public class MyActivity extends Activity {
             @Override
             public void onClick(View v) {
                 onClickAddTreatment();
+            }
+        });
+
+        Button button2 = (Button) findViewById(R.id.showMedicinebutton);
+        button2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onClickShowMedicine();
             }
         });
     }
@@ -52,4 +62,18 @@ public class MyActivity extends Activity {
         Intent intent = new Intent(this, AddTreatmentActivity.class);
         startActivity(intent);
     }
+
+    /**
+     * Launches the activity that enables to add a treatment.
+     */
+    public void onClickShowMedicine() {
+
+
+            Intent intent = new Intent(this, ShowMedicineActivity.class);
+        intent.putExtra("MedicineName","basic");
+            startActivity(intent);
+        }
+
+
 }
+

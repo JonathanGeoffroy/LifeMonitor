@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-
+    <!--Global-->
     <string name="app_name">lifemonitor</string>
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
+
+    <!--AddTreatment-->
     <string name="title_activity_add_treatment">AddTreatmentActivity</string>
     <string name="add_treatment_button">Ajouter un traitement</string>
     <string name="add_treatment_title">Ajouter un traitement</string>
@@ -14,4 +16,29 @@
     <string name="units">Dosage</string>
     <string name="db_error">problème d\'accès à la base de données</string>
 
+    <!--ShowMedicine-->
+    <string name="title_activity_show_medicine">ShowMedicineActivity</string>
+    <string name="show_medicine_button">Afficher un médicament</string>
+    <string name="show_medicine_title">Afficher un médicament</string>
+    <string name="medicine_name">Appellation</string>
+    <string name="medicine_shape">Format</string>
+    <string name="medicine_consumption">Mode d\'administration</string>
+    <string name="medicine_danger_level">Niveau de danger</string>
+    <string name="oral">Orale</string>
+    <string name="diluted">Diluée</string>
+    <string name="sublingual">Sublingual</string>
+    <string name="injection">Injection cutanée</string>
+    <string name="dermal_application">Application cutanée</string>
+    <string name="danger_level1_description">Soyez prudent. Ne pas conduire sans avoir lu la notice.</string>
+    <string name="danger_level2_description">Soyez très prudent. Ne pas conduire sans l\’avis d’un professionnel de santé.</string>
+    <string name="danger_level3_description">Attention, danger : ne pas conduire. Pour la reprise de la conduite, demandez l\’avis d’un médecin. </string>
+    <string name="pills">Comprimés</string>
+    <string name="ointment">Pommade</string>
+    <string name="capsule">Gélulles</string>
+    <string name="powder">Poudre</string>
+    <string name="pellet">Granulés</string>
+    <string name="liquid">Liquide</string>
+    <string name="cream">Crème</string>
+
 </resources>
+    <!--<string name=""></string>-->

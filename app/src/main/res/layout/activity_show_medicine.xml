@@ -1,0 +1,91 @@
+<LinearLayout
+    android:orientation="vertical"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:weightSum="1">
+
+    <TextView
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:text="@string/medicine_name"
+        android:id="@+id/medicine_name"
+        android:layout_gravity="center_horizontal"
+        android:background="@color/darker_blue"
+        android:capitalize="sentences"
+        android:gravity="center"
+        android:layout_marginTop="20dp"
+        android:layout_weight="0.05" />
+
+    <TextView
+        android:layout_width="225dp"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:text="Valeur non trouvée"
+        android:id="@+id/medicine_name_value"
+        android:layout_gravity="center_horizontal"
+        android:gravity="center"
+        android:layout_weight="0.14" />
+
+    <TextView
+        android:layout_width="201dp"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:text="@string/medicine_shape"
+        android:id="@+id/medicine_shape"
+        android:layout_gravity="center_horizontal"
+        android:background="@color/darker_blue"
+        android:gravity="center"
+        android:layout_weight="0.03" />
+
+    <TextView
+        android:layout_width="225dp"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:text="Valeur non trouvée"
+        android:id="@+id/medicine_shape_value"
+        android:layout_gravity="center_horizontal"
+        android:gravity="center"
+        android:layout_weight="0.10" />
+
+    <TextView
+        android:layout_width="203dp"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:text="@string/medicine_consumption"
+        android:id="@+id/medicine_consumption"
+        android:layout_gravity="center_horizontal"
+        android:background="@color/darker_blue"
+        android:gravity="center"
+        android:layout_weight="0.02" />
+
+    <TextView
+        android:layout_width="182dp"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:text="Valeur non trouvée"
+        android:id="@+id/medicine_consumption_value"
+        android:layout_gravity="center_horizontal"
+        android:gravity="center"
+        android:layout_weight="0.13" />
+
+    <TextView
+        android:layout_width="205dp"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:text="@string/medicine_danger_level"
+        android:id="@+id/medicine_dangerlevel"
+        android:layout_gravity="center_horizontal"
+        android:background="@color/darker_blue"
+        android:gravity="center"
+        android:layout_weight="0.03" />
+
+    <ImageView
+        android:layout_width="172dp"
+        android:layout_height="117dp"
+        android:id="@+id/medicine_dangerlevel_value"
+        android:layout_gravity="center_horizontal"
+        android:gravity="center"
+        android:layout_weight="0.19" />
+</LinearLayout>
