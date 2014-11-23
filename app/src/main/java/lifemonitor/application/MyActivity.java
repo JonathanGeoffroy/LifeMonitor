@@ -36,6 +36,7 @@ public class MyActivity extends Activity {
                 onClickShowMedicine();
             }
         });
+        System.out.println();
     }
 
 
