@@ -1,6 +1,6 @@
 package lifemonitor.application.controller.medicalRecord;
 
-import android.app.Activity;
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
@@ -10,24 +10,29 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import lifemonitor.application.R;
+import lifemonitor.application.helper.rest.RESTHelper;
+import lifemonitor.application.helper.rest.listeners.SingleResultRESTListener;
 import lifemonitor.application.model.medicalRecord.DangerLevel;
 import lifemonitor.application.model.medicalRecord.HowToConsume;
 import lifemonitor.application.model.medicalRecord.Medicine;
 import lifemonitor.application.model.medicalRecord.Shape;
 
-public class ShowMedicineActivity extends FragmentActivity{
+public class ShowMedicineActivity extends FragmentActivity implements SingleResultRESTListener<Medicine>{
 
     Medicine medicine;
-
+    TextView name;
+    TextView shape;
+    TextView howToConsume;
+    ImageView dangerLevel;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_show_medicine);
 
-        TextView name=(TextView)findViewById(R.id.medicine_name_value);
-        TextView shape=(TextView)findViewById(R.id.medicine_shape_value);
-        TextView howToConsume=(TextView)findViewById(R.id.medicine_consumption_value);
-        ImageView dangerLevel=(ImageView)findViewById(R.id.medicine_dangerlevel_value);
+         name=(TextView)findViewById(R.id.medicine_name_value);
+         shape=(TextView)findViewById(R.id.medicine_shape_value);
+        howToConsume=(TextView)findViewById(R.id.medicine_consumption_value);
+        dangerLevel=(ImageView)findViewById(R.id.medicine_dangerlevel_value);
 
         Intent intent=getIntent();
 
@@ -41,8 +46,15 @@ public class ShowMedicineActivity extends FragmentActivity{
         *
         *
         * */
+if(!"basic".equals(intent.getStringExtra("MedecineName"))){
+    medicine = getMockSample();
+   // RESTHelper helper =new RESTHelper(this.getBaseContext());
+//helper.sendGETRequestForSingleResult("/medicines/1",Medicine.class,this);
 
-        Medicine medicine=getMockSample();
+}
+        else {
+    medicine = getMockSample();
+}
 
         name.setText(medicine.getName());
 
@@ -86,5 +98,15 @@ public class ShowMedicineActivity extends FragmentActivity{
 
     private Medicine getMockSample() {
         return new Medicine("Chocolate", Shape.POWDER, HowToConsume.ORALE, DangerLevel.LEVEL3);
+    }
+
+    @Override
+    public void onGetResponse(Medicine result) {
+medicine=result;
+    }
+
+    @Override
+    public void onError() {
+System.out.println("ERRRORORORORROROROOORORORORORROORRORORORORORO");
     }
 }
