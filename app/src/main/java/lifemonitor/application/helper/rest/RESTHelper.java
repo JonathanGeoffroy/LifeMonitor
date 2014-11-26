@@ -52,6 +52,7 @@ public class RESTHelper<T> {
      *
      * @param uri uri, begins with "/" (for example "/treatment"), will be concatenated with RESTUrl.
      * @param clazz class of objects to get.
+     * @param restListener the listener which is called when the request ended.
      */
     public void sendGETRequestForSingleResult(String uri, final Class<T> clazz, final SingleResultRESTListener<T> restListener) {
         Response.Listener responseListener = new Response.Listener() {
@@ -77,6 +78,7 @@ public class RESTHelper<T> {
      *
      * @param uri uri, begins with "/" (for example "/treatment"), will be concatenated with RESTUrl.
      * @param clazz class of objects to get.
+     * @param restListener the listener which is called when the request ended.
      */
     public void sendGETRequestForMultipleResults(String uri, final Class<T> clazz, final MultipleResultsRESTListener<T> restListener) {
         // Request a string response from the provided URL.

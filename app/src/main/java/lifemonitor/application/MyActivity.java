@@ -8,9 +8,15 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 
+import java.util.List;
+
 import lifemonitor.application.controller.medicalRecord.AddTreatmentActivity;
 import lifemonitor.application.controller.medicalRecord.ShowMedicineActivity;
-
+import lifemonitor.application.helper.rest.RESTHelper;
+import lifemonitor.application.helper.rest.listeners.MultipleResultsRESTListener;
+import lifemonitor.application.helper.rest.listeners.SingleResultRESTListener;
+import lifemonitor.application.helper.rest.parsers.MultipleResultsRESTParser;
+import lifemonitor.application.model.medicalRecord.Treatment;
 
 
 public class MyActivity extends Activity {
@@ -21,16 +27,16 @@ public class MyActivity extends Activity {
         setContentView(R.layout.activity_my);
 
         /* Button to add a treatment */
-        Button button = (Button) findViewById(R.id.addTreatmentButton);
-        button.setOnClickListener(new View.OnClickListener() {
+        Button buttonTreatment = (Button) findViewById(R.id.addTreatmentButton);
+        buttonTreatment.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 onClickAddTreatment();
             }
         });
 
-        Button button2 = (Button) findViewById(R.id.showMedicinebutton);
-        button2.setOnClickListener(new View.OnClickListener() {
+        Button buttonMedicine = (Button) findViewById(R.id.showMedicinebutton);
+        buttonMedicine.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 onClickShowMedicine();
@@ -38,7 +44,6 @@ public class MyActivity extends Activity {
         });
         System.out.println();
     }
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
