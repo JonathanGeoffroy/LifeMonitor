@@ -3,8 +3,6 @@ package lifemonitor.application.helper.rest.listeners;
 /**
  * Specific Listener for RESTHelper which returns single result as a T object
  *
- * @see lifemonitor.application.helper.rest.SingleResultRESTHelper
- *
  * @author Célia Cacciatore, Jonathan Geoffroy
  */
 public interface SingleResultRESTListener<T> extends RESTListener<T> {

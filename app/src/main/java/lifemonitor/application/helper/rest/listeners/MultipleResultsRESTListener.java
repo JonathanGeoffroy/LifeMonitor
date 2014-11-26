@@ -5,8 +5,6 @@ import java.util.List;
 /**
  * Specific Listener for RESTHelper which returns multiple results
  *
- * @see lifemonitor.application.helper.rest.MultipleResultsRESTHelper
- *
  * @author Célia Cacciatore, Jonathan Geoffroy
  */
 public interface MultipleResultsRESTListener<T> extends RESTListener<T> {
