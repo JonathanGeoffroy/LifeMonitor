@@ -18,9 +18,15 @@ public class Treatment {
 
     private int units;
 
-    private String medicine;
+    private Medicine medicine;
 
     private String prescription;
+
+    public Treatment(Date date, String frequency, int units, Medicine medicine) {
+        this.date = date;
+        this.frequency = frequency;
+        this.medicine = medicine;
+    }
 
     public int getId() {
         return id;

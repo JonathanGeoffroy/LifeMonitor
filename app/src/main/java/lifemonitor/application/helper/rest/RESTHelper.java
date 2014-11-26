@@ -7,16 +7,23 @@ import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.JsonRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.io.IOException;
 import java.util.List;
 
+import lifemonitor.application.helper.rest.listeners.AddListener;
 import lifemonitor.application.helper.rest.listeners.MultipleResultsRESTListener;
 import lifemonitor.application.helper.rest.listeners.RESTListener;
 import lifemonitor.application.helper.rest.listeners.SingleResultRESTListener;
 import lifemonitor.application.helper.rest.parsers.MultipleResultsRESTParser;
+import lifemonitor.application.helper.rest.parsers.ObjectToJSONParser;
 import lifemonitor.application.helper.rest.parsers.SingleResultRESTParser;
 
 /**
@@ -126,5 +133,38 @@ public class RESTHelper<T> {
     protected void sendError(Exception error, RESTListener<T> listener) {
         Log.e("RESTHelper", error.toString() + " " + error.getMessage());
         listener.onError();
+    }
+
+    /**
+     * Launch a POST request in order to add <code>object</code> to <code>uri</code>
+     * @param object the object to add in the REST service
+     * @param uri the uri where to add the object
+     * @param clazz class of the object to send
+     * @param addListener listener handled when the add request ends.
+     */
+    public void sendPOSTRequest(Object object, String uri, final Class<T> clazz, final AddListener<T> addListener) {
+        try {
+            String json = (new ObjectToJSONParser()).getJSONFrom(object);
+            JsonRequest request = new JsonObjectRequest(Request.Method.POST, RESTUrl + uri, new JSONObject(json), new Response.Listener<JSONObject>() {
+                @Override
+                public void onResponse(JSONObject response) {
+                    try {
+                        SingleResultRESTParser<T> parser = new SingleResultRESTParser();
+                        T resultObject = parser.parseResult(response.toString(), clazz);
+                        addListener.onSuccess(resultObject);
+                    } catch (IOException e) {
+                        addListener.onError();
+                    }
+                }
+            }, new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    addListener.onError();
+                }
+            });
+            queue.add(request);
+        } catch (Exception e) {
+            addListener.onError();
+        }
     }
 }
