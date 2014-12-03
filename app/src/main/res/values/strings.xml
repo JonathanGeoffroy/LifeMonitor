@@ -27,7 +27,7 @@
     <string name="medicine_shape">Format</string>
     <string name="medicine_consumption">Mode d\'administration</string>
     <string name="medicine_danger_level">Niveau de danger</string>
-    <string name="oral">Orale</string>
+    <string name="oral">Voie orale</string>
     <string name="diluted">Diluée</string>
     <string name="sublingual">Sublingual</string>
     <string name="injection">Injection cutanée</string>
@@ -37,7 +37,7 @@
     <string name="danger_level3_description">Attention, danger : ne pas conduire. Pour la reprise de la conduite, demandez l\’avis d’un médecin. </string>
     <string name="pills">Comprimés</string>
     <string name="ointment">Pommade</string>
-    <string name="capsule">Gélulles</string>
+    <string name="capsule">Gélules</string>
     <string name="powder">Poudre</string>
     <string name="pellet">Granulés</string>
     <string name="liquid">Liquide</string>
