@@ -1,30 +1,44 @@
 package lifemonitor.application.model.medicalRecord;
 
-import org.codehaus.jackson.annotate.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.ObjectIdGenerator;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 import java.util.Date;
 
 /**
- * Created by cacciatore on 08/10/14.
+ * @author Celia Cacciatore and Jonathan Geoffroy
  */
-@JsonIgnoreProperties({"medicine", "prescription"})
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class Treatment {
 
     private int id;
-
     private Date date;
-
     private String frequency;
-
     private int units;
-
     private Medicine medicine;
 
+    @JsonIgnore
     private String prescription;
+
+    public Treatment(){}
+
+    @JsonCreator
+    public Treatment(int id, Date date, String frequency, int units, Medicine medicine) {
+        this.id = id;
+        this.date = date;
+        this.frequency = frequency;
+        this.units = units;
+        this.medicine = medicine;
+    }
 
     public Treatment(Date date, String frequency, int units, Medicine medicine) {
         this.date = date;
         this.frequency = frequency;
+        this.units = units;
         this.medicine = medicine;
     }
 
@@ -62,5 +76,13 @@ public class Treatment {
 
     public String toString() {
         return "Treatment = " + id;
+    }
+
+    public Medicine getMedicine() {
+        return medicine;
+    }
+
+    public void setMedicine(Medicine medicine) {
+        this.medicine = medicine;
     }
 }

@@ -2,11 +2,21 @@ package lifemonitor.application.model.medicalRecord;
 
 import android.content.Context;
 
+import org.codehaus.jackson.JsonParser;
+import org.codehaus.jackson.JsonProcessingException;
+import org.codehaus.jackson.map.DeserializationContext;
+import org.codehaus.jackson.map.JsonDeserializer;
+import org.codehaus.jackson.map.annotate.JsonDeserialize;
+
+import java.io.IOException;
+
 import lifemonitor.application.R;
+import lifemonitor.application.model.jsonMapping.ShapeDeserializer;
 
 /**
  * Created by leaf on 22/10/14.
  */
+@JsonDeserialize(using = ShapeDeserializer.class)
 public enum Shape {
     PILLS(R.string.pills),
     OINTMENT(R.string.ointment),
@@ -14,14 +24,13 @@ public enum Shape {
     POWDER(R.string.powder),
     PELLET(R.string.pellet),
     LIQUID(R.string.liquid),
-    CREME(R.string.cream);
+    CREAM(R.string.cream);
 
-    private int  resId;
+    private int resId;
 
-    private Shape(int  resId) {
+    private Shape(int resId) {
         this.resId = resId;
     }
-
 
     public String resource(Context ctx) {
         return ctx.getString(resId);
