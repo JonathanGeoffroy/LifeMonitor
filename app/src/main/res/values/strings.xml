@@ -16,6 +16,9 @@
     <string name="units">Dosage</string>
     <string name="db_error">problème d\'accès à la base de données</string>
 
+    <!-- Add genetic desease -->
+    <string name="dialog_title_add_genetic_desease">Ajouter une maladie génétique</string>
+
     <!--ShowMedicine-->
     <string name="title_activity_show_medicine">ShowMedicineActivity</string>
     <string name="show_medicine_button">Afficher un médicament</string>
