@@ -1,19 +1,37 @@
 package lifemonitor.application.model.medicalRecord;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 /**
  * Created by leaf on 22/10/14.
  */
+//@JsonIdentityInfo(generator = ObjectIdGenerators.IntSequenceGenerator.class, property = "@id")
 public class Medicine {
+    private int id;
     private String name;
     private Shape shape;
-    private HowToConsume HowToConsume;
-    private DangerLevel dangerLevel;
+    private HowToTake how_to_take;
+    private DangerLevel danger_level;
 
-    public Medicine(String name, Shape shape, HowToConsume howToConsume, DangerLevel dangerLevel) {
+    public Medicine(){}
+
+    @JsonCreator
+    public Medicine(int id, String name, String shape, String how_to_take, int danger_level) {
+        this.id = id;
         this.name = name;
-        HowToConsume = howToConsume;
+        // TODO : add missing attributes
+    }
+
+    public Medicine(int id) {
+        this.id = id;
+    }
+
+    public Medicine(String name, Shape shape, HowToTake how_to_take, DangerLevel danger_level) {
+        this.name = name;
+        this.how_to_take = how_to_take;
         this.shape = shape;
-        this.dangerLevel = dangerLevel;
+        this.danger_level = danger_level;
     }
 
     public String getName() {
@@ -24,7 +42,7 @@ public class Medicine {
         this.name = name;
     }
 
-   public Shape getShape() {
+    public Shape getShape() {
         return shape;
     }
 
@@ -33,20 +51,27 @@ public class Medicine {
 
     }
 
-    public HowToConsume getHowToConsume() {
-        return HowToConsume;
+    public HowToTake getHow_to_take() {
+        return how_to_take;
     }
 
-    public void setHowToConsume(HowToConsume HowToConsume) {
-        this.HowToConsume = HowToConsume;
+    public void setHow_to_take(HowToTake how_to_take) {
+        this.how_to_take = how_to_take;
     }
 
-    public DangerLevel getDangerLevel() {
-        return dangerLevel;
+    public DangerLevel getDanger_level() {
+        return danger_level;
     }
 
-    public void setDangerLevel(DangerLevel dangerLevel) {
-        this.dangerLevel = dangerLevel;
+    public void setDanger_level(DangerLevel danger_level) {
+        this.danger_level = danger_level;
     }
 
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
 }

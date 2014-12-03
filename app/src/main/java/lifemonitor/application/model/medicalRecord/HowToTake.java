@@ -2,25 +2,27 @@ package lifemonitor.application.model.medicalRecord;
 
 import android.content.Context;
 
+import org.codehaus.jackson.map.annotate.JsonDeserialize;
+
 import lifemonitor.application.R;
+import lifemonitor.application.model.jsonMapping.HowToTakeDeserializer;
 
 /**
  * Created by leaf on 22/10/14.
  */
-public enum HowToConsume {
-    ORALE(R.string.oral),
-    DILUEE(R.string.diluted),
+@JsonDeserialize(using = HowToTakeDeserializer.class)
+public enum HowToTake {
+    ORAL(R.string.oral),
+    DILUTED(R.string.diluted),
     SUBLINGUAL(R.string.sublingual),
     INJECTION(R.string.injection),
-    APPLICATION_LOCALE(R.string.dermal_application);
-
+    LOCAL_APPLICATION(R.string.dermal_application);
 
     private int  resId;
 
-    private HowToConsume(int  resId) {
+    private HowToTake(int resId) {
         this.resId = resId;
     }
-
 
     public String resource(Context ctx) {
         return ctx.getString(resId);
