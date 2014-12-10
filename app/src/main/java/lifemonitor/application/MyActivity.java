@@ -21,7 +21,7 @@ import lifemonitor.application.helper.rest.listeners.MultipleResultsRESTListener
 import lifemonitor.application.helper.rest.listeners.SingleResultRESTListener;
 import lifemonitor.application.helper.rest.parsers.MultipleResultsRESTParser;
 import lifemonitor.application.model.medicalRecord.DangerLevel;
-import lifemonitor.application.model.medicalRecord.HowToConsume;
+import lifemonitor.application.model.medicalRecord.HowToTake;
 import lifemonitor.application.model.medicalRecord.Medicine;
 import lifemonitor.application.model.medicalRecord.Shape;
 import lifemonitor.application.model.medicalRecord.Treatment;
@@ -52,7 +52,7 @@ public class MyActivity extends Activity {
         });
 
         RESTHelper<Treatment> restHelper = new RESTHelper<Treatment>(this);
-        Medicine m = new Medicine("doliprane", Shape.PILLS, HowToConsume.ORALE, DangerLevel.LEVEL1);
+        Medicine m = new Medicine("doliprane", Shape.PILLS, HowToTake.ORAL, DangerLevel.LEVEL1);
         Treatment t = new Treatment(new Date(), "2 fois par jour", 12, m);
         restHelper.sendPOSTRequest(t, "/files/1/treatments", Treatment.class, new AddListener<Treatment>() {
             @Override
