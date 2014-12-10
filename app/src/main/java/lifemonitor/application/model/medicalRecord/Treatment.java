@@ -1,18 +1,12 @@
 package lifemonitor.application.model.medicalRecord;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonIdentityInfo;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.annotation.ObjectIdGenerator;
-import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 import java.util.Date;
 
 /**
  * @author Celia Cacciatore and Jonathan Geoffroy
  */
-@JsonIgnoreProperties(ignoreUnknown = true)
 public class Treatment {
 
     private int id;
@@ -20,19 +14,18 @@ public class Treatment {
     private String frequency;
     private int units;
     private Medicine medicine;
+    private Prescription prescription;
 
-    @JsonIgnore
-    private String prescription;
-
-    public Treatment(){}
+    public Treatment() {}
 
     @JsonCreator
-    public Treatment(int id, Date date, String frequency, int units, Medicine medicine) {
+    public Treatment(int id, Date date, String frequency, int units, Medicine medicine, Prescription prescription) {
         this.id = id;
         this.date = date;
         this.frequency = frequency;
         this.units = units;
         this.medicine = medicine;
+        this.prescription = prescription;
     }
 
     public Treatment(Date date, String frequency, int units, Medicine medicine) {
@@ -84,5 +77,13 @@ public class Treatment {
 
     public void setMedicine(Medicine medicine) {
         this.medicine = medicine;
+    }
+
+    public Prescription getPrescription() {
+        return prescription;
+    }
+
+    public void setPrescription(Prescription prescription) {
+        this.prescription = prescription;
     }
 }

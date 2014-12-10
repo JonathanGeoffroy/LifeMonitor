@@ -10,10 +10,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import lifemonitor.application.R;
-import lifemonitor.application.helper.rest.RESTHelper;
 import lifemonitor.application.helper.rest.listeners.SingleResultRESTListener;
 import lifemonitor.application.model.medicalRecord.DangerLevel;
-import lifemonitor.application.model.medicalRecord.HowToConsume;
+import lifemonitor.application.model.medicalRecord.HowToTake;
 import lifemonitor.application.model.medicalRecord.Medicine;
 import lifemonitor.application.model.medicalRecord.Shape;
 
@@ -59,8 +58,8 @@ if(!"basic".equals(intent.getStringExtra("MedecineName"))){
         name.setText(medicine.getName());
 
         shape.setText(medicine.getShape().resource(this));
-        howToConsume.setText(medicine.getHowToConsume().resource(this));
-        String dangerLevelEnumValue =medicine.getDangerLevel().toString();
+        howToConsume.setText(medicine.getHow_to_take().resource(this));
+        String dangerLevelEnumValue =medicine.getDanger_level().toString();
 
         if ( "LEVEL1".equals(dangerLevelEnumValue)){
             dangerLevel.setImageDrawable(getResources().getDrawable(R.drawable.conducteurlevel1));
@@ -97,7 +96,7 @@ if(!"basic".equals(intent.getStringExtra("MedecineName"))){
     }
 
     private Medicine getMockSample() {
-        return new Medicine("Chocolate", Shape.POWDER, HowToConsume.ORALE, DangerLevel.LEVEL3);
+        return new Medicine("Chocolate", Shape.POWDER, HowToTake.ORAL, DangerLevel.LEVEL3);
     }
 
     @Override

@@ -11,7 +11,7 @@ import lifemonitor.application.helper.rest.RESTHelper;
  */
 public abstract class AbstractTestCase extends AndroidTestCase {
 
-    protected static final String TEST_REST_URL = "http://leferazure.cloudapp.net";
+    protected static final String TEST_REST_URL = "http://demo9892644.mockable.io";
 
     /**
      * Sets up the REST url to test on the test database.
