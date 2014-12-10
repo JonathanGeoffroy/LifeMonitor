@@ -10,7 +10,6 @@
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="@string/add_treatment_title"
-        android:id="@+id/"
         android:layout_gravity="center_horizontal"
         android:layout_weight="0.12"
         android:gravity="center" />
