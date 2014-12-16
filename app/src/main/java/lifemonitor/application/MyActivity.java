@@ -3,22 +3,13 @@ package lifemonitor.application;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
-import android.widget.Toast;
-
-import java.util.Date;
 
 import lifemonitor.application.controller.medicalRecord.AddTreatmentActivity;
 import lifemonitor.application.controller.medicalRecord.ShowMedicineActivity;
-import lifemonitor.application.helper.rest.RESTHelper;
-import lifemonitor.application.helper.rest.listeners.PostListener;
-import lifemonitor.application.model.medicalRecord.Medicine;
-import lifemonitor.application.model.medicalRecord.Treatment;
-
 
 public class MyActivity extends Activity {
 
@@ -41,23 +32,6 @@ public class MyActivity extends Activity {
             @Override
             public void onClick(View v) {
                 onClickShowMedicine();
-            }
-        });
-
-        RESTHelper<Treatment> restHelper = new RESTHelper<Treatment>(this);
-        Medicine m = new Medicine(1);
-        Treatment t = new Treatment(new Date(), "2 fois par jour", 12, m);
-        restHelper.sendPOSTRequest(t, "/files/1/treatments", Treatment.class, new PostListener<Treatment>() {
-            @Override
-            public void onSuccess(Treatment addedObject) {
-                Toast.makeText(MyActivity.this, addedObject.toString(), Toast.LENGTH_SHORT).show();
-                Log.d("AddHelper", "-->" + addedObject);
-            }
-
-            @Override
-            public void onError() {
-                Toast.makeText(MyActivity.this, "Error!", Toast.LENGTH_SHORT).show();
-                Log.d("AddHelper", "Error!");
             }
         });
     }
@@ -90,13 +64,9 @@ public class MyActivity extends Activity {
      * Launches the activity that enables to add a treatment.
      */
     public void onClickShowMedicine() {
-
-
-            Intent intent = new Intent(this, ShowMedicineActivity.class);
-        intent.putExtra("MedicineName","basic");
-            startActivity(intent);
-        }
-
-
+        Intent intent = new Intent(this, ShowMedicineActivity.class);
+        intent.putExtra("MedicineName", "basic");
+        startActivity(intent);
+    }
 }
 
