@@ -11,19 +11,12 @@ import android.widget.Button;
 import android.widget.Toast;
 
 import java.util.Date;
-import java.util.List;
 
 import lifemonitor.application.controller.medicalRecord.AddTreatmentActivity;
 import lifemonitor.application.controller.medicalRecord.ShowMedicineActivity;
 import lifemonitor.application.helper.rest.RESTHelper;
-import lifemonitor.application.helper.rest.listeners.AddListener;
-import lifemonitor.application.helper.rest.listeners.MultipleResultsRESTListener;
-import lifemonitor.application.helper.rest.listeners.SingleResultRESTListener;
-import lifemonitor.application.helper.rest.parsers.MultipleResultsRESTParser;
-import lifemonitor.application.model.medicalRecord.DangerLevel;
-import lifemonitor.application.model.medicalRecord.HowToConsume;
+import lifemonitor.application.helper.rest.listeners.PostListener;
 import lifemonitor.application.model.medicalRecord.Medicine;
-import lifemonitor.application.model.medicalRecord.Shape;
 import lifemonitor.application.model.medicalRecord.Treatment;
 
 
@@ -52,9 +45,9 @@ public class MyActivity extends Activity {
         });
 
         RESTHelper<Treatment> restHelper = new RESTHelper<Treatment>(this);
-        Medicine m = new Medicine("doliprane", Shape.PILLS, HowToConsume.ORALE, DangerLevel.LEVEL1);
+        Medicine m = new Medicine(1);
         Treatment t = new Treatment(new Date(), "2 fois par jour", 12, m);
-        restHelper.sendPOSTRequest(t, "/files/1/treatments", Treatment.class, new AddListener<Treatment>() {
+        restHelper.sendPOSTRequest(t, "/files/1/treatments", Treatment.class, new PostListener<Treatment>() {
             @Override
             public void onSuccess(Treatment addedObject) {
                 Toast.makeText(MyActivity.this, addedObject.toString(), Toast.LENGTH_SHORT).show();

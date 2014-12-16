@@ -12,7 +12,7 @@ import lifemonitor.application.test.controllers.AbstractTestCase;
 /**
  * @author Célia Cacciatore, Jonathan Geoffroy
  */
-public class RESTHelperTest extends AbstractTestCase {
+public class RESTHelperGETTest extends AbstractTestCase {
 
     public void testGetMultipleResultTreatments() {
         final CountDownLatch signal = new CountDownLatch(1);

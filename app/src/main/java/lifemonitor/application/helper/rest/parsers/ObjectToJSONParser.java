@@ -1,6 +1,5 @@
 package lifemonitor.application.helper.rest.parsers;
 
-import org.codehaus.jackson.JsonGenerationException;
 import org.codehaus.jackson.map.ObjectMapper;
 import org.codehaus.jackson.map.ObjectWriter;
 

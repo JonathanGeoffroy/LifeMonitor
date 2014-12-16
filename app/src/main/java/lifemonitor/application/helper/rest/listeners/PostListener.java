@@ -5,15 +5,10 @@ package lifemonitor.application.helper.rest.listeners;
  *
  * @author Célia Cacciatore, Jonathan Geoffroy
  */
-public interface AddListener<T> {
+public interface PostListener<T> extends RESTListener<T> {
     /**
      * Called when the POST request succeeds
      * @param addedObject the object added in REST Service
      */
     void onSuccess(T addedObject);
-
-    /**
-     * Called when the POST request failed
-     */
-    void onError();
 }

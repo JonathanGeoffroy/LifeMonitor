@@ -12,13 +12,12 @@ import com.android.volley.toolbox.JsonRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 
-import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
 import java.util.List;
 
-import lifemonitor.application.helper.rest.listeners.AddListener;
+import lifemonitor.application.helper.rest.listeners.PostListener;
 import lifemonitor.application.helper.rest.listeners.MultipleResultsRESTListener;
 import lifemonitor.application.helper.rest.listeners.RESTListener;
 import lifemonitor.application.helper.rest.listeners.SingleResultRESTListener;
@@ -140,9 +139,9 @@ public class RESTHelper<T> {
      * @param object the object to add in the REST service
      * @param uri the uri where to add the object
      * @param clazz class of the object to send
-     * @param addListener listener handled when the add request ends.
+     * @param postListener listener handled when the add request ends.
      */
-    public void sendPOSTRequest(Object object, String uri, final Class<T> clazz, final AddListener<T> addListener) {
+    public void sendPOSTRequest(Object object, String uri, final Class<T> clazz, final PostListener<T> postListener) {
         try {
             String json = (new ObjectToJSONParser()).getJSONFrom(object);
             JsonRequest request = new JsonObjectRequest(Request.Method.POST, RESTUrl + uri, new JSONObject(json), new Response.Listener<JSONObject>() {
@@ -151,20 +150,21 @@ public class RESTHelper<T> {
                     try {
                         SingleResultRESTParser<T> parser = new SingleResultRESTParser();
                         T resultObject = parser.parseResult(response.toString(), clazz);
-                        addListener.onSuccess(resultObject);
+                        postListener.onSuccess(resultObject);
                     } catch (IOException e) {
-                        addListener.onError();
+                        postListener.onError();
                     }
                 }
             }, new Response.ErrorListener() {
                 @Override
                 public void onErrorResponse(VolleyError error) {
-                    addListener.onError();
+                    Log.e("VolleyError", error.getMessage());
+                    postListener.onError();
                 }
             });
             queue.add(request);
         } catch (Exception e) {
-            addListener.onError();
+            postListener.onError();
         }
     }
 }
