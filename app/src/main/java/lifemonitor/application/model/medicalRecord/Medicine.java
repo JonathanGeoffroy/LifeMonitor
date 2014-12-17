@@ -1,8 +1,5 @@
 package lifemonitor.application.model.medicalRecord;
 
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonProperty;
-
 /**
  * Created by leaf on 22/10/14.
  */
@@ -16,13 +13,6 @@ public class Medicine {
 
     public Medicine(){}
 
-    @JsonCreator
-    public Medicine(int id, String name, String shape, String how_to_take, int danger_level) {
-        this.id = id;
-        this.name = name;
-        // TODO : add missing attributes
-    }
-
     public Medicine(int id) {
         this.id = id;
     }
@@ -32,6 +22,14 @@ public class Medicine {
         this.how_to_take = how_to_take;
         this.shape = shape;
         this.danger_level = danger_level;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getName() {
@@ -65,13 +63,5 @@ public class Medicine {
 
     public void setDanger_level(DangerLevel danger_level) {
         this.danger_level = danger_level;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
     }
 }

@@ -1,26 +1,60 @@
 package lifemonitor.application.model.medicalRecord;
 
-import com.fasterxml.jackson.annotation.JsonCreator;
-
 import java.util.Date;
 
 /**
+ * A Treatment must contain the following information: <br/>
+ * - the date of beginning of treatment,<br/>
+ * - the frequency, which is how many times you must follow the treatment,<br/>
+ * - the quantity of medicine you must take (units),<br/>
+ * - the medicine you take,<br/>
+ * - the prescription which has determined the treatment (optional).
+ *
  * @author Celia Cacciatore and Jonathan Geoffroy
  */
 public class Treatment {
 
+    /*
+     * The id is automatically generated in database.
+     */
     private int id;
+
+    /*
+     * date of beginning of treatment
+     */
     private Date date;
+
+    /*
+     * how many times you must follow the treatment
+     */
     private String frequency;
+
+    /*
+     * the quantity of medicine you must take
+     */
     private int units;
+
+    /*
+     * the medicine to take
+     */
     private Medicine medicine;
+
+    /*
+     * the prescription which determined the treatment (optional)
+     */
     private Prescription prescription;
 
     public Treatment() {}
 
-    @JsonCreator
-    public Treatment(int id, Date date, String frequency, int units, Medicine medicine, Prescription prescription) {
-        this.id = id;
+    /**
+     * Create a treatment.
+     * @param date date of beginning of treatment
+     * @param frequency how many times you must follow the treatment
+     * @param units the quantity of medicine you must take
+     * @param medicine the medicine to take
+     * @param prescription the prescription which determined the treatment
+     */
+    public Treatment(Date date, String frequency, int units, Medicine medicine, Prescription prescription) {
         this.date = date;
         this.frequency = frequency;
         this.units = units;
@@ -28,6 +62,13 @@ public class Treatment {
         this.prescription = prescription;
     }
 
+    /**
+     * Create a treatment.
+     * @param date date of beginning of treatment
+     * @param frequency how many times you must follow the treatment
+     * @param units the quantity of medicine you must take
+     * @param medicine the medicine to take
+     */
     public Treatment(Date date, String frequency, int units, Medicine medicine) {
         this.date = date;
         this.frequency = frequency;
@@ -65,10 +106,6 @@ public class Treatment {
 
     public void setUnits(int units) {
         this.units = units;
-    }
-
-    public String toString() {
-        return "Treatment = " + id;
     }
 
     public Medicine getMedicine() {
