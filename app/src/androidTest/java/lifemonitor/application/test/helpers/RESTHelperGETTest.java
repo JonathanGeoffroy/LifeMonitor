@@ -21,7 +21,6 @@ public class RESTHelperGETTest extends AbstractTestCase {
         restHelper.sendGETRequestForMultipleResults("/files/4/treatments", Treatment.class, new MultipleResultsRESTListener<Treatment>() {
             @Override
             public void onGetResponse(List<Treatment> results) {
-                assertNotNull(results);
                 assertEquals(1, results.get(0).getId());
                 signal.countDown();
             }
@@ -46,7 +45,6 @@ public class RESTHelperGETTest extends AbstractTestCase {
         restHelper.sendGETRequestForMultipleResults("/files/4/treatmentsWithoutPrescription", Treatment.class, new MultipleResultsRESTListener<Treatment>() {
             @Override
             public void onGetResponse(List<Treatment> results) {
-                assertNotNull(results);
                 assertEquals(1, results.get(0).getId());
                 signal.countDown();
             }
@@ -71,7 +69,6 @@ public class RESTHelperGETTest extends AbstractTestCase {
         restHelper.sendGETRequestForSingleResult("/files/4/treatments/1", Treatment.class, new SingleResultRESTListener<Treatment>() {
             @Override
             public void onGetResponse(Treatment result) {
-                assertNotNull(result);
                 assertEquals(1, result.getId());
                 signal.countDown();
             }
