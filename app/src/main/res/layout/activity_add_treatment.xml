@@ -1,58 +1,91 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    tools:context="lifemonitor.application.controller.medicalRecord.AddTreatmentActivity"
-    android:orientation="vertical">
+    tools:context="lifemonitor.application.controller.medicalRecord.AddTreatmentActivity">
 
-    <TextView
-        android:text="@string/add_treatment_title"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
-
-    <EditText
-        android:id="@+id/medicine"
-        android:hint="@string/medicine"
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        android:layout_height="match_parent">
 
-    <!-- style="?android:attr/borderlessButtonStyle" -> For a borderless button -->
-    <Button
-        android:id="@+id/start_date"
-        android:text="@string/start_date"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
 
-    <TextView
-        android:text="@string/duration"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
-    <NumberPicker
-        android:id="@+id/duration"
-        android:focusable="false"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:text="@string/add_treatment_title"
+                android:textAppearance="?android:attr/textAppearanceLarge" />
 
-    <TextView
-        android:text="@string/frequency"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
-    <EditText
-        android:id="@+id/frequency"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
+            <EditText
+                android:id="@+id/medicine"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/medicine" />
 
-    <TextView
-        android:text="@string/units"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
-    <EditText
-        android:id="@+id/units"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
+            <!-- style="?android:attr/borderlessButtonStyle" -> For a borderless button -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
 
-</LinearLayout>
+                <Button
+                    android:id="@+id/start_date"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.1"
+                    android:text="@string/start_date" />
+
+                <Button
+                    android:id="@+id/end_date"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.1"
+                    android:text="@string/end_date" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:text="@string/duration" />
+
+                <NumberPicker
+                    android:id="@+id/duration"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:focusable="false" />
+            </LinearLayout>
+
+            <EditText
+                android:id="@+id/frequency"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/frequency" />
+
+            <EditText
+                android:id="@+id/units"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/units" />
+
+            <Button
+                android:id="@+id/submit_treatment"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/submit_treatment" />
+        </LinearLayout>
+    </ScrollView>
+</RelativeLayout>

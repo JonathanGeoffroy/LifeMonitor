@@ -9,7 +9,7 @@
     <string name="title_activity_add_treatment">AddTreatmentActivity</string>
     <string name="add_treatment_button">Ajouter un traitement</string>
     <string name="add_treatment_title">Ajouter un traitement</string>
-    <string name="start_date">Date de début du traitement</string>
+    <string name="start_date">Début du traitement</string>
     <string name="medicine">Médicament</string>
     <string name="duration">Nombre de jours de traitement</string>
     <string name="frequency">Fréquence</string>
@@ -42,6 +42,10 @@
     <string name="pellet">Granulés</string>
     <string name="liquid">Liquide</string>
     <string name="cream">Crème</string>
+    <string name="start_date_prefix">début du traitement le :</string>
+    <string name="end_date_prefix">Fin du traitement le :</string>
+    <string name="end_date">Fin du traitement</string>
+    <string name="submit_treatment">Ajouter le traitement</string>
 
 </resources>
     <!--<string name=""></string>-->
