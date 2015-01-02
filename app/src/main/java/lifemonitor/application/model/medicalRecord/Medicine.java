@@ -7,9 +7,11 @@ package lifemonitor.application.model.medicalRecord;
 public class Medicine {
     private int id;
     private String name;
+    private String dosage;
     private Shape shape;
     private HowToTake how_to_take;
     private DangerLevel danger_level;
+    private int dangerous;
 
     public Medicine(){}
 
@@ -63,5 +65,21 @@ public class Medicine {
 
     public void setDanger_level(DangerLevel danger_level) {
         this.danger_level = danger_level;
+    }
+
+    public String getDosage() {
+        return dosage;
+    }
+
+    public void setDosage(String dosage) {
+        this.dosage = dosage;
+    }
+
+    public int getDangerous() {
+        return dangerous;
+    }
+
+    public void setDangerous(int dangerous) {
+        this.dangerous = dangerous;
     }
 }

@@ -24,7 +24,7 @@
                 android:text="@string/add_treatment_title"
                 android:textAppearance="?android:attr/textAppearanceLarge" />
 
-            <EditText
+            <AutoCompleteTextView
                 android:id="@+id/medicine"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

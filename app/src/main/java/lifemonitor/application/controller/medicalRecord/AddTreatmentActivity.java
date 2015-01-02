@@ -2,7 +2,11 @@ package lifemonitor.application.controller.medicalRecord;
 
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.NumberPicker;
 
@@ -11,6 +15,8 @@ import com.fourmob.datetimepicker.date.DatePickerDialog;
 import java.util.Calendar;
 
 import lifemonitor.application.R;
+import lifemonitor.application.controller.medicalRecord.adapter.MedicineOptionsAdapter;
+import lifemonitor.application.model.medicalRecord.Medicine;
 
 public class AddTreatmentActivity extends FragmentActivity {
 
@@ -39,6 +45,8 @@ public class AddTreatmentActivity extends FragmentActivity {
      */
     private int duration;
 
+    private Medicine medicine;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -60,6 +68,33 @@ public class AddTreatmentActivity extends FragmentActivity {
             @Override
             public void onValueChange(NumberPicker picker, int oldVal, int newVal) {
                 duration = newVal;
+            }
+        });
+
+        // Load options for auto-complete medicine TextView
+        final MedicineOptionsAdapter adapter = new MedicineOptionsAdapter(this,android.R.layout.simple_list_item_1);
+        final AutoCompleteTextView medicineTextView = (AutoCompleteTextView) findViewById(R.id.medicine);
+        medicineTextView.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {}
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                String value = s.toString();
+                if(value.length() >= 3) {
+                    adapter.onDataChanged(value);
+                }
+            }
+        });
+        medicineTextView.setAdapter(adapter);
+
+        // If user choose a medicine, put it in class field
+        medicineTextView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                medicine = adapter.getMedicine(position);
             }
         });
     }
