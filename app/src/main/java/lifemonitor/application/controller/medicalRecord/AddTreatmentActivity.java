@@ -8,16 +8,30 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.NumberPicker;
+import android.widget.Toast;
 
 import com.fourmob.datetimepicker.date.DatePickerDialog;
 
 import java.util.Calendar;
 
 import lifemonitor.application.R;
+import lifemonitor.application.controller.exceptions.medicalRecord.IllegalValueException;
 import lifemonitor.application.controller.medicalRecord.adapter.MedicineOptionsAdapter;
+import lifemonitor.application.helper.rest.RESTHelper;
+import lifemonitor.application.helper.rest.listeners.PostListener;
 import lifemonitor.application.model.medicalRecord.Medicine;
+import lifemonitor.application.model.medicalRecord.Prescription;
+import lifemonitor.application.model.medicalRecord.Treatment;
 
+/**
+ * This activity is ran when user want add a new Treatment manually.<br/>
+ * Show a form in order to enter the values of the new Treatment.
+ * Add the treatment to DB by calling the REST Service helper.
+ * Check values entered by user. Show a specific message if the treatment is not conform as expected,
+ * and just quit the Activity in case of success.
+ */
 public class AddTreatmentActivity extends FragmentActivity {
 
     private static final String DATEPICKER_TAG = "datepicker";
@@ -72,18 +86,21 @@ public class AddTreatmentActivity extends FragmentActivity {
         });
 
         // Load options for auto-complete medicine TextView
-        final MedicineOptionsAdapter adapter = new MedicineOptionsAdapter(this,android.R.layout.simple_list_item_1);
+        final MedicineOptionsAdapter adapter = new MedicineOptionsAdapter(this, android.R.layout.simple_list_item_1);
         final AutoCompleteTextView medicineTextView = (AutoCompleteTextView) findViewById(R.id.medicine);
         medicineTextView.addTextChangedListener(new TextWatcher() {
             @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
+
             @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {}
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+            }
 
             @Override
             public void afterTextChanged(Editable s) {
                 String value = s.toString();
-                if(value.length() >= 3) {
+                if (value.length() >= 3) {
                     adapter.onDataChanged(value);
                 }
             }
@@ -95,6 +112,59 @@ public class AddTreatmentActivity extends FragmentActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 medicine = adapter.getMedicine(position);
+            }
+        });
+        Button submitTreatment = (Button) findViewById(R.id.submit_treatment);
+        submitTreatment.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                try {
+                    addTreatment();
+                } catch (IllegalValueException e) {
+                    Toast.makeText(AddTreatmentActivity.this, e.getMessage(), Toast.LENGTH_LONG).show();
+                }
+            }
+        });
+    }
+
+    /**
+     * Add a treatment by creating a treatment with GUI values and sending it to REST Service.
+     * Check the GUI values, and throw an <code>IllegalValueException</code> with specific message for each error
+     *
+     * @throws IllegalValueException if values aren't conform to expected.
+     */
+    private void addTreatment() throws IllegalValueException {
+        // Check GUI values
+        Calendar yesterday = Calendar.getInstance();
+        yesterday.add(Calendar.DATE, -1);
+        if (startDate.before(yesterday)) {
+            throw new IllegalValueException(getString(R.string.startDateBeforeTodayError));
+        }
+        if (startDate.after(endDate)) {
+            throw new IllegalValueException(getString(R.string.startDateAfterEndDate));
+        }
+        if (medicine == null) {
+            throw new IllegalValueException(getString(R.string.medicineNotChosen));
+        }
+
+        // Create a Treatment with GUI values
+        Treatment treatment = new Treatment(
+                startDate.getTime(),
+                getFrequency(),
+                getUnits(),
+                medicine,
+                getPrescription());
+        // Add the new Treatment into REST Service
+        RESTHelper<Treatment> restHelper = new RESTHelper<Treatment>(this);
+        restHelper.sendPOSTRequest(treatment, "/treatments/", Treatment.class, new PostListener<Treatment>() {
+            @Override
+            public void onSuccess(Treatment addedObject) {
+                AddTreatmentActivity.this.finish();
+            }
+
+            @Override
+            public void onError() {
+                Toast.makeText(AddTreatmentActivity.this, R.string.addTreatment_error, Toast.LENGTH_LONG).show();
             }
         });
     }
@@ -181,5 +251,19 @@ public class AddTreatmentActivity extends FragmentActivity {
             endDate = (Calendar) savedInstanceState.getSerializable(END_DATE_BUNDLE_KEY);
             duration = savedInstanceState.getInt(DURATION_BUNDLE_KEY);
         }
+    }
+
+    public String getFrequency() {
+        EditText frequencyEditText = (EditText) findViewById(R.id.frequency);
+        return frequencyEditText.getText().toString();
+    }
+
+    public int getUnits() {
+        EditText unitsEditText = (EditText) findViewById(R.id.units);
+        return Integer.parseInt(unitsEditText.getText().toString());
+    }
+
+    public Prescription getPrescription() {
+        return null;
     }
 }
