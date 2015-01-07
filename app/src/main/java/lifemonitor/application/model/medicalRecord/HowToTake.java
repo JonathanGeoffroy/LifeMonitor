@@ -13,10 +13,16 @@ import lifemonitor.application.model.jsonMapping.HowToTakeDeserializer;
 @JsonDeserialize(using = HowToTakeDeserializer.class)
 public enum HowToTake {
     ORAL(R.string.oral),
-    DILUTED(R.string.diluted),
+    DERMAL(R.string.dermal),
+    INTRAVENOUS(R.string.intravenous),
+    AURICULAR(R.string.auricular),
+    INTRAMUSCULAR(R.string.intramuscular),
+    INHALED(R.string.inhaled),
     SUBLINGUAL(R.string.sublingual),
-    INJECTION(R.string.injection),
-    LOCAL_APPLICATION(R.string.dermal_application);
+    OPHTALMIC(R.string.ophtalmic),
+    PERINEURAL(R.string.perineural),
+    NASAL(R.string.nasal),
+    ENDOTRACHEOPULMONARY(R.string.endotracheopulmonary);
 
     private int  resId;
 

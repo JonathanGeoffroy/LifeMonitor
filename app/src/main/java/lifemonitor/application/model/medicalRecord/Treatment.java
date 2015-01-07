@@ -123,4 +123,33 @@ public class Treatment {
     public void setPrescription(Prescription prescription) {
         this.prescription = prescription;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Treatment treatment = (Treatment) o;
+
+        if (id != treatment.id) return false;
+        if (units != treatment.units) return false;
+        if (!date.toString().equals(treatment.date.toString())) return false;
+        if (!frequency.equals(treatment.frequency)) return false;
+        if (!medicine.equals(treatment.medicine)) return false;
+        if (prescription != null ? !prescription.equals(treatment.prescription) : treatment.prescription != null)
+            return false;
+
+        return true;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = id;
+        result = 31 * result + date.hashCode();
+        result = 31 * result + frequency.hashCode();
+        result = 31 * result + units;
+        result = 31 * result + medicine.hashCode();
+        result = 31 * result + (prescription != null ? prescription.hashCode() : 0);
+        return result;
+    }
 }

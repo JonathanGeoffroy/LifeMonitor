@@ -27,21 +27,9 @@
     <string name="medicine_shape">Format</string>
     <string name="medicine_consumption">Mode d\'administration</string>
     <string name="medicine_danger_level">Niveau de danger</string>
-    <string name="oral">Voie orale</string>
-    <string name="diluted">Diluée</string>
-    <string name="sublingual">Sublingual</string>
-    <string name="injection">Injection cutanée</string>
-    <string name="dermal_application">Application cutanée</string>
     <string name="danger_level1_description">Soyez prudent. Ne pas conduire sans avoir lu la notice.</string>
     <string name="danger_level2_description">Soyez très prudent. Ne pas conduire sans l\’avis d’un professionnel de santé.</string>
     <string name="danger_level3_description">Attention, danger : ne pas conduire. Pour la reprise de la conduite, demandez l\’avis d’un médecin. </string>
-    <string name="pills">Comprimés</string>
-    <string name="ointment">Pommade</string>
-    <string name="capsule">Gélules</string>
-    <string name="powder">Poudre</string>
-    <string name="pellet">Granulés</string>
-    <string name="liquid">Liquide</string>
-    <string name="cream">Crème</string>
     <string name="start_date_prefix">début du traitement le :</string>
     <string name="end_date_prefix">Fin du traitement le :</string>
     <string name="end_date">Fin du traitement</string>
@@ -51,5 +39,31 @@
     <string name="addTreatment_error">Impossible d\'ajouter ce traitement</string>
     <string name="medicineNotChosen">Veuillez choisir un medicament existant</string>
 
+    <!-- Shape (medicine) -->
+    <string name="gel">Gel</string>
+    <string name="capsule">Gélule</string>
+    <string name="pills">Comprimé</string>
+    <string name="ointment">Pommade</string>
+    <string name="powder">Poudre</string>
+    <string name="gas">Gaz</string>
+    <string name="plant">Plante</string>
+    <string name="solution">Solution</string>
+    <string name="pellet">Capsule</string>
+    <string name="cream">Crème</string>
+    <string name="liquid">Sirop</string>
+    <string name="suspension">Suspension</string>
+
+    <!-- How to take (medicine) -->
+    <string name="oral">Orale</string>
+    <string name="dermal">Cutanée</string>
+    <string name="intravenous">Intraveineuse</string>
+    <string name="auricular">Auriculaire</string>
+    <string name="intramuscular">Intramusculaire</string>
+    <string name="inhaled">Inhalée</string>
+    <string name="sublingual">Sublinguale</string>
+    <string name="ophtalmic">Opthalmique</string>
+    <string name="perineural">Périneurale</string>
+    <string name="nasal">Nasale</string>
+    <string name="endotracheopulmonary">Endotrachéobronchique</string>
+
 </resources>
-    <!--<string name=""></string>-->

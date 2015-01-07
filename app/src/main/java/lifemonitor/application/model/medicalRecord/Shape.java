@@ -18,13 +18,17 @@ import lifemonitor.application.model.jsonMapping.ShapeDeserializer;
  */
 @JsonDeserialize(using = ShapeDeserializer.class)
 public enum Shape {
+    GEL(R.string.gel),
+    CAPSULE(R.string.capsule),
     PILLS(R.string.pills),
     OINTMENT(R.string.ointment),
-    CAPSULE(R.string.capsule),
     POWDER(R.string.powder),
+    GAS(R.string.gas),
+    SOLUTION(R.string.solution),
     PELLET(R.string.pellet),
+    CREAM(R.string.cream),
     LIQUID(R.string.liquid),
-    CREAM(R.string.cream);
+    SUSPENSION(R.string.suspension);
 
     private int resId;
 

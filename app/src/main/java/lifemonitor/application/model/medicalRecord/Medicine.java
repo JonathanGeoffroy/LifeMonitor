@@ -26,6 +26,14 @@ public class Medicine {
         this.danger_level = danger_level;
     }
 
+    public Medicine(int id, String name, Shape shape, HowToTake how_to_take, DangerLevel danger_level) {
+        this.id = id;
+        this.name = name;
+        this.how_to_take = how_to_take;
+        this.shape = shape;
+        this.danger_level = danger_level;
+    }
+
     public int getId() {
         return id;
     }
@@ -81,5 +89,30 @@ public class Medicine {
 
     public void setDangerous(int dangerous) {
         this.dangerous = dangerous;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Medicine medicine = (Medicine) o;
+
+        if (id != medicine.id) return false;
+        if (danger_level != medicine.danger_level) return false;
+        if (how_to_take != medicine.how_to_take) return false;
+        if (!name.equals(medicine.name)) return false;
+        if (shape != medicine.shape) return false;
+
+        return true;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = name.hashCode();
+        result = 31 * result + shape.hashCode();
+        result = 31 * result + how_to_take.hashCode();
+        result = 31 * result + danger_level.hashCode();
+        return result;
     }
 }
