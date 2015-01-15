@@ -1,10 +1,12 @@
 package lifemonitor.application.model.medicalRecord;
 
+import java.io.Serializable;
+
 /**
  * Created by leaf on 22/10/14.
  */
 //@JsonIdentityInfo(generator = ObjectIdGenerators.IntSequenceGenerator.class, property = "@id")
-public class Medicine {
+public class Medicine implements Serializable {
     private int id;
     private String name;
     private String dosage;
@@ -94,14 +96,18 @@ public class Medicine {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        // Cast this to Object, because of a reported Android Studio bug
+        if (o == null || ((Object) this).getClass() != o.getClass()) return false;
 
         Medicine medicine = (Medicine) o;
 
+        if (dangerous != medicine.dangerous) return false;
         if (id != medicine.id) return false;
         if (danger_level != medicine.danger_level) return false;
+        if (dosage != null ? !dosage.equals(medicine.dosage) : medicine.dosage != null)
+            return false;
         if (how_to_take != medicine.how_to_take) return false;
-        if (!name.equals(medicine.name)) return false;
+        if (name != null ? !name.equals(medicine.name) : medicine.name != null) return false;
         if (shape != medicine.shape) return false;
 
         return true;

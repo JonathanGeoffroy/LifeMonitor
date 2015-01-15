@@ -38,7 +38,8 @@ public class AddTreatmentActivity extends FragmentActivity {
      * bundle key for each value
      */
     private static final String
-            START_DATE_BUNDLE_KEY = "startDate";
+            START_DATE_BUNDLE_KEY = "startDate",
+            MEDICINE_BUNDLE_KEY = "medicine";
 
     // TODO: get real patient id from authentication
     private static final String PATIENT_ID = "1";
@@ -211,6 +212,7 @@ public class AddTreatmentActivity extends FragmentActivity {
     @Override
     protected void onSaveInstanceState(Bundle outState) {
         outState.putSerializable(START_DATE_BUNDLE_KEY, startDate);
+        outState.putSerializable(MEDICINE_BUNDLE_KEY, medicine);
         super.onSaveInstanceState(outState);
     }
 
@@ -227,6 +229,7 @@ public class AddTreatmentActivity extends FragmentActivity {
             startDate = Calendar.getInstance();
         } else {
             startDate = (Calendar) savedInstanceState.getSerializable(START_DATE_BUNDLE_KEY);
+            medicine = (Medicine) savedInstanceState.getSerializable(MEDICINE_BUNDLE_KEY);
         }
     }
 
