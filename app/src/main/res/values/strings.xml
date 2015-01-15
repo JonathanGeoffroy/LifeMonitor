@@ -66,5 +66,6 @@
     <string name="Nasal">Nasale</string>
     <string name="Endotracheopulmonary">Endotrachéobronchique</string>
     <string name="Plant">Plante</string>
+    <string name="notChosenUnits">Veuillez choisir un dosage</string>
 
 </resources>

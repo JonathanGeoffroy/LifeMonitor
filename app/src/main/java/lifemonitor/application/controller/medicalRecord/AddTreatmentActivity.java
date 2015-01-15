@@ -9,7 +9,6 @@ import android.widget.AdapterView;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.NumberPicker;
 import android.widget.Toast;
 
 import com.fourmob.datetimepicker.date.DatePickerDialog;
@@ -39,11 +38,7 @@ public class AddTreatmentActivity extends FragmentActivity {
      * bundle key for each value
      */
     private static final String
-            START_DATE_BUNDLE_KEY = "startDate",
-            END_DATE_BUNDLE_KEY = "endDate",
-            DURATION_BUNDLE_KEY = "duration";
-    private static final int DURATION_MIN_VALUE = 1;
-    private static final int DURATION_MAX_VALUE = 365;
+            START_DATE_BUNDLE_KEY = "startDate";
 
     // TODO: get real patient id from authentication
     private static final String PATIENT_ID = "1";
@@ -52,15 +47,6 @@ public class AddTreatmentActivity extends FragmentActivity {
      * The treatment start date, chosen by user
      */
     private Calendar startDate;
-    /**
-     * The treatment end date, chosen by user
-     */
-    private Calendar endDate;
-
-    /**
-     * The treatment duration
-     */
-    private int duration;
 
     private Medicine medicine;
 
@@ -74,19 +60,6 @@ public class AddTreatmentActivity extends FragmentActivity {
 
         // Create datePickers for startDate and endDate
         createDatePicker(R.id.start_date, R.string.start_date_prefix, startDate);
-        createDatePicker(R.id.end_date, R.string.end_date_prefix, endDate);
-
-        // Change default NumberPicker values
-        NumberPicker durationPicker = (NumberPicker) findViewById(R.id.duration);
-        durationPicker.setMinValue(DURATION_MIN_VALUE);
-        durationPicker.setMaxValue(DURATION_MAX_VALUE);
-        durationPicker.setValue(duration);
-        durationPicker.setOnValueChangedListener(new NumberPicker.OnValueChangeListener() {
-            @Override
-            public void onValueChange(NumberPicker picker, int oldVal, int newVal) {
-                duration = newVal;
-            }
-        });
 
         // Load options for auto-complete medicine TextView
         final MedicineOptionsAdapter adapter = new MedicineOptionsAdapter(this, android.R.layout.simple_list_item_1);
@@ -143,18 +116,21 @@ public class AddTreatmentActivity extends FragmentActivity {
         if (startDate.before(yesterday)) {
             throw new IllegalValueException(getString(R.string.startDateBeforeTodayError));
         }
-        if (startDate.after(endDate)) {
-            throw new IllegalValueException(getString(R.string.startDateAfterEndDate));
-        }
         if (medicine == null) {
             throw new IllegalValueException(getString(R.string.medicineNotChosen));
+        }
+        int units;
+        try {
+            units = getUnits();
+        } catch (NumberFormatException e) {
+            throw new IllegalValueException(getString(R.string.notChosenUnits));
         }
 
         // Create a Treatment with GUI values
         Treatment treatment = new Treatment(
                 startDate.getTime(),
                 getFrequency(),
-                getUnits(),
+                units,
                 medicine,
                 getPrescription());
         // Add the new Treatment into REST Service
@@ -232,8 +208,6 @@ public class AddTreatmentActivity extends FragmentActivity {
     @Override
     protected void onSaveInstanceState(Bundle outState) {
         outState.putSerializable(START_DATE_BUNDLE_KEY, startDate);
-        outState.putSerializable(END_DATE_BUNDLE_KEY, endDate);
-        outState.putInt(DURATION_BUNDLE_KEY, duration);
         super.onSaveInstanceState(outState);
     }
 
@@ -248,12 +222,8 @@ public class AddTreatmentActivity extends FragmentActivity {
     private void loadInstanceState(Bundle savedInstanceState) {
         if (savedInstanceState == null) {
             startDate = Calendar.getInstance();
-            endDate = Calendar.getInstance();
-            duration = DURATION_MIN_VALUE;
         } else {
             startDate = (Calendar) savedInstanceState.getSerializable(START_DATE_BUNDLE_KEY);
-            endDate = (Calendar) savedInstanceState.getSerializable(END_DATE_BUNDLE_KEY);
-            duration = savedInstanceState.getInt(DURATION_BUNDLE_KEY);
         }
     }
 
@@ -262,7 +232,7 @@ public class AddTreatmentActivity extends FragmentActivity {
         return frequencyEditText.getText().toString();
     }
 
-    public int getUnits() {
+    public int getUnits() throws NumberFormatException {
         EditText unitsEditText = (EditText) findViewById(R.id.units);
         return Integer.parseInt(unitsEditText.getText().toString());
     }
