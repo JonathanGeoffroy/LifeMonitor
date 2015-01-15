@@ -122,6 +122,9 @@ public class AddTreatmentActivity extends FragmentActivity {
         int units;
         try {
             units = getUnits();
+            if(units <= 0) {
+                throw new IllegalValueException(getString(R.string.notChosenUnits));
+            }
         } catch (NumberFormatException e) {
             throw new IllegalValueException(getString(R.string.notChosenUnits));
         }
