@@ -1,13 +1,9 @@
 package lifemonitor.application.helper.rest.parsers;
 
-import org.codehaus.jackson.JsonParseException;
 import org.codehaus.jackson.map.ObjectMapper;
 
 import java.io.IOException;
-import java.util.List;
-
-import lifemonitor.application.helper.rest.listeners.SingleResultRESTListener;
-import lifemonitor.application.model.medicalRecord.Treatment;
+import java.text.SimpleDateFormat;
 
 /**
  * Specific parser for SingleResult request
@@ -25,6 +21,7 @@ public class SingleResultRESTParser<T> {
     public T parseResult(String json, Class<T> clazz) throws IOException {
         // Jackson mapper
         ObjectMapper mapper = new ObjectMapper();
+        mapper.setDateFormat(new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssZ"));
 
         // Parses the result to get
         return mapper.readValue(json, clazz);

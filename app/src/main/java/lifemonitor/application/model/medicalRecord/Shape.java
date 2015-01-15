@@ -28,7 +28,8 @@ public enum Shape {
     PELLET(R.string.pellet),
     CREAM(R.string.cream),
     LIQUID(R.string.liquid),
-    SUSPENSION(R.string.suspension);
+    SUSPENSION(R.string.suspension),
+    PLANT(R.string.Plant);
 
     private int resId;
 

@@ -1,10 +1,9 @@
 package lifemonitor.application.helper.rest.parsers;
 
-import org.codehaus.jackson.JsonParseException;
 import org.codehaus.jackson.map.ObjectMapper;
 
 import java.io.IOException;
-import java.util.ArrayList;
+import java.text.SimpleDateFormat;
 import java.util.List;
 
 import lifemonitor.application.helper.rest.listeners.MultipleResultsRESTListener;
@@ -24,6 +23,7 @@ public class MultipleResultsRESTParser<T> {
     public List<T> parseResult(String json, Class<T> clazz) throws IOException {
         // Jackson mapper
         ObjectMapper mapper = new ObjectMapper();
+        mapper.setDateFormat(new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SZZZZZ"));
 
         // Parses the result to get
         return mapper.readValue(json, mapper.getTypeFactory().constructCollectionType(List.class, clazz));

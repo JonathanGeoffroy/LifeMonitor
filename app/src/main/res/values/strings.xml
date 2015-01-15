@@ -54,16 +54,17 @@
     <string name="suspension">Suspension</string>
 
     <!-- How to take (medicine) -->
-    <string name="oral">Orale</string>
-    <string name="dermal">Cutanée</string>
-    <string name="intravenous">Intraveineuse</string>
-    <string name="auricular">Auriculaire</string>
-    <string name="intramuscular">Intramusculaire</string>
-    <string name="inhaled">Inhalée</string>
-    <string name="sublingual">Sublinguale</string>
-    <string name="ophtalmic">Opthalmique</string>
-    <string name="perineural">Périneurale</string>
-    <string name="nasal">Nasale</string>
-    <string name="endotracheopulmonary">Endotrachéobronchique</string>
+    <string name="Oral">Orale</string>
+    <string name="Dermal">Cutanée</string>
+    <string name="Intravenous">Intraveineuse</string>
+    <string name="Auricular">Auriculaire</string>
+    <string name="Intramuscular">Intramusculaire</string>
+    <string name="Inhaled">Inhalée</string>
+    <string name="Sublingual">Sublinguale</string>
+    <string name="Ophtalmic">Opthalmique</string>
+    <string name="Perineural">Périneurale</string>
+    <string name="Nasal">Nasale</string>
+    <string name="Endotracheopulmonary">Endotrachéobronchique</string>
+    <string name="Plant">Plante</string>
 
 </resources>

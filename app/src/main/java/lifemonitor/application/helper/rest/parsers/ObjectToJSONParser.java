@@ -4,6 +4,7 @@ import org.codehaus.jackson.map.ObjectMapper;
 import org.codehaus.jackson.map.ObjectWriter;
 
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 
 /**
  * Transforms an Object into JSON.
@@ -13,7 +14,9 @@ import java.io.IOException;
 public class ObjectToJSONParser {
 
     public String getJSONFrom(Object object) throws IOException {
-        ObjectWriter objectWriter = new ObjectMapper().writer();
+        ObjectMapper objectMapper = new ObjectMapper();
+        objectMapper.setDateFormat(new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssZ"));
+        ObjectWriter objectWriter = objectMapper.writer();
         return objectWriter.writeValueAsString(object);
     }
 }

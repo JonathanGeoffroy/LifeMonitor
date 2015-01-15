@@ -45,6 +45,9 @@ public class AddTreatmentActivity extends FragmentActivity {
     private static final int DURATION_MIN_VALUE = 1;
     private static final int DURATION_MAX_VALUE = 365;
 
+    // TODO: get real patient id from authentication
+    private static final String PATIENT_ID = "1";
+
     /**
      * The treatment start date, chosen by user
      */
@@ -155,8 +158,9 @@ public class AddTreatmentActivity extends FragmentActivity {
                 medicine,
                 getPrescription());
         // Add the new Treatment into REST Service
+        RESTHelper.setRESTUrl("http://demo9892644.mockable.io/");
         RESTHelper<Treatment> restHelper = new RESTHelper<Treatment>(this);
-        restHelper.sendPOSTRequest(treatment, "/treatments/", Treatment.class, new PostListener<Treatment>() {
+        restHelper.sendPOSTRequest(treatment, "/files/" + PATIENT_ID + "/treatments", Treatment.class, new PostListener<Treatment>() {
             @Override
             public void onSuccess(Treatment addedObject) {
                 AddTreatmentActivity.this.finish();

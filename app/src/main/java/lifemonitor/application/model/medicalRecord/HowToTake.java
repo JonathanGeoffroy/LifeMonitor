@@ -12,17 +12,17 @@ import lifemonitor.application.model.jsonMapping.HowToTakeDeserializer;
  */
 @JsonDeserialize(using = HowToTakeDeserializer.class)
 public enum HowToTake {
-    ORAL(R.string.oral),
-    DERMAL(R.string.dermal),
-    INTRAVENOUS(R.string.intravenous),
-    AURICULAR(R.string.auricular),
-    INTRAMUSCULAR(R.string.intramuscular),
-    INHALED(R.string.inhaled),
-    SUBLINGUAL(R.string.sublingual),
-    OPHTALMIC(R.string.ophtalmic),
-    PERINEURAL(R.string.perineural),
-    NASAL(R.string.nasal),
-    ENDOTRACHEOPULMONARY(R.string.endotracheopulmonary);
+    ORAL(R.string.Oral),
+    DERMAL(R.string.Dermal),
+    INTRAVENOUS(R.string.Intravenous),
+    AURICULAR(R.string.Auricular),
+    INTRAMUSCULAR(R.string.Intramuscular),
+    INHALED(R.string.Inhaled),
+    SUBLINGUAL(R.string.Sublingual),
+    OPHTALMIC(R.string.Ophtalmic),
+    PERINEURAL(R.string.Perineural),
+    NASAL(R.string.Nasal),
+    ENDOTRACHEOPULMONARY(R.string.Endotracheopulmonary);
 
     private int  resId;
 
