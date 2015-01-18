@@ -26,6 +26,7 @@
             android:name=".controller.medicalRecord.ShowMedicineActivity"
             android:label="@string/title_activity_show_medicine" >
         </activity>
+
     </application>
 
 </manifest>
