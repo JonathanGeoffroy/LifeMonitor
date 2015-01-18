@@ -91,6 +91,8 @@ public class AddTreatmentActivity extends FragmentActivity {
                 medicine = adapter.getMedicine(position);
             }
         });
+
+        // When user want to submit the treatment
         Button submitTreatment = (Button) findViewById(R.id.submit_treatment);
         submitTreatment.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -137,8 +139,8 @@ public class AddTreatmentActivity extends FragmentActivity {
                 units,
                 medicine,
                 getPrescription());
+
         // Add the new Treatment into REST Service
-        RESTHelper.setRESTUrl("http://demo9892644.mockable.io/");
         RESTHelper<Treatment> restHelper = new RESTHelper<Treatment>(this);
         restHelper.sendPOSTRequest(treatment, "/files/" + PATIENT_ID + "/treatments", Treatment.class, new PostListener<Treatment>() {
             @Override

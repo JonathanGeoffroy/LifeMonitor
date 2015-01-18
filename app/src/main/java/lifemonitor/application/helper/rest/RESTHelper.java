@@ -35,7 +35,7 @@ public class RESTHelper<T> {
     /**
      * REST service address.
      */
-    private static String RESTUrl = "http://leferazure.cloudapp.net";
+    private static String RESTUrl = "http://doritosjenkins.cloudapp.net:443";
     public static String getRESTUrl() {
         return RESTUrl;
     }
