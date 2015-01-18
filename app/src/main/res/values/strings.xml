@@ -67,5 +67,9 @@
     <string name="Endotracheopulmonary">Endotrachéobronchique</string>
     <string name="Plant">Plante</string>
     <string name="notChosenUnits">Veuillez choisir un dosage</string>
+    <string name="show_medical_record_title">Dossier Médical</string>
+    <string name="connexion_error">Impossible de se connecter au serveur.</string>
+    <string name="show_medical_record_button">Afficher mon Dossier Médical</string>
+    <string name="popup_sync">Actualiser</string>
 
 </resources>

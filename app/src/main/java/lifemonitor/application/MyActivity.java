@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.Button;
 
 import lifemonitor.application.controller.medicalRecord.AddTreatmentActivity;
+import lifemonitor.application.controller.medicalRecord.ShowMedicalRecordActivity;
 import lifemonitor.application.controller.medicalRecord.ShowMedicineActivity;
 
 public class MyActivity extends Activity {
@@ -32,6 +33,14 @@ public class MyActivity extends Activity {
             @Override
             public void onClick(View v) {
                 onClickShowMedicine();
+            }
+        });
+
+        Button medicalRecordButton = (Button) findViewById(R.id.showMedicalRecordButton);
+        medicalRecordButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onClickShowMedicalRecord();
             }
         });
     }
@@ -66,6 +75,11 @@ public class MyActivity extends Activity {
     public void onClickShowMedicine() {
         Intent intent = new Intent(this, ShowMedicineActivity.class);
         intent.putExtra("MedicineName", "basic");
+        startActivity(intent);
+    }
+
+    private void onClickShowMedicalRecord() {
+        Intent intent = new Intent(this, ShowMedicalRecordActivity.class);
         startActivity(intent);
     }
 }

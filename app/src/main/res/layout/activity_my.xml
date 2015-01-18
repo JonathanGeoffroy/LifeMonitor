@@ -26,4 +26,10 @@
         android:id="@+id/showMedicinebutton"
         android:text="@string/show_medicine_button" />
 
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/showMedicalRecordButton"
+        android:text="@string/show_medical_record_button" />
+
 </LinearLayout>
