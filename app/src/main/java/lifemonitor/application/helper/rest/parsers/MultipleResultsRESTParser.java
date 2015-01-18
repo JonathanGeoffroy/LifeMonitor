@@ -23,7 +23,7 @@ public class MultipleResultsRESTParser<T> {
     public List<T> parseResult(String json, Class<T> clazz) throws IOException {
         // Jackson mapper
         ObjectMapper mapper = new ObjectMapper();
-        mapper.setDateFormat(new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SZZZZZ"));
+        mapper.setDateFormat(new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssZ"));
 
         // Parses the result to get
         return mapper.readValue(json, mapper.getTypeFactory().constructCollectionType(List.class, clazz));
