@@ -1,5 +1,8 @@
 package lifemonitor.application.model.medicalRecord;
 
+import android.graphics.Color;
+
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 /**
@@ -12,7 +15,7 @@ import java.util.Date;
  *
  * @author Celia Cacciatore and Jonathan Geoffroy
  */
-public class Treatment {
+public class Treatment implements MedicalRecordItem {
 
     /*
      * The id is automatically generated in database.
@@ -151,5 +154,21 @@ public class Treatment {
         result = 31 * result + medicine.hashCode();
         result = 31 * result + (prescription != null ? prescription.hashCode() : 0);
         return result;
+    }
+
+    @Override
+    public String getTitle() {
+        return "Traitement au " + medicine;
+    }
+
+    @Override
+    public String getSubTitle() {
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/y");
+        return "Depuis le " + simpleDateFormat.format(date);
+    }
+
+    @Override
+    public int getColor() {
+        return Color.argb(20, 78, 205, 196);
     }
 }

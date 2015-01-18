@@ -121,4 +121,9 @@ public class Medicine implements Serializable {
         result = 31 * result + danger_level.hashCode();
         return result;
     }
+
+    @Override
+    public String toString() {
+        return name;
+    }
 }

@@ -71,5 +71,7 @@
     <string name="connexion_error">Impossible de se connecter au serveur.</string>
     <string name="show_medical_record_button">Afficher mon Dossier Médical</string>
     <string name="popup_sync">Actualiser</string>
+    <string name="prepend_treatment_title_listview">Traitement pour </string>
+    <string name="prepend_treatment_subtitle_listview">depuis le</string>
 
 </resources>

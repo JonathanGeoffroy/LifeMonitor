@@ -13,7 +13,6 @@ import java.util.List;
 
 import lifemonitor.application.R;
 import lifemonitor.application.controller.medicalRecord.adapter.MedicalRecordAdapter;
-import lifemonitor.application.helper.rest.RESTHelper;
 import lifemonitor.application.helper.rest.listeners.SingleResultRESTListener;
 import lifemonitor.application.model.medicalRecord.MedicalRecord;
 import lifemonitor.application.model.medicalRecord.MedicalRecordItem;
@@ -26,6 +25,7 @@ import lifemonitor.application.model.medicalRecord.MedicalRecordItem;
  * </p>
  */
 public class ShowMedicalRecordActivity extends Activity {
+    private static final int PATIENT_ID = 1;
     /**
      * Adapter of the ListView displayed
      */
@@ -50,8 +50,7 @@ public class ShowMedicalRecordActivity extends Activity {
      * Remove old ListView items and add new ones.
      */
     private void refreshListView() {
-        RESTHelper<MedicalRecord> treatmentRestHelper = new RESTHelper<MedicalRecord>(this);
-        treatmentRestHelper.sendGETRequestForSingleResult("/patients/1/file", MedicalRecord.class, new SingleResultRESTListener<MedicalRecord>() {
+        MedicalRecord.findMedicalRecordFor(PATIENT_ID, this, new SingleResultRESTListener<MedicalRecord>() {
             @Override
             public void onGetResponse(MedicalRecord medicalRecord) {
                 // Remove old items
@@ -61,6 +60,7 @@ public class ShowMedicalRecordActivity extends Activity {
                 List<MedicalRecordItem> items = new LinkedList<MedicalRecordItem>();
                 items.addAll(medicalRecord.getAllergies());
                 items.addAll(medicalRecord.getIllnesses());
+                items.addAll(medicalRecord.getTreatments());
                 adapter.addAll(items);
             }
 
