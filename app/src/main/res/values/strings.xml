@@ -70,5 +70,13 @@
 
     <!--Config menu-->
     <string name="title_user_config_menu">Configuration</string>
+    <string name="user_save_button">Sauvegarder</string>
+    <string name="user_firstname">Prénom</string>
+    <string name="user_surname">Nom</string>
+    <string name="user_phone">N°</string>
+    <string name="user_firstname_sample">Anne</string>
+    <string name="user_surname_sample">Nonime</string>
+
+
 
 </resources>

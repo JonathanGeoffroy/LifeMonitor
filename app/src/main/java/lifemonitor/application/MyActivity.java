@@ -10,6 +10,7 @@ import android.widget.Button;
 
 import lifemonitor.application.controller.medicalRecord.AddTreatmentActivity;
 import lifemonitor.application.controller.medicalRecord.ShowMedicineActivity;
+import lifemonitor.application.controller.user_config.User_config_activity;
 
 public class MyActivity extends Activity {
 
@@ -34,6 +35,16 @@ public class MyActivity extends Activity {
                 onClickShowMedicine();
             }
         });
+
+        Button button_user_config = (Button) findViewById(R.id.showConfigMenu);
+        button_user_config.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onClickUserConfig();
+            }
+        });
+
+
     }
 
     @Override
@@ -66,6 +77,14 @@ public class MyActivity extends Activity {
     public void onClickShowMedicine() {
         Intent intent = new Intent(this, ShowMedicineActivity.class);
         intent.putExtra("MedicineName", "basic");
+        startActivity(intent);
+    }
+
+    /**
+     * Launches the activity to config lifemonitor.
+     */
+    public void onClickUserConfig() {
+        Intent intent = new Intent(this, User_config_activity.class);
         startActivity(intent);
     }
 }

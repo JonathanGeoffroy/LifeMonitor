@@ -26,6 +26,10 @@
             android:name=".controller.medicalRecord.ShowMedicineActivity"
             android:label="@string/title_activity_show_medicine" >
         </activity>
+        <activity
+            android:name=".controller.user_config.User_config_activity"
+            android:label="@string/title_user_config_menu" >
+        </activity>
 
     </application>
 
