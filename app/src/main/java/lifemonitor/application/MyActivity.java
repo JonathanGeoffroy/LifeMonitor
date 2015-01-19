@@ -7,9 +7,11 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 
 import lifemonitor.application.controller.medicalRecord.AddTreatmentActivity;
 import lifemonitor.application.controller.medicalRecord.ShowMedicineActivity;
+import lifemonitor.application.controller.user_config.User_config_activity;
 
 public class MyActivity extends Activity {
 
@@ -34,6 +36,21 @@ public class MyActivity extends Activity {
                 onClickShowMedicine();
             }
         });
+
+        Button button_user_config = (Button) findViewById(R.id.showConfigMenu);
+        button_user_config.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onClickUserConfig();
+            }
+        });
+
+
+        //Todo Trouver un moyen de refresh mieux
+        DatabaseHandler dbHandler = new DatabaseHandler(this);
+        TextView user_name = (TextView) findViewById(R.id.menu_user_name);
+        user_name.setText(dbHandler.Get_user(dbHandler.get_first_user_id()).getFirstName());
+
     }
 
     @Override
@@ -66,6 +83,14 @@ public class MyActivity extends Activity {
     public void onClickShowMedicine() {
         Intent intent = new Intent(this, ShowMedicineActivity.class);
         intent.putExtra("MedicineName", "basic");
+        startActivity(intent);
+    }
+
+    /**
+     * Launches the activity to config lifemonitor.
+     */
+    public void onClickUserConfig() {
+        Intent intent = new Intent(this, User_config_activity.class);
         startActivity(intent);
     }
 }
