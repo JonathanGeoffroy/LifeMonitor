@@ -7,6 +7,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 
 import lifemonitor.application.controller.medicalRecord.AddTreatmentActivity;
 import lifemonitor.application.controller.medicalRecord.ShowMedicineActivity;
@@ -44,6 +45,11 @@ public class MyActivity extends Activity {
             }
         });
 
+
+        //Todo Trouver un moyen de refresh mieux
+        DatabaseHandler dbHandler = new DatabaseHandler(this);
+        TextView user_name = (TextView) findViewById(R.id.menu_user_name);
+        user_name.setText(dbHandler.Get_user(dbHandler.get_first_user_id()).getFirstName());
 
     }
 

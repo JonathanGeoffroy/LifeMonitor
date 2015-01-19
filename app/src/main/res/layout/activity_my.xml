@@ -17,6 +17,13 @@
             android:layout_centerVertical="true"
             android:text="@string/app_name" />
 
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:text="Small Text"
+            android:id="@+id/menu_user_name" />
+
     </LinearLayout>
 
     <ScrollView android:layout_width="match_parent"

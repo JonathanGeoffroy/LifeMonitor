@@ -41,8 +41,8 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/user_surname"
-            android:id="@+id/textView" />
+            android:text="@string/user_mail"
+            android:id="@+id/mail_textView" />
 
         <EditText
             android:layout_width="wrap_content"
@@ -50,13 +50,13 @@
             android:inputType="textPersonName"
             android:text="@string/user_surname_sample"
             android:ems="10"
-            android:id="@+id/editText" />
+            android:id="@+id/mail_editText" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/user_surname"
-            android:id="@+id/textView2" />
+            android:text="@string/user_phone"
+            android:id="@+id/number_textView" />
 
         <EditText
             android:layout_width="wrap_content"
@@ -64,7 +64,7 @@
             android:inputType="textPersonName"
             android:text="@string/user_surname_sample"
             android:ems="10"
-            android:id="@+id/editText2" />
+            android:id="@+id/number_editText" />
     </GridLayout>
 
     <Button

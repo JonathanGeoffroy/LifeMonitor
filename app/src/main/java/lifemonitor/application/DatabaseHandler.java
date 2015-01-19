@@ -1,4 +1,4 @@
-package lifemonitor.application.controller.user_config;
+package lifemonitor.application;
 
 import android.content.ContentValues;
 import android.content.Context;
@@ -8,6 +8,8 @@ import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
 import java.util.ArrayList;
+
+import lifemonitor.application.controller.user_config.User;
 
 public class DatabaseHandler extends SQLiteOpenHelper {
 
@@ -23,22 +25,27 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
     // users Table Columns names
     private static final String KEY_ID = "id";
-    private static final String KEY_NAME = "name";
+    private static final String KEY_FNAME = "fname";
+    private static final String KEY_SNAME = "sname";
     private static final String KEY_PH_NO = "phone_number";
     private static final String KEY_EMAIL = "email";
     private final ArrayList<User> user_list = new ArrayList<User>();
 
     public DatabaseHandler(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
+        there_can_be_only_one();
+        if (is_empty()) {
+            init_empty();
+        }
     }
 
     // Creating Tables
     @Override
     public void onCreate(SQLiteDatabase db) {
-        String CREATE_userS_TABLE = "CREATE TABLE " + TABLE_USERS + "("
-                + KEY_ID + " INTEGER PRIMARY KEY," + KEY_NAME + " TEXT,"
-                + KEY_PH_NO + " TEXT," + KEY_EMAIL + " TEXT" + ")";
-        db.execSQL(CREATE_userS_TABLE);
+        String CREATE_USERS_TABLE = "CREATE TABLE " + TABLE_USERS + "("
+                + KEY_ID + " INTEGER PRIMARY KEY," + KEY_FNAME + " TEXT,"
+                 +KEY_SNAME + " TEXT," + KEY_PH_NO + " TEXT," + KEY_EMAIL + " TEXT" + ")";
+        db.execSQL(CREATE_USERS_TABLE);
     }
 
     // Upgrading database
@@ -59,7 +66,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     public void Add_user(User user) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
-        values.put(KEY_NAME, user.getName()); // user Name
+        values.put(KEY_FNAME, user.getFirstName()); // user FName
+        values.put(KEY_SNAME, user.getSurname()); // user FName
         values.put(KEY_PH_NO, user.getPhoneNumber()); // user Phone
         values.put(KEY_EMAIL, user.getEmail()); // user Email
         // Inserting Row
@@ -68,18 +76,18 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     }
 
     // Getting single user
-    User Get_user(int id) {
+    public User Get_user(int id) {
         SQLiteDatabase db = this.getReadableDatabase();
 
         Cursor cursor = db.query(TABLE_USERS, new String[]{KEY_ID,
-                        KEY_NAME, KEY_PH_NO, KEY_EMAIL}, KEY_ID + "=?",
+                        KEY_FNAME, KEY_SNAME, KEY_PH_NO, KEY_EMAIL}, KEY_ID + "=?",
                 new String[]{String.valueOf(id)}, null, null, null, null);
         if (cursor != null)
             cursor.moveToFirst();
 
         assert cursor != null;
         User user = new User(Integer.parseInt(cursor.getString(0)),
-                cursor.getString(1), cursor.getString(2), cursor.getString(3));
+                cursor.getString(1), cursor.getString(2), cursor.getString(3),cursor.getString(4));
         // return user
         cursor.close();
         db.close();
@@ -103,9 +111,10 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 do {
                     User user = new User();
                     user.setID(Integer.parseInt(cursor.getString(0)));
-                    user.setName(cursor.getString(1));
-                    user.setPhoneNumber(cursor.getString(2));
-                    user.setEmail(cursor.getString(3));
+                    user.setFirstName(cursor.getString(1));
+                    user.setSurname(cursor.getString(2));
+                    user.setPhoneNumber(cursor.getString(3));
+                    user.setEmail(cursor.getString(4));
                     // Adding user to list
                     user_list.add(user);
                 } while (cursor.moveToNext());
@@ -127,7 +136,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getWritableDatabase();
 
         ContentValues values = new ContentValues();
-        values.put(KEY_NAME, user.getName());
+        values.put(KEY_FNAME, user.getFirstName());
+        values.put(KEY_SNAME, user.getSurname());
         values.put(KEY_PH_NO, user.getPhoneNumber());
         values.put(KEY_EMAIL, user.getEmail());
 
@@ -144,16 +154,40 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         db.close();
     }
 
-    // Getting users Count
-    public boolean is_empty() {//TODO : refonte -> non fonctionnel (mettre foreach)
-        String countQuery = "SELECT  * FROM " + TABLE_USERS;
-        SQLiteDatabase db = this.getReadableDatabase();
-        Cursor cursor = db.rawQuery(countQuery, null);
-        cursor.close();
+    public void init_empty() {
+        String lost = "";
+        User user = new User(1,lost, lost, lost, lost);
+        this.Add_user(user);
 
-        // return count
-        //return cursor.getCount();
-        return true;
+    }
+
+    public boolean is_empty() {//TODO : refonte -> peut être optimisé
+        return Get_users().isEmpty();
+    }
+
+    /**
+     *   Get first user ID
+     */
+    public int get_first_user_id() {
+        if (is_empty()) {
+            return -1;
+        } else {
+            return Get_users().get(0).getID();
+        }
+
+    }
+
+    /**
+     *  delete all users except the first
+     */
+    public void there_can_be_only_one() {
+        ArrayList<User> user_list = Get_users();
+        int first = get_first_user_id();
+
+        for (User l : user_list) {
+            if(l.getID()!=first)
+            Delete_user(l.getID());
+        }
     }
 
 }
