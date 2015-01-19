@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Your package folder -->
+<lifemonitor.application.DashboardViewGroup
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:layout_weight="1"
+    android:background="#f8f9fe" >
+
+    <!--  Add treatment Button -->
+    <Button
+        android:id="@+id/btn_addtreatment"
+        style="@style/DashboardButton"
+        android:drawableTop="@drawable/btn_addtreatment"
+        android:text="Add treatment" />
+
+    <!--  Show medicine Button -->
+    <Button
+        android:id="@+id/btn_showmedicine"
+        style="@style/DashboardButton"
+        android:drawableTop="@drawable/btn_showmedicine"
+        android:text="Show medicine" />
+
+    <!--  Show configuration Button -->
+    <Button
+        android:id="@+id/btn_showconfig"
+        style="@style/DashboardButton"
+        android:drawableTop="@drawable/btn_showconfig"
+        android:text="Show config" />
+
+
+
+</lifemonitor.application.DashboardViewGroup>

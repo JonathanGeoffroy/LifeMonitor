@@ -1,8 +1,9 @@
 LifeMonitor
 ============
 
-Master state : [![Build Status](http://bouya.cloudapp.net/job/LifeMonitor-Master/badge/icon)](http://bouya.cloudapp.net/job/LifeMonitor-Master/)
-     Dev state : [![Build Status](http://bouya.cloudapp.net/job/LifeMonitor-Dev/badge/icon)](http://bouya.cloudapp.net/job/LifeMonitor-Dev/)
+Branch master -> [![Build Status](http://bouya.cloudapp.net/job/LifeMonitor-Master/badge/icon)](http://bouya.cloudapp.net/job/LifeMonitor-Master/)
+
+Branch dev -> [![Build Status](http://bouya.cloudapp.net/job/LifeMonitor-Dev/badge/icon)](http://bouya.cloudapp.net/job/LifeMonitor-Dev/)
 
 
 
@@ -17,13 +18,18 @@ To remind you :
 
 **NO DEV COMMIT IN MASTER BRANCH !!!**
 
+TODO
+----
+
+
+
 Contributors:  
 
-* Quentin BAILLEUL
-* Dorian BURIHABWA
-* Celia CACCIATORE
-* Maxime DOUYLLIEZ
-* Jonathan GEOFFROY
-* Edmond VAN-OVERTVELDT
-* Gregory LEFER
-* Romain PHILIPPON
+* Quentin _BAILLEUL_
+* Dorian _BURIHABWA_
+* Celia _CACCIATORE_
+* Maxime _DOUYLLIEZ_
+* Jonathan _GEOFFROY_
+* Edmond _VAN-OVERTVELDT_
+* Gregory _LEFER_
+* Romain _PHILIPPON_
