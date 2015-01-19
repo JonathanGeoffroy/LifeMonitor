@@ -1,8 +1,8 @@
 LifeMonitor
 ============
 
-Dev state : [![Build Status](http://bouya.cloudapp.net/job/LifeMonitor-Dev/badge/icon)](http://bouya.cloudapp.net/job/LifeMonitor-Dev/)
 Master state : [![Build Status](http://bouya.cloudapp.net/job/LifeMonitor-Master/badge/icon)](http://bouya.cloudapp.net/job/LifeMonitor-Master/)
+     Dev state : [![Build Status](http://bouya.cloudapp.net/job/LifeMonitor-Dev/badge/icon)](http://bouya.cloudapp.net/job/LifeMonitor-Dev/)
 
 
 
