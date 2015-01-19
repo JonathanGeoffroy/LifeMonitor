@@ -1,9 +1,8 @@
 package lifemonitor.application.model.medicalRecord;
 
-import android.graphics.Color;
-
 /**
- * Created by geoffroy on 16/01/15.
+ * Medical Record Item displayed by Medical Record Activity
+ * @author Jonathan Geoffroy
  */
 public interface MedicalRecordItem {
     public String getTitle();

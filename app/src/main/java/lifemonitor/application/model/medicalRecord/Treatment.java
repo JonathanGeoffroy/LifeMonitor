@@ -169,6 +169,6 @@ public class Treatment implements MedicalRecordItem {
 
     @Override
     public int getColor() {
-        return Color.argb(20, 78, 205, 196);
+        return Color.argb(255, 223, 240, 216);
     }
 }

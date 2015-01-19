@@ -45,6 +45,6 @@ public class Allergy implements MedicalRecordItem {
 
     @Override
     public int getColor() {
-        return Color.argb(50, 199, 244, 100);
+        return Color.argb(255, 242, 222, 222);
     }
 }

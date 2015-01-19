@@ -45,6 +45,6 @@ public class Illness implements  MedicalRecordItem {
 
     @Override
     public int getColor() {
-        return Color.argb(50, 255, 107, 107);
+        return Color.argb(255, 252, 248, 227);
     }
 }
