@@ -3,12 +3,10 @@ package lifemonitor.application;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.Button;
-import android.widget.TextView;
-
 import lifemonitor.application.controller.medicalRecord.AddTreatmentActivity;
 import lifemonitor.application.controller.medicalRecord.ShowMedicineActivity;
 import lifemonitor.application.controller.user_config.User_config_activity;
@@ -16,82 +14,66 @@ import lifemonitor.application.controller.user_config.User_config_activity;
 public class MyActivity extends Activity {
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_my);
+        //Remove title bar
+        this.requestWindowFeature(Window.FEATURE_NO_TITLE);
 
-        /* Button to add a treatment */
-        Button buttonTreatment = (Button) findViewById(R.id.addTreatmentButton);
-        buttonTreatment.setOnClickListener(new View.OnClickListener() {
+        //Remove notification bar
+        this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
+
+        setContentView(R.layout.dashboard_layout);
+
+        /**
+         * Creating all buttons instances
+         * */
+        // Dashboard Add treatment button
+        Button btn_addtreatment = (Button) findViewById(R.id.btn_addtreatment);
+
+        // Dashboard show medicine button
+        Button btn_showmedicine = (Button) findViewById(R.id.btn_showmedicine);
+
+        // Dashboard show configuration button
+        Button btn_showconfig = (Button) findViewById(R.id.btn_showconfig);
+
+        /**
+         * Handling all button click events
+         * */
+
+        // Listening to Add treatment button click
+        btn_addtreatment.setOnClickListener(new View.OnClickListener() {
+
             @Override
-            public void onClick(View v) {
-                onClickAddTreatment();
+            public void onClick(View view) {
+                // Launching News Feed Screen
+                Intent i = new Intent(getApplicationContext(), AddTreatmentActivity.class);
+                startActivity(i);
             }
         });
 
-        Button buttonMedicine = (Button) findViewById(R.id.showMedicinebutton);
-        buttonMedicine.setOnClickListener(new View.OnClickListener() {
+        // Listening show medicine button click
+        btn_showmedicine.setOnClickListener(new View.OnClickListener() {
+
             @Override
-            public void onClick(View v) {
-                onClickShowMedicine();
+            public void onClick(View view) {
+                // Launching News Feed Screen
+                Intent i = new Intent(getApplicationContext(), ShowMedicineActivity.class);
+                startActivity(i);
             }
         });
 
-        Button button_user_config = (Button) findViewById(R.id.showConfigMenu);
-        button_user_config.setOnClickListener(new View.OnClickListener() {
+        // Listening show configuration button click
+        btn_showconfig.setOnClickListener(new View.OnClickListener() {
+
             @Override
-            public void onClick(View v) {
-                onClickUserConfig();
+            public void onClick(View view) {
+                // Launching News Feed Screen
+                Intent i = new Intent(getApplicationContext(), User_config_activity.class);
+                startActivity(i);
             }
         });
 
 
-        //Todo Trouver un moyen de refresh mieux
-        DatabaseHandler dbHandler = new DatabaseHandler(this);
-        TextView user_name = (TextView) findViewById(R.id.menu_user_name);
-        user_name.setText(dbHandler.Get_user(dbHandler.get_first_user_id()).getFirstName());
-
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.my, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-        return id == R.id.action_settings || super.onOptionsItemSelected(item);
-    }
-
-    /**
-     * Launches the activity that enables to add a treatment.
-     */
-    public void onClickAddTreatment() {
-        Intent intent = new Intent(this, AddTreatmentActivity.class);
-        startActivity(intent);
-    }
-
-    /**
-     * Launches the activity that enables to add a treatment.
-     */
-    public void onClickShowMedicine() {
-        Intent intent = new Intent(this, ShowMedicineActivity.class);
-        intent.putExtra("MedicineName", "basic");
-        startActivity(intent);
-    }
-
-    /**
-     * Launches the activity to config lifemonitor.
-     */
-    public void onClickUserConfig() {
-        Intent intent = new Intent(this, User_config_activity.class);
-        startActivity(intent);
     }
 }
 
