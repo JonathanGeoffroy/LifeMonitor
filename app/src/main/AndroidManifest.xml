@@ -23,6 +23,10 @@
             android:label="@string/title_activity_add_treatment" >
         </activity>
         <activity
+            android:name=".controller.medicalRecord.ShowMedicalRecordActivity"
+            android:label="@string/show_medical_record_title" >
+        </activity>
+        <activity
             android:name=".controller.medicalRecord.ShowMedicineActivity"
             android:label="@string/title_activity_show_medicine" >
         </activity>

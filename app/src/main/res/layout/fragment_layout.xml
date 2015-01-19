@@ -7,6 +7,13 @@
     android:layout_weight="1"
     android:background="#f8f9fe" >
 
+    <!-- Show Medical Record Button -->
+    <Button
+        android:id="@+id/btn_showmedicalrecord"
+        style="@style/DashboardButton"
+        android:drawableTop="@drawable/btn_showmedicalrecord"
+        android:text="@string/show_medical_record_button" />
+
     <!--  Add treatment Button -->
     <Button
         android:id="@+id/btn_addtreatment"

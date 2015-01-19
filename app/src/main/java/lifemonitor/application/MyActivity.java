@@ -8,6 +8,7 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
 import lifemonitor.application.controller.medicalRecord.AddTreatmentActivity;
+import lifemonitor.application.controller.medicalRecord.ShowMedicalRecordActivity;
 import lifemonitor.application.controller.medicalRecord.ShowMedicineActivity;
 import lifemonitor.application.controller.user_config.User_config_activity;
 
@@ -36,6 +37,8 @@ public class MyActivity extends Activity {
         // Dashboard show configuration button
         Button btn_showconfig = (Button) findViewById(R.id.btn_showconfig);
 
+        Button btn_medicalRecord = (Button) findViewById(R.id.btn_showmedicalrecord);
+
         /**
          * Handling all button click events
          * */
@@ -48,6 +51,16 @@ public class MyActivity extends Activity {
                 // Launching News Feed Screen
                 Intent i = new Intent(getApplicationContext(), AddTreatmentActivity.class);
                 startActivity(i);
+            }
+        });
+
+        // Listening to Show Medical Record button click
+        btn_medicalRecord.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(), ShowMedicalRecordActivity.class);
+                startActivity(intent);
             }
         });
 
@@ -72,8 +85,6 @@ public class MyActivity extends Activity {
                 startActivity(i);
             }
         });
-
-
     }
 }
 

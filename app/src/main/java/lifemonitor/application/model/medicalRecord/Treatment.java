@@ -1,6 +1,12 @@
 package lifemonitor.application.model.medicalRecord;
 
+import android.content.Context;
+import android.graphics.Color;
+
+import java.text.SimpleDateFormat;
 import java.util.Date;
+
+import lifemonitor.application.R;
 
 /**
  * A Treatment must contain the following information: <br/>
@@ -12,7 +18,7 @@ import java.util.Date;
  *
  * @author Celia Cacciatore and Jonathan Geoffroy
  */
-public class Treatment {
+public class Treatment implements MedicalRecordItem {
 
     /*
      * The id is automatically generated in database.
@@ -151,5 +157,21 @@ public class Treatment {
         result = 31 * result + medicine.hashCode();
         result = 31 * result + (prescription != null ? prescription.hashCode() : 0);
         return result;
+    }
+
+    @Override
+    public String getTitle(Context context) {
+        return context.getString(R.string.treatment_prepend_title) + medicine;
+    }
+
+    @Override
+    public String getSubTitle(Context context) {
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/y");
+        return context.getString(R.string.treatment_prepend_subtitle) + simpleDateFormat.format(date);
+    }
+
+    @Override
+    public int getColor() {
+        return Color.argb(255, 223, 240, 216);
     }
 }

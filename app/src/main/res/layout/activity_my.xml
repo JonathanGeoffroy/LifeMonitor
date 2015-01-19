@@ -36,6 +36,13 @@
             >
 
             <Button
+                android:id="@+id/btn_showmedicalrecord"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:drawableTop="@drawable/btn_showmedicalrecord"
+                android:text="@string/show_medical_record_button" />
+
+            <Button
                 android:id="@+id/addTreatmentButton"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
