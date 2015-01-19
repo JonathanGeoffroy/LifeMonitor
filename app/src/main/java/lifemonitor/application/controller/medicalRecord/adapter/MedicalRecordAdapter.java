@@ -29,9 +29,11 @@ public class MedicalRecordAdapter extends BaseAdapter {
      * All items to display into the ListView
      */
     private final List<MedicalRecordItem> medicalRecords;
+    private Context context;
 
     public MedicalRecordAdapter(Context context) {
         super();
+        this.context = context;
         layoutInflater = LayoutInflater.from(context);
         medicalRecords = new ArrayList<MedicalRecordItem>();
     }
@@ -70,8 +72,8 @@ public class MedicalRecordAdapter extends BaseAdapter {
 
         // Update displayed data & background color
         MedicalRecordItem medicalRecord = medicalRecords.get(position);
-        viewHolder.title.setText(medicalRecord.getTitle());
-        viewHolder.subtitle.setText(medicalRecord.getSubTitle());
+        viewHolder.title.setText(medicalRecord.getTitle(context));
+        viewHolder.subtitle.setText(medicalRecord.getSubTitle(context));
         convertView.setBackgroundColor(medicalRecord.getColor());
 
         return convertView;

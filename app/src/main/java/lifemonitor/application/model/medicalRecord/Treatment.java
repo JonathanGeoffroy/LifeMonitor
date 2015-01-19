@@ -1,9 +1,12 @@
 package lifemonitor.application.model.medicalRecord;
 
+import android.content.Context;
 import android.graphics.Color;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+
+import lifemonitor.application.R;
 
 /**
  * A Treatment must contain the following information: <br/>
@@ -157,14 +160,14 @@ public class Treatment implements MedicalRecordItem {
     }
 
     @Override
-    public String getTitle() {
-        return "Traitement au " + medicine;
+    public String getTitle(Context context) {
+        return context.getString(R.string.treatment_prepend_title) + medicine;
     }
 
     @Override
-    public String getSubTitle() {
+    public String getSubTitle(Context context) {
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/y");
-        return "Depuis le " + simpleDateFormat.format(date);
+        return context.getString(R.string.treatment_prepend_subtitle) + simpleDateFormat.format(date);
     }
 
     @Override

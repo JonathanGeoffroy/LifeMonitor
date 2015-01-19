@@ -1,5 +1,6 @@
 package lifemonitor.application.model.medicalRecord;
 
+import android.content.Context;
 import android.graphics.Color;
 
 /**
@@ -34,12 +35,12 @@ public class Illness implements  MedicalRecordItem {
     }
 
     @Override
-    public String getTitle() {
+    public String getTitle(Context context) {
         return name;
     }
 
     @Override
-    public String getSubTitle() {
+    public String getSubTitle(Context context) {
         return null;
     }
 

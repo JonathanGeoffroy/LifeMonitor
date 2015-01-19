@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!--Global-->
-    <string name="app_name">lifemonitor</string>
+    <string name="app_name">Lifemonitor</string>
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
 
@@ -73,5 +73,18 @@
     <string name="popup_sync">Actualiser</string>
     <string name="prepend_treatment_title_listview">Traitement pour </string>
     <string name="prepend_treatment_subtitle_listview">depuis le</string>
+
+    <!--Config menu-->
+    <string name="title_user_config_menu">Configuration</string>
+    <string name="user_save_button">Sauvegarder</string>
+    <string name="user_firstname">Prénom </string>
+    <string name="user_surname">Nom </string>
+    <string name="user_phone">N° </string>
+    <string name="user_mail">Email </string>
+    <string name="user_firstname_sample">Anne</string>
+    <string name="user_surname_sample">Nonime</string>
+    <string name="treatment_prepend_title">"Traitement au "</string>
+    <string name="treatment_prepend_subtitle">"Depuis le "</string>
+
 
 </resources>
