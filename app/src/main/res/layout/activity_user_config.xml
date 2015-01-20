@@ -4,69 +4,95 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <GridLayout
-        android:layout_width="match_parent"
+    <TableLayout
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:alignmentMode="alignBounds"
-        android:columnCount="2"
-        android:useDefaultMargins="false">
+        android:id="@+id/">
 
-        <TextView
-            android:id="@+id/firstname_textView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/user_firstname" />
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="fill_parent">
 
-        <EditText
-            android:id="@+id/firstname_editText"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:inputType="textPersonName"
-            android:hint="@string/user_firstname_sample" />
+            <TextView
+                android:id="@+id/firstname_textView"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="@string/user_firstname"
+                android:layout_weight="1" />
 
-        <TextView
-            android:id="@+id/surname_textView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/user_surname" />
+            <EditText
+                android:id="@+id/firstname_editText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:inputType="textPersonName"
+                android:hint="@string/user_firstname_sample"
+                android:layout_weight="1" />
+        </TableRow>
 
-        <EditText
-            android:id="@+id/surname_editText"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:inputType="textPersonName"
-            android:hint="@string/user_surname_sample" />
+        <TableRow
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent" >
 
-        <TextView
-            android:id="@+id/mail_textView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/user_mail" />
+            <TextView
+                android:id="@+id/surname_textView"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="@string/user_surname"
+                android:layout_weight="1" />
 
-        <EditText
-            android:id="@+id/mail_editText"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:inputType="textEmailAddress"
-            android:hint="@string/user_email_sample"
-        />
+            <EditText
+                android:id="@+id/surname_editText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:inputType="textPersonName"
+                android:hint="@string/user_surname_sample"
+                android:layout_weight="1" />
+        </TableRow>
 
-        <TextView
-            android:id="@+id/number_textView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/user_phone" />
+        <TableRow
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent" >
 
-        <EditText
-            android:id="@+id/number_editText"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:inputType="phone" />
-    </GridLayout>
+            <TextView
+                android:id="@+id/mail_textView"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="@string/user_mail"
+                android:layout_weight="1" />
+
+            <EditText
+                android:id="@+id/mail_editText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:inputType="textEmailAddress"
+                android:hint="@string/user_email_sample"
+                android:layout_weight="1" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent" >
+
+            <TextView
+                android:id="@+id/number_textView"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="@string/user_phone"
+                android:layout_weight="1" />
+
+            <EditText
+                android:id="@+id/number_editText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:inputType="phone"
+                android:layout_weight="1" />
+        </TableRow>
+
+    </TableLayout>
 
     <Button
         android:id="@+id/save_button"
@@ -74,4 +100,5 @@
         android:layout_height="0dp"
         android:layout_weight="1"
         android:text="@string/user_save_button" />
+
 </LinearLayout>
