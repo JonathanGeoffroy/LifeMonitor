@@ -10,7 +10,7 @@ import android.widget.Button;
 import lifemonitor.application.controller.medicalRecord.AddTreatmentActivity;
 import lifemonitor.application.controller.medicalRecord.ShowMedicalRecordActivity;
 import lifemonitor.application.controller.medicalRecord.ShowMedicineActivity;
-import lifemonitor.application.controller.user_config.User_config_activity;
+import lifemonitor.application.controller.userconfig.UserConfigActivity;
 
 public class MyActivity extends Activity {
 
@@ -81,7 +81,7 @@ public class MyActivity extends Activity {
             @Override
             public void onClick(View view) {
                 // Launching News Feed Screen
-                Intent i = new Intent(getApplicationContext(), User_config_activity.class);
+                Intent i = new Intent(getApplicationContext(), UserConfigActivity.class);
                 startActivity(i);
             }
         });

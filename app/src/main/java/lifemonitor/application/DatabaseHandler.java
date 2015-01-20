@@ -9,7 +9,7 @@ import android.util.Log;
 
 import java.util.ArrayList;
 
-import lifemonitor.application.controller.user_config.User;
+import lifemonitor.application.model.User;
 
 public class DatabaseHandler extends SQLiteOpenHelper {
 
@@ -29,13 +29,13 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     private static final String KEY_SNAME = "sname";
     private static final String KEY_PH_NO = "phone_number";
     private static final String KEY_EMAIL = "email";
-    private final ArrayList<User> user_list = new ArrayList<User>();
+    private final ArrayList<User> user_list = new ArrayList<>();
 
     public DatabaseHandler(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
-        there_can_be_only_one();
-        if (is_empty()) {
-            init_empty();
+        thereCanBeOnlyOne();
+        if (isEmpty()) {
+            initEmpty();
         }
     }
 
@@ -63,7 +63,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
      */
 
     // Adding new user
-    public void Add_user(User user) {
+    public void addUser(User user) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
         values.put(KEY_FNAME, user.getFirstName()); // user FName
@@ -76,7 +76,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     }
 
     // Getting single user
-    public User Get_user(int id) {
+    public User getUser(int id) {
         SQLiteDatabase db = this.getReadableDatabase();
 
         Cursor cursor = db.query(TABLE_USERS, new String[]{KEY_ID,
@@ -96,7 +96,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     }
 
     // Getting All users
-    public ArrayList<User> Get_users() {
+    public ArrayList<User> getUsers() {
         try {
             user_list.clear();
 
@@ -132,7 +132,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     }
 
     // Updating single user
-    public int Update_user(User user) {
+    public int updateUser(User user) {
         SQLiteDatabase db = this.getWritableDatabase();
 
         ContentValues values = new ContentValues();
@@ -147,32 +147,32 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     }
 
     // Deleting single user
-    public void Delete_user(int id) {
+    public void deleteUser(int id) {
         SQLiteDatabase db = this.getWritableDatabase();
         db.delete(TABLE_USERS, KEY_ID + " = ?",
                 new String[]{String.valueOf(id)});
         db.close();
     }
 
-    public void init_empty() {
+    public void initEmpty() {
         String lost = "";
         User user = new User(1,lost, lost, lost, lost);
-        this.Add_user(user);
+        this.addUser(user);
 
     }
 
-    public boolean is_empty() {//TODO : refonte -> peut être optimisé
-        return Get_users().isEmpty();
+    public boolean isEmpty() {//TODO : refonte -> peut être optimisé
+        return getUsers().isEmpty();
     }
 
     /**
      *   Get first user ID
      */
-    public int get_first_user_id() {
-        if (is_empty()) {
+    public int getFirstUserId() {
+        if (isEmpty()) {
             return -1;
         } else {
-            return Get_users().get(0).getID();
+            return getUsers().get(0).getID();
         }
 
     }
@@ -180,13 +180,13 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     /**
      *  delete all users except the first
      */
-    public void there_can_be_only_one() {
-        ArrayList<User> user_list = Get_users();
-        int first = get_first_user_id();
+    public void thereCanBeOnlyOne() {
+        ArrayList<User> user_list = getUsers();
+        int first = getFirstUserId();
 
         for (User l : user_list) {
             if(l.getID()!=first)
-            Delete_user(l.getID());
+            deleteUser(l.getID());
         }
     }
 
