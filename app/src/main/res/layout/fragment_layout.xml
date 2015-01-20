@@ -19,22 +19,19 @@
         android:id="@+id/btn_addtreatment"
         style="@style/DashboardButton"
         android:drawableTop="@drawable/btn_addtreatment"
-        android:text="Add treatment" />
+        android:text="@string/add_treatment_button" />
 
     <!--  Show medicine Button -->
     <Button
         android:id="@+id/btn_showmedicine"
         style="@style/DashboardButton"
         android:drawableTop="@drawable/btn_showmedicine"
-        android:text="Show medicine" />
+        android:text="@string/show_medicine_button" />
 
     <!--  Show configuration Button -->
     <Button
         android:id="@+id/btn_showconfig"
         style="@style/DashboardButton"
         android:drawableTop="@drawable/btn_showconfig"
-        android:text="Show config" />
-
-
-
+        android:text="@string/title_user_config_menu" />
 </lifemonitor.application.DashboardViewGroup>
