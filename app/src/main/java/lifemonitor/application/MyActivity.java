@@ -71,6 +71,7 @@ public class MyActivity extends Activity {
             public void onClick(View view) {
                 // Launching News Feed Screen
                 Intent i = new Intent(getApplicationContext(), ShowMedicineActivity.class);
+                i.putExtra("medicineId",1);
                 startActivity(i);
             }
         });
