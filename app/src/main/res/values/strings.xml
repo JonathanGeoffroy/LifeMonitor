@@ -38,6 +38,7 @@
     <string name="startDateAfterEndDate">La date de début est après la date de fin de traitement</string>
     <string name="addTreatment_error">Impossible d\'ajouter ce traitement</string>
     <string name="medicineNotChosen">Veuillez choisir un medicament existant</string>
+    <string name="intent_medicine_id_error">Le médicament n\'a pas été trouvé, veuillez réessayer.</string>
 
     <!-- Shape (medicine) -->
     <string name="gel">Gel</string>
@@ -86,6 +87,4 @@
     <string name="treatment_prepend_title">"Traitement au "</string>
     <string name="treatment_prepend_subtitle">"Depuis le "</string>
     <string name="user_email_sample">lifemonitor@lifelab.com</string>
-
-
 </resources>
