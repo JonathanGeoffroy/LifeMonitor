@@ -29,6 +29,10 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     private static final String KEY_SNAME = "sname";
     private static final String KEY_PH_NO = "phone_number";
     private static final String KEY_EMAIL = "email";
+    private static final String KEY_BLOOD_GROUP = "blood_group";
+    private static final String KEY_URGENCY_NUMBER = "urgency_number";
+    private static final String KEY_DR_NAME = "dr_name";
+    private static final String KEY_DR_NUMBER = "dr_number";
     private final ArrayList<User> user_list = new ArrayList<>();
 
     public DatabaseHandler(Context context) {
@@ -44,7 +48,9 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase db) {
         String CREATE_USERS_TABLE = "CREATE TABLE " + TABLE_USERS + "("
                 + KEY_ID + " INTEGER PRIMARY KEY," + KEY_FNAME + " TEXT,"
-                 +KEY_SNAME + " TEXT," + KEY_PH_NO + " TEXT," + KEY_EMAIL + " TEXT" + ")";
+                + KEY_SNAME + " TEXT," + KEY_PH_NO + " TEXT," + KEY_EMAIL + " TEXT,"
+                + KEY_BLOOD_GROUP + " TEXT," + KEY_URGENCY_NUMBER + " TEXT," + KEY_DR_NAME + " TEXT,"
+                + KEY_DR_NUMBER + " TEXT" + ")";
         db.execSQL(CREATE_USERS_TABLE);
     }
 
@@ -70,6 +76,10 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         values.put(KEY_SNAME, user.getSurname()); // user FName
         values.put(KEY_PH_NO, user.getPhoneNumber()); // user Phone
         values.put(KEY_EMAIL, user.getEmail()); // user Email
+        values.put(KEY_BLOOD_GROUP, user.getEmail());
+        values.put(KEY_URGENCY_NUMBER, user.getEmail());
+        values.put(KEY_DR_NAME, user.getEmail());
+        values.put(KEY_DR_NUMBER, user.getEmail());
         // Inserting Row
         db.insert(TABLE_USERS, null, values);
         db.close(); // Closing database connection
@@ -80,14 +90,15 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getReadableDatabase();
 
         Cursor cursor = db.query(TABLE_USERS, new String[]{KEY_ID,
-                        KEY_FNAME, KEY_SNAME, KEY_PH_NO, KEY_EMAIL}, KEY_ID + "=?",
+                        KEY_FNAME, KEY_SNAME, KEY_PH_NO, KEY_EMAIL, KEY_BLOOD_GROUP, KEY_URGENCY_NUMBER, KEY_DR_NAME, KEY_DR_NUMBER}, KEY_ID + "=?",
                 new String[]{String.valueOf(id)}, null, null, null, null);
         if (cursor != null)
             cursor.moveToFirst();
 
         assert cursor != null;
         User user = new User(Integer.parseInt(cursor.getString(0)),
-                cursor.getString(1), cursor.getString(2), cursor.getString(3),cursor.getString(4));
+                cursor.getString(1), cursor.getString(2), cursor.getString(3), cursor.getString(4),
+                cursor.getString(5), cursor.getString(6), cursor.getString(7), cursor.getString(8));
         // return user
         cursor.close();
         db.close();
@@ -115,6 +126,11 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                     user.setSurname(cursor.getString(2));
                     user.setPhoneNumber(cursor.getString(3));
                     user.setEmail(cursor.getString(4));
+                    user.setBloodGroup(cursor.getString(5));
+                    user.setUrgencyNumber(cursor.getString(6));
+                    user.setDrName(cursor.getString(7));
+                    user.setDrNumber(cursor.getString(8));
+
                     // Adding user to list
                     user_list.add(user);
                 } while (cursor.moveToNext());
@@ -140,7 +156,10 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         values.put(KEY_SNAME, user.getSurname());
         values.put(KEY_PH_NO, user.getPhoneNumber());
         values.put(KEY_EMAIL, user.getEmail());
-
+        values.put(KEY_BLOOD_GROUP, user.getBloodGroup());
+        values.put(KEY_URGENCY_NUMBER, user.getUrgencyNumber());
+        values.put(KEY_DR_NAME, user.getDrName());
+        values.put(KEY_DR_NUMBER, user.getDrNumber());
         // updating row
         return db.update(TABLE_USERS, values, KEY_ID + " = ?",
                 new String[]{String.valueOf(user.getID())});
@@ -156,7 +175,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
     public void initEmpty() {
         String lost = "";
-        User user = new User(1,lost, lost, lost, lost);
+        User user = new User(1,lost, lost, lost, lost, lost, lost, lost, lost);
         this.addUser(user);
 
     }
