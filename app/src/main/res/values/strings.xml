@@ -4,6 +4,7 @@
     <string name="app_name">Lifemonitor</string>
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
+    <string name="address_lifemonitor">www.lifemonitor.com</string>
 
     <!--AddTreatment-->
     <string name="title_activity_add_treatment">AddTreatmentActivity</string>

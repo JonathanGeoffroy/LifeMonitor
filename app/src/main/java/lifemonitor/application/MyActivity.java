@@ -27,7 +27,10 @@ public class MyActivity extends Activity {
 
         /**
          * Creating all buttons instances
-         * */
+         */
+        // Dashboard Medical record button
+        Button btn_medicalRecord = (Button) findViewById(R.id.btn_showmedicalrecord);
+
         // Dashboard Add treatment button
         Button btn_addtreatment = (Button) findViewById(R.id.btn_addtreatment);
 
@@ -37,26 +40,11 @@ public class MyActivity extends Activity {
         // Dashboard show configuration button
         Button btn_showconfig = (Button) findViewById(R.id.btn_showconfig);
 
-        Button btn_medicalRecord = (Button) findViewById(R.id.btn_showmedicalrecord);
-
         /**
          * Handling all button click events
-         * */
-
-        // Listening to Add treatment button click
-        btn_addtreatment.setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View view) {
-                // Launching News Feed Screen
-                Intent i = new Intent(getApplicationContext(), AddTreatmentActivity.class);
-                startActivity(i);
-            }
-        });
-
+         */
         // Listening to Show Medical Record button click
         btn_medicalRecord.setOnClickListener(new View.OnClickListener() {
-
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(getApplicationContext(), ShowMedicalRecordActivity.class);
@@ -64,12 +52,19 @@ public class MyActivity extends Activity {
             }
         });
 
-        // Listening show medicine button click
-        btn_showmedicine.setOnClickListener(new View.OnClickListener() {
-
+        // Listening to Add treatment button click
+        btn_addtreatment.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                // Launching News Feed Screen
+                Intent i = new Intent(getApplicationContext(), AddTreatmentActivity.class);
+                startActivity(i);
+            }
+        });
+
+        // Listening show medicine button click
+        btn_showmedicine.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
                 Intent i = new Intent(getApplicationContext(), ShowMedicineActivity.class);
                 i.putExtra("medicineId",1);
                 startActivity(i);
@@ -78,10 +73,8 @@ public class MyActivity extends Activity {
 
         // Listening show configuration button click
         btn_showconfig.setOnClickListener(new View.OnClickListener() {
-
             @Override
             public void onClick(View view) {
-                // Launching News Feed Screen
                 Intent i = new Intent(getApplicationContext(), UserConfigActivity.class);
                 startActivity(i);
             }

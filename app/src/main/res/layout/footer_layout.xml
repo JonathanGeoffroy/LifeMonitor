@@ -2,7 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     style="@style/FooterBar" >
 
-    <TextView android:text="www.lifemonitor.com"
+    <TextView android:text="@string/address_lifemonitor"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:textColor="#606060"
