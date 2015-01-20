@@ -23,6 +23,8 @@ import lifemonitor.application.model.medicalRecord.MedicalRecordItem;
  *     Each <code>MedicalRecordItem</code> found is displayed as an item of this ListView<br/>
  *     Add data into <code>MedicalRecordAdapter</code> in order to display each MedicalRecordItem correctly.
  * </p>
+ *
+ * @author Jonathan Geoffroy
  */
 public class ShowMedicalRecordActivity extends Activity {
     private static final int PATIENT_ID = 1;

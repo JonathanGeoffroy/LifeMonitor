@@ -5,22 +5,21 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
-s
+
     <TextView
         android:id="@+id/medicalRecordItemTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:fontFamily="sans-serif-light"
-        android:textSize="18sp"
-        android:text="Title"/>
+        android:textSize="18sp" />
 
     <TextView
         android:id="@+id/medicalRecordItemSubtitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="end|bottom"
+        android:layout_marginRight="5sp"
         android:textSize="14sp"
-        android:textStyle="italic"
-        android:text="Subtitle"/>
+        android:textStyle="italic" />
 </LinearLayout>
