@@ -12,6 +12,8 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:fontFamily="sans-serif-light"
+        android:layout_marginLeft="8sp"
+        android:layout_marginRight="8sp"
         android:textSize="18sp" />
 
     <TextView
