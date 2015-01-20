@@ -1,25 +1,28 @@
 package lifemonitor.application.controller.medicalRecord;
 
-
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.app.FragmentActivity;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import lifemonitor.application.R;
 import lifemonitor.application.helper.rest.RESTHelper;
 import lifemonitor.application.helper.rest.listeners.SingleResultRESTListener;
-import lifemonitor.application.model.medicalRecord.DangerLevel;
-import lifemonitor.application.model.medicalRecord.HowToTake;
 import lifemonitor.application.model.medicalRecord.Medicine;
-import lifemonitor.application.model.medicalRecord.Shape;
 
-public class ShowMedicineActivity extends FragmentActivity implements SingleResultRESTListener<Medicine> {
+/**
+ * Get all information about a medicine in database and display them.<br/>
+ * Must get a valid medicine id from intent.
+ *
+ * @author Celia Cacciatore, Maxime Douylliez
+ */
+public class ShowMedicineActivity extends Activity {
 
-    Medicine medicine;
     TextView name;
     TextView shape;
     TextView howToConsume;
@@ -35,79 +38,43 @@ public class ShowMedicineActivity extends FragmentActivity implements SingleResu
         howToConsume = (TextView) findViewById(R.id.medicine_consumption_value);
         dangerLevel = (ImageView) findViewById(R.id.medicine_dangerlevel_value);
 
-        Intent intent = getIntent();
+        Intent intent= getIntent();
+        int id;
+        id=intent.getIntExtra("medicineId",-1);
 
-
-        /*this part should use resthelper*/
-
-        /*String medicine_name=intent.getStringExtra("MedicineName");
-        *
-        *
-        *
-        *
-        *
-        * */
-        if (!"basic".equals(intent.getStringExtra("MedecineName"))) {
-            medicine = getMockSample();
+        // Test : if default value in id, intent hasn't the real medicine id so we don't make request
+        if (id == -1) {
+            Toast.makeText(ShowMedicineActivity.this, getString(R.string.intent_medicine_id_error), Toast.LENGTH_LONG).show();
+        } else {
+            // Request to get a medicine object in database with rest helper
             RESTHelper<Medicine> helper = new RESTHelper<Medicine>(this.getBaseContext());
-            helper.sendGETRequestForSingleResult("/medicines/1",Medicine.class,this);
+            // TODO : get real id
+            helper.sendGETRequestForSingleResult("/medicines/" + id, Medicine.class, new SingleResultRESTListener<Medicine>() {
+                @Override
+                public void onGetResponse(Medicine medicine) {
+                    // Displays name, shape, how to take
+                    name.setText(medicine.getName());
+                    shape.setText(medicine.getShape().resource(ShowMedicineActivity.this));
+                    howToConsume.setText(medicine.getHow_to_take().resource(ShowMedicineActivity.this));
 
-        } else {
-            medicine = getMockSample();
+                    // Get image according to danger level
+                    String dangerLevelEnumValue = medicine.getDanger_level().toString();
+                    if ("LEVEL1".equals(dangerLevelEnumValue)) {
+                        dangerLevel.setImageDrawable(getResources().getDrawable(R.drawable.conducteurlevel1));
+                    } else if ("LEVEL2".equals(dangerLevelEnumValue)) {
+                        dangerLevel.setImageDrawable(getResources().getDrawable(R.drawable.conducteurlevel2));
+                    } else if ("LEVEL3".equals(dangerLevelEnumValue)) {
+                        dangerLevel.setImageDrawable(getResources().getDrawable(R.drawable.conducteurlevel3));
+                    } else {
+                        Log.e("ShowMedicineActivity", "Danger Level enum hasn't been initialized");
+                    }
+                }
+
+                @Override
+                public void onError() {
+                    Toast.makeText(ShowMedicineActivity.this, R.string.db_error, Toast.LENGTH_LONG).show();
+                }
+            });
         }
-
-
-
-
-    }
-
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.show_medicine, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-        if (id == R.id.action_settings) {
-            return true;
-        }
-        return super.onOptionsItemSelected(item);
-    }
-
-    private Medicine getMockSample() {
-        return new Medicine("Chocolate", Shape.POWDER, HowToTake.ORAL, DangerLevel.LEVEL3);
-    }
-
-    @Override
-    public void onGetResponse(Medicine result) {
-
-        medicine = result;
-        name.setText(medicine.getName());
-
-        shape.setText(medicine.getShape().resource(this));
-        howToConsume.setText(medicine.getHow_to_take().resource(this));
-        String dangerLevelEnumValue = medicine.getDanger_level().toString();
-
-        if ("LEVEL1".equals(dangerLevelEnumValue)) {
-            dangerLevel.setImageDrawable(getResources().getDrawable(R.drawable.conducteurlevel1));
-        } else if ("LEVEL2".equals(dangerLevelEnumValue)) {
-            dangerLevel.setImageDrawable(getResources().getDrawable(R.drawable.conducteurlevel2));
-        } else if ("LEVEL3".equals(dangerLevelEnumValue)) {
-            dangerLevel.setImageDrawable(getResources().getDrawable(R.drawable.conducteurlevel3));
-        } else {
-            System.out.println("exception ? NOT !");
-        }
-    }
-
-    @Override
-    public void onError() {
-        System.out.println("Erreur");
     }
 }

@@ -70,17 +70,6 @@
         android:gravity="center"
         android:layout_weight="0.13" />
 
-    <TextView
-        android:layout_width="205dp"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceSmall"
-        android:text="@string/medicine_danger_level"
-        android:id="@+id/medicine_dangerlevel"
-        android:layout_gravity="center_horizontal"
-        android:background="@color/darker_blue"
-        android:gravity="center"
-        android:layout_weight="0.03" />
-
     <ImageView
         android:layout_width="172dp"
         android:layout_height="117dp"
