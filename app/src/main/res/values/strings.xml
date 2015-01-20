@@ -78,13 +78,17 @@
 
     <!--Config menu-->
     <string name="title_user_config_menu">Configuration</string>
-    <string name="user_save_button">Sauvegarder</string>
+    <string name="user_save_button">Sauvegarder et Quitter</string>
     <string name="user_firstname">Prénom </string>
     <string name="user_surname">Nom </string>
     <string name="user_phone">Téléphone </string>
     <string name="user_mail">Email </string>
     <string name="user_firstname_sample">Anne</string>
     <string name="user_surname_sample">Nonime</string>
+    <string name="user_blood_group">Groupe Sanguin</string>
+    <string name="user_urgency_number">N° Urgence</string>
+    <string name="user_doctor_name">Nom médecin Traitant</string>
+    <string name="user_doctor_number">N° médecin Traitant</string>
     <string name="treatment_prepend_title">"Traitement au "</string>
     <string name="treatment_prepend_subtitle">"Depuis le "</string>
     <string name="user_email_sample">lifemonitor@lifelab.com</string>
