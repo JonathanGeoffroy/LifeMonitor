@@ -1,6 +1,7 @@
 package lifemonitor.application.controller.medicalRecord;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -23,9 +24,21 @@ import lifemonitor.application.model.medicalRecord.Medicine;
  */
 public class ShowMedicineActivity extends Activity {
 
+    /**
+     * Name of the medicine
+     */
     TextView name;
+    /**
+     * Shape of the medicine
+     */
     TextView shape;
+    /**
+     * how to consume the medicine
+     */
     TextView howToConsume;
+    /**
+     * Danger level of the medicine
+     */
     ImageView dangerLevel;
 
     @Override
@@ -59,12 +72,14 @@ public class ShowMedicineActivity extends Activity {
 
                     // Get image according to danger level
                     String dangerLevelEnumValue = medicine.getDanger_level().toString();
-                    if ("LEVEL1".equals(dangerLevelEnumValue)) {
-                        dangerLevel.setImageDrawable(getResources().getDrawable(R.drawable.conducteurlevel1));
-                    } else if ("LEVEL2".equals(dangerLevelEnumValue)) {
-                        dangerLevel.setImageDrawable(getResources().getDrawable(R.drawable.conducteurlevel2));
-                    } else if ("LEVEL3".equals(dangerLevelEnumValue)) {
-                        dangerLevel.setImageDrawable(getResources().getDrawable(R.drawable.conducteurlevel3));
+                    Context contextToGetRessources = getApplication().getApplicationContext();
+                    int id_drawable = contextToGetRessources.getResources().getIdentifier("conducteur"+dangerLevelEnumValue.toLowerCase(),
+                            "drawable",
+                            contextToGetRessources.getPackageName());
+
+
+                    if (id_drawable != 0) {
+                        dangerLevel.setImageDrawable(getResources().getDrawable(id_drawable));
                     } else {
                         Log.e("ShowMedicineActivity", "Danger Level enum hasn't been initialized");
                     }
