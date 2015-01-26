@@ -35,6 +35,10 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     private static final String KEY_DR_NUMBER = "dr_number";
     private final ArrayList<User> user_list = new ArrayList<>();
 
+    /**
+     * Main constructor
+     * @param context Context of the handler
+     */
     public DatabaseHandler(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
         thereCanBeOnlyOne();
@@ -68,7 +72,10 @@ public class DatabaseHandler extends SQLiteOpenHelper {
      * All CRUD(Create, Read, Update, Delete) Operations
      */
 
-    // Adding new user
+    /**
+     * Add a new user in the database
+     * @param user user to add in the database
+     */
     public void addUser(User user) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
@@ -85,7 +92,11 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         db.close(); // Closing database connection
     }
 
-    // Getting single user
+    /**
+     * Get the user identified by the id in parameter
+     * @param id id of the user to find
+     * @return the user in the local database
+     */
     public User getUser(int id) {
         SQLiteDatabase db = this.getReadableDatabase();
 
@@ -106,7 +117,10 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         return user;
     }
 
-    // Getting All users
+    /**
+     * Get all users in the local database
+     * @return list of users in the database
+     */
     public ArrayList<User> getUsers() {
         try {
             user_list.clear();
@@ -147,7 +161,11 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         return user_list;
     }
 
-    // Updating single user
+    /**
+     * Update of the user
+     * @param user user to update
+     * @return the number of rows affected
+     */
     public int updateUser(User user) {
         SQLiteDatabase db = this.getWritableDatabase();
 
@@ -165,7 +183,10 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 new String[]{String.valueOf(user.getID())});
     }
 
-    // Deleting single user
+    /**
+     * Delete the user in the database
+     * @param id id of the user to delete
+     */
     public void deleteUser(int id) {
         SQLiteDatabase db = this.getWritableDatabase();
         db.delete(TABLE_USERS, KEY_ID + " = ?",
@@ -173,6 +194,9 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         db.close();
     }
 
+    /**
+     * Initialization of the user
+     */
     public void initEmpty() {
         String lost = "";
         User user = new User(1,lost, lost, lost, lost, lost, lost, lost, lost);
@@ -180,12 +204,18 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
     }
 
-    public boolean isEmpty() {//TODO : refonte -> peut être optimisé
+
+    /**
+     * check if the database is empty
+     * @return true if the user database is empty
+     */
+    public boolean isEmpty() {
         return getUsers().isEmpty();
     }
 
     /**
      *   Get first user ID
+     *   @return the first id in the user database
      */
     public int getFirstUserId() {
         if (isEmpty()) {
@@ -197,7 +227,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     }
 
     /**
-     *  delete all users except the first
+     * there is only one user in the database
      */
     public void thereCanBeOnlyOne() {
         ArrayList<User> user_list = getUsers();

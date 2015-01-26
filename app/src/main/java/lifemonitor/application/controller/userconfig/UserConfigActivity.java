@@ -50,6 +50,10 @@ public class UserConfigActivity extends FragmentActivity {
         dbHandler.close();
     }
 
+
+    /**
+     * Fill the input with value in the database
+     */
     private void getEditText() {
         int user_id = dbHandler.getFirstUserId();
 
@@ -67,6 +71,9 @@ public class UserConfigActivity extends FragmentActivity {
 
     }
 
+    /**
+     * Save the user configuration
+     */
     public void onClickSaveConfig() {
         User new_user = new User(1, this.editFirstName.getText().toString(), this.editSurname.getText().toString(),
                 this.editNumber.getText().toString(), this.editMail.getText().toString(), this.editBlood.getText().toString(),
