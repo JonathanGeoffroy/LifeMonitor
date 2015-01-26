@@ -25,8 +25,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
     // users Table Columns names
     private static final String KEY_ID = "id";
-    private static final String KEY_FNAME = "fname";
-    private static final String KEY_SNAME = "sname";
+    private static final String KEY_FIRSTNAME = "firstname";
+    private static final String KEY_SURNAME = "surname";
     private static final String KEY_PH_NO = "phone_number";
     private static final String KEY_EMAIL = "email";
     private static final String KEY_BLOOD_GROUP = "blood_group";
@@ -47,8 +47,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
         String CREATE_USERS_TABLE = "CREATE TABLE " + TABLE_USERS + "("
-                + KEY_ID + " INTEGER PRIMARY KEY," + KEY_FNAME + " TEXT,"
-                + KEY_SNAME + " TEXT," + KEY_PH_NO + " TEXT," + KEY_EMAIL + " TEXT,"
+                + KEY_ID + " INTEGER PRIMARY KEY," + KEY_FIRSTNAME + " TEXT,"
+                + KEY_SURNAME + " TEXT," + KEY_PH_NO + " TEXT," + KEY_EMAIL + " TEXT,"
                 + KEY_BLOOD_GROUP + " TEXT," + KEY_URGENCY_NUMBER + " TEXT," + KEY_DR_NAME + " TEXT,"
                 + KEY_DR_NUMBER + " TEXT" + ")";
         db.execSQL(CREATE_USERS_TABLE);
@@ -72,8 +72,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     public void addUser(User user) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
-        values.put(KEY_FNAME, user.getFirstName()); // user FName
-        values.put(KEY_SNAME, user.getSurname()); // user FName
+        values.put(KEY_FIRSTNAME, user.getFirstName()); // user FName
+        values.put(KEY_SURNAME, user.getSurname()); // user FName
         values.put(KEY_PH_NO, user.getPhoneNumber()); // user Phone
         values.put(KEY_EMAIL, user.getEmail()); // user Email
         values.put(KEY_BLOOD_GROUP, user.getEmail());
@@ -90,7 +90,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getReadableDatabase();
 
         Cursor cursor = db.query(TABLE_USERS, new String[]{KEY_ID,
-                        KEY_FNAME, KEY_SNAME, KEY_PH_NO, KEY_EMAIL, KEY_BLOOD_GROUP, KEY_URGENCY_NUMBER, KEY_DR_NAME, KEY_DR_NUMBER}, KEY_ID + "=?",
+                        KEY_FIRSTNAME, KEY_SURNAME, KEY_PH_NO, KEY_EMAIL, KEY_BLOOD_GROUP, KEY_URGENCY_NUMBER, KEY_DR_NAME, KEY_DR_NUMBER}, KEY_ID + "=?",
                 new String[]{String.valueOf(id)}, null, null, null, null);
         if (cursor != null)
             cursor.moveToFirst();
@@ -152,8 +152,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getWritableDatabase();
 
         ContentValues values = new ContentValues();
-        values.put(KEY_FNAME, user.getFirstName());
-        values.put(KEY_SNAME, user.getSurname());
+        values.put(KEY_FIRSTNAME, user.getFirstName());
+        values.put(KEY_SURNAME, user.getSurname());
         values.put(KEY_PH_NO, user.getPhoneNumber());
         values.put(KEY_EMAIL, user.getEmail());
         values.put(KEY_BLOOD_GROUP, user.getBloodGroup());
