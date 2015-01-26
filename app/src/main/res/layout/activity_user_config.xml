@@ -135,7 +135,8 @@
                 android:layout_height="wrap_content"
                 android:ems="10"
                 android:inputType="phone"
-                android:layout_weight="1" />
+                android:layout_weight="1"
+                android:hint="@string/user_urgency_number_sample" />
         </TableRow>
 
         <TableRow
@@ -155,7 +156,8 @@
                 android:layout_height="wrap_content"
                 android:ems="10"
                 android:inputType="textPersonName"
-                android:layout_weight="1" />
+                android:layout_weight="1"
+                android:hint="@string/user_doctor_name_sample" />
         </TableRow>
 
         <TableRow

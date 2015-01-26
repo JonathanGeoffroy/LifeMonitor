@@ -34,4 +34,16 @@
         style="@style/DashboardButton"
         android:drawableTop="@drawable/btn_showconfig"
         android:text="@string/title_user_config_menu" />
+
+    <!--  Show Call Button -->
+    <Button
+        android:id="@+id/btn_call"
+        style="@style/DashboardButton"
+        android:drawableTop="@drawable/btn_call"
+        android:text="@string/title_call" />
+
+    <!--  Show nothing -->
+    <Button
+        style="@style/DashboardButton" />
+
 </lifemonitor.application.DashboardViewGroup>
