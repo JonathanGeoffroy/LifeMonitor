@@ -25,8 +25,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
     // users Table Columns names
     private static final String KEY_ID = "id";
-    private static final String KEY_FNAME = "fname";
-    private static final String KEY_SNAME = "sname";
+    private static final String KEY_FIRSTNAME = "firstname";
+    private static final String KEY_SURNAME = "surname";
     private static final String KEY_PH_NO = "phone_number";
     private static final String KEY_EMAIL = "email";
     private static final String KEY_BLOOD_GROUP = "blood_group";
@@ -35,6 +35,10 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     private static final String KEY_DR_NUMBER = "dr_number";
     private final ArrayList<User> user_list = new ArrayList<>();
 
+    /**
+     * Main constructor
+     * @param context Context of the handler
+     */
     public DatabaseHandler(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
         thereCanBeOnlyOne();
@@ -47,8 +51,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
         String CREATE_USERS_TABLE = "CREATE TABLE " + TABLE_USERS + "("
-                + KEY_ID + " INTEGER PRIMARY KEY," + KEY_FNAME + " TEXT,"
-                + KEY_SNAME + " TEXT," + KEY_PH_NO + " TEXT," + KEY_EMAIL + " TEXT,"
+                + KEY_ID + " INTEGER PRIMARY KEY," + KEY_FIRSTNAME + " TEXT,"
+                + KEY_SURNAME + " TEXT," + KEY_PH_NO + " TEXT," + KEY_EMAIL + " TEXT,"
                 + KEY_BLOOD_GROUP + " TEXT," + KEY_URGENCY_NUMBER + " TEXT," + KEY_DR_NAME + " TEXT,"
                 + KEY_DR_NUMBER + " TEXT" + ")";
         db.execSQL(CREATE_USERS_TABLE);
@@ -68,12 +72,15 @@ public class DatabaseHandler extends SQLiteOpenHelper {
      * All CRUD(Create, Read, Update, Delete) Operations
      */
 
-    // Adding new user
+    /**
+     * Add a new user in the database
+     * @param user user to add in the database
+     */
     public void addUser(User user) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
-        values.put(KEY_FNAME, user.getFirstName()); // user FName
-        values.put(KEY_SNAME, user.getSurname()); // user FName
+        values.put(KEY_FIRSTNAME, user.getFirstName()); // user FName
+        values.put(KEY_SURNAME, user.getSurname()); // user FName
         values.put(KEY_PH_NO, user.getPhoneNumber()); // user Phone
         values.put(KEY_EMAIL, user.getEmail()); // user Email
         values.put(KEY_BLOOD_GROUP, user.getEmail());
@@ -85,12 +92,16 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         db.close(); // Closing database connection
     }
 
-    // Getting single user
+    /**
+     * Get the user identified by the id in parameter
+     * @param id id of the user to find
+     * @return the user in the local database
+     */
     public User getUser(int id) {
         SQLiteDatabase db = this.getReadableDatabase();
 
         Cursor cursor = db.query(TABLE_USERS, new String[]{KEY_ID,
-                        KEY_FNAME, KEY_SNAME, KEY_PH_NO, KEY_EMAIL, KEY_BLOOD_GROUP, KEY_URGENCY_NUMBER, KEY_DR_NAME, KEY_DR_NUMBER}, KEY_ID + "=?",
+                        KEY_FIRSTNAME, KEY_SURNAME, KEY_PH_NO, KEY_EMAIL, KEY_BLOOD_GROUP, KEY_URGENCY_NUMBER, KEY_DR_NAME, KEY_DR_NUMBER}, KEY_ID + "=?",
                 new String[]{String.valueOf(id)}, null, null, null, null);
         if (cursor != null)
             cursor.moveToFirst();
@@ -106,7 +117,10 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         return user;
     }
 
-    // Getting All users
+    /**
+     * Get all users in the local database
+     * @return list of users in the database
+     */
     public ArrayList<User> getUsers() {
         try {
             user_list.clear();
@@ -147,13 +161,17 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         return user_list;
     }
 
-    // Updating single user
+    /**
+     * Update of the user
+     * @param user user to update
+     * @return the number of rows affected
+     */
     public int updateUser(User user) {
         SQLiteDatabase db = this.getWritableDatabase();
 
         ContentValues values = new ContentValues();
-        values.put(KEY_FNAME, user.getFirstName());
-        values.put(KEY_SNAME, user.getSurname());
+        values.put(KEY_FIRSTNAME, user.getFirstName());
+        values.put(KEY_SURNAME, user.getSurname());
         values.put(KEY_PH_NO, user.getPhoneNumber());
         values.put(KEY_EMAIL, user.getEmail());
         values.put(KEY_BLOOD_GROUP, user.getBloodGroup());
@@ -165,7 +183,10 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 new String[]{String.valueOf(user.getID())});
     }
 
-    // Deleting single user
+    /**
+     * Delete the user in the database
+     * @param id id of the user to delete
+     */
     public void deleteUser(int id) {
         SQLiteDatabase db = this.getWritableDatabase();
         db.delete(TABLE_USERS, KEY_ID + " = ?",
@@ -173,6 +194,9 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         db.close();
     }
 
+    /**
+     * Initialization of the user
+     */
     public void initEmpty() {
         String lost = "";
         User user = new User(1,lost, lost, lost, lost, lost, lost, lost, lost);
@@ -180,12 +204,18 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
     }
 
-    public boolean isEmpty() {//TODO : refonte -> peut être optimisé
+
+    /**
+     * check if the database is empty
+     * @return true if the user database is empty
+     */
+    public boolean isEmpty() {
         return getUsers().isEmpty();
     }
 
     /**
      *   Get first user ID
+     *   @return the first id in the user database
      */
     public int getFirstUserId() {
         if (isEmpty()) {
@@ -197,7 +227,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     }
 
     /**
-     *  delete all users except the first
+     * there is only one user in the database
      */
     public void thereCanBeOnlyOne() {
         ArrayList<User> user_list = getUsers();
