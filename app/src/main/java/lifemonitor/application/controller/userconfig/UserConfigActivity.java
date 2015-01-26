@@ -1,7 +1,5 @@
 package lifemonitor.application.controller.userconfig;
 
-import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.view.View;
@@ -38,7 +36,7 @@ public class UserConfigActivity extends FragmentActivity {
         this.editMail = (EditText) findViewById(R.id.mail_editText);
         this.editSurname = (EditText) findViewById(R.id.surname_editText);
         this.editBlood = (EditText) findViewById(R.id.user_bloodgroup_editText);
-        this.editUrgency = (EditText) findViewById(R.id.user_urgencyNumber_editText);
+        this.editUrgency = (EditText) findViewById(R.id.user_emergencyNumber_editText);
         this.editDrName = (EditText) findViewById(R.id.user_drname_editText);
         this.editDrNumber = (EditText) findViewById(R.id.user_drNumber_editText);
         Button saveButton = (Button) findViewById(R.id.save_button);
@@ -65,7 +63,7 @@ public class UserConfigActivity extends FragmentActivity {
             editSurname.setText("" + dbHandler.getUser(user_id).getSurname());
             editNumber.setText("" + dbHandler.getUser(user_id).getPhoneNumber());
             editBlood.setText("" + dbHandler.getUser(user_id).getBloodGroup());
-            editUrgency.setText("" + dbHandler.getUser(user_id).getUrgencyNumber());
+            editUrgency.setText("" + dbHandler.getUser(user_id).getEmergencyNumber());
             editDrName.setText("" + dbHandler.getUser(user_id).getDrName());
             editDrNumber.setText("" + dbHandler.getUser(user_id).getDrNumber());
 

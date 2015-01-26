@@ -123,20 +123,20 @@
             android:layout_height="fill_parent" >
 
             <TextView
-                android:id="@+id/user_urgencyNumber_textView"
+                android:id="@+id/user_emergencyNumber_textView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/user_urgency_number"
+                android:text="@string/user_emergency_number"
                 android:layout_weight="1" />
 
             <EditText
-                android:id="@+id/user_urgencyNumber_editText"
+                android:id="@+id/user_emergencyNumber_editText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:ems="10"
                 android:inputType="phone"
                 android:layout_weight="1"
-                android:hint="@string/user_urgency_number_sample" />
+                android:hint="@string/user_emergency_number_sample" />
         </TableRow>
 
         <TableRow

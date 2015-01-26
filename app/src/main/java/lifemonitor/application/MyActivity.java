@@ -95,13 +95,13 @@ public class MyActivity extends Activity {
             @Override
             public void onClick(View view) {
                 Intent callIntent = new Intent(Intent.ACTION_CALL);
-                String call = dbHandler.getUser(dbHandler.getFirstUserId()).getUrgencyNumber();
+                String call = dbHandler.getUser(dbHandler.getFirstUserId()).getEmergencyNumber();
                 if (!call.equals("")) {
                     callIntent.setData(Uri.parse("tel:"+call));
                     startActivity(callIntent);
                 }
                 else {
-                    Toast.makeText(MyActivity.this, R.string.user_empty, Toast.LENGTH_LONG).show();
+                    Toast.makeText(MyActivity.this, R.string.emergency_number_empty, Toast.LENGTH_LONG).show();
                 }
             }
         });

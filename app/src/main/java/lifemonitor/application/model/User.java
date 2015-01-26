@@ -12,7 +12,7 @@ public class User {
     private String phoneNumber;
     private String email;
     private String bloodGroup;
-    private String urgencyNumber;
+    private String emergencyNumber;
     private String drName;
     private String drNumber;
 
@@ -23,14 +23,14 @@ public class User {
      *     constructor
      */
     public User(int id, String firstName, String surname, String phoneNumber, String email,
-                String bloodGroup, String urgencyNumber, String drName, String drNumber) {
+                String bloodGroup, String emergencyNumber, String drName, String drNumber) {
         this.id = id;
         this.firstName = firstName;
         this.surname = surname;
         this.phoneNumber = phoneNumber;
         this.email = email;
         this.bloodGroup = bloodGroup;
-        this.urgencyNumber = urgencyNumber;
+        this.emergencyNumber = emergencyNumber;
         this.drName = drName;
         this.drNumber = drNumber;
 
@@ -38,13 +38,13 @@ public class User {
 
     // constructor
     public User(String firstName, String surname, String phoneNumber, String email,
-                String bloodGroup, String urgencyNumber, String drName, String drNumber) {
+                String bloodGroup, String emergencyNumber, String drName, String drNumber) {
         this.firstName = firstName;
         this.surname = surname;
         this.phoneNumber = phoneNumber;
         this.email = email;
         this.bloodGroup = bloodGroup;
-        this.urgencyNumber = urgencyNumber;
+        this.emergencyNumber = emergencyNumber;
         this.drName = drName;
         this.drNumber = drNumber;
     }
@@ -103,8 +103,8 @@ public class User {
         return bloodGroup;
     }
 
-    public String getUrgencyNumber() {
-        return urgencyNumber;
+    public String getEmergencyNumber() {
+        return emergencyNumber;
     }
 
     public String getDrName() {
@@ -119,8 +119,8 @@ public class User {
         this.bloodGroup = bloodGroup;
     }
 
-    public void setUrgencyNumber(String urgencyNumber) {
-        this.urgencyNumber = urgencyNumber;
+    public void setEmergencyNumber(String EmergencyNumber) {
+        this.emergencyNumber = EmergencyNumber;
     }
 
     public void setDrName(String drName) {
