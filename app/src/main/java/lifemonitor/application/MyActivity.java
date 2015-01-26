@@ -95,7 +95,7 @@ public class MyActivity extends Activity {
             @Override
             public void onClick(View view) {
                 Intent callIntent = new Intent(Intent.ACTION_CALL);
-                String call=dbHandler.getUser(dbHandler.getFirstUserId()).getUrgencyNumber();
+                String call = dbHandler.getUser(dbHandler.getFirstUserId()).getUrgencyNumber();
                 if (!call.equals("")) {
                     callIntent.setData(Uri.parse("tel:"+call));
                     startActivity(callIntent);
