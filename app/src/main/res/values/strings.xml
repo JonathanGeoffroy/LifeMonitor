@@ -58,7 +58,7 @@
     <!-- How to take (medicine) -->
     <string name="Oral">Orale</string>
     <string name="Dermal">Cutanée</string>
-    <string name="Intravenous">Intraveineuse</string>
+    <string name="Intraveinous">Intraveineuse</string>
     <string name="Auricular">Auriculaire</string>
     <string name="Intramuscular">Intramusculaire</string>
     <string name="Inhaled">Inhalée</string>
@@ -92,4 +92,13 @@
     <string name="treatment_prepend_title">"Traitement au "</string>
     <string name="treatment_prepend_subtitle">"Depuis le "</string>
     <string name="user_email_sample">lifemonitor@lifelab.com</string>
+    <string name="quantity">Dosage</string>
+    <string name="frequency_separator">par</string>
+
+    <!-- Frequency possibilities -->
+    <string name="day">jour</string>
+    <string name="hour">heure</string>
+    <string name="week">semaine</string>
+    <string name="month">mois</string>
+    <string name="year">année</string>
 </resources>
