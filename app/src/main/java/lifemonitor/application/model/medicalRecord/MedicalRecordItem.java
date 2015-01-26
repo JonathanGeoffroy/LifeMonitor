@@ -13,6 +13,6 @@ public interface MedicalRecordItem extends Serializable {
     public String getTitle(Context context);
     public String getSubTitle(Context context);
     public int getColor();
-    public DialogFragment getInformation();
+    public DialogFragment acceptInformation();
 
 }

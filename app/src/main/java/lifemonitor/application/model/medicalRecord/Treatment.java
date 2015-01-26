@@ -4,6 +4,7 @@ import android.app.DialogFragment;
 import android.content.Context;
 import android.graphics.Color;
 
+import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -20,7 +21,7 @@ import lifemonitor.application.controller.medicalRecord.widget.medicalRecordItem
  *
  * @author Celia Cacciatore and Jonathan Geoffroy
  */
-public class Treatment implements MedicalRecordItem {
+public class Treatment implements MedicalRecordItem, Serializable {
 
     private final static long MILLISECONDS_PER_DAY = 24 * 60 * 60 * 1000;
 
@@ -166,13 +167,13 @@ public class Treatment implements MedicalRecordItem {
 
         Treatment treatment = (Treatment) o;
 
+        SimpleDateFormat format = new SimpleDateFormat("ymd");
         if (duration != treatment.duration) return false;
         if (frequency != treatment.frequency) return false;
         if (id != treatment.id) return false;
         if (Double.compare(treatment.quantity, quantity) != 0) return false;
-        if (date != null ? !date.equals(treatment.date) : treatment.date != null) return false;
-        if (medicine != null ? !medicine.equals(treatment.medicine) : treatment.medicine != null)
-            return false;
+        if (!format.format(date).equals(format.format(treatment.date))) return false;
+        if (!medicine.equals(treatment.medicine)) return false;
         if (prescription != null ? !prescription.equals(treatment.prescription) : treatment.prescription != null)
             return false;
 
@@ -184,11 +185,11 @@ public class Treatment implements MedicalRecordItem {
         int result;
         long temp;
         result = id;
-        result = 31 * result + (date != null ? date.hashCode() : 0);
+        result = 31 * result + date.hashCode();
         result = 31 * result + frequency;
         temp = Double.doubleToLongBits(quantity);
         result = 31 * result + (int) (temp ^ (temp >>> 32));
-        result = 31 * result + (medicine != null ? medicine.hashCode() : 0);
+        result = 31 * result + medicine.hashCode();
         result = 31 * result + (prescription != null ? prescription.hashCode() : 0);
         result = 31 * result + duration;
         return result;
@@ -211,7 +212,7 @@ public class Treatment implements MedicalRecordItem {
     }
 
     @Override
-    public DialogFragment getInformation() {
+    public DialogFragment acceptInformation() {
         return new TreatmentInformationDialog();
     }
 }

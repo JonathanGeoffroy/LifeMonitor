@@ -51,7 +51,7 @@ public class Illness implements  MedicalRecordItem {
     }
 
     @Override
-    public DialogFragment getInformation() {
+    public DialogFragment acceptInformation() {
         return null;
     }
 }
