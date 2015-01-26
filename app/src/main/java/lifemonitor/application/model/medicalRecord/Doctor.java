@@ -1,9 +1,11 @@
 package lifemonitor.application.model.medicalRecord;
 
+import java.io.Serializable;
+
 /**
  * @author Célia Cacciatore, Jonathan Geoffroy
  */
-public class Doctor {
+public class Doctor implements Serializable {
 
     private int id;
     private String name;

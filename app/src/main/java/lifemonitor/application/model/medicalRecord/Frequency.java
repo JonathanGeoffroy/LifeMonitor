@@ -25,6 +25,10 @@ public enum Frequency {
         return ctx.getString(resId);
     }
 
+    public int getResId() {
+        return resId;
+    }
+
     public int getHours() {
         return this.hours;
     }

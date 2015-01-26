@@ -1,13 +1,18 @@
 package lifemonitor.application.model.medicalRecord;
 
+import android.app.DialogFragment;
 import android.content.Context;
+
+import java.io.Serializable;
 
 /**
  * Medical Record Item displayed by Medical Record Activity
  * @author Jonathan Geoffroy
  */
-public interface MedicalRecordItem {
+public interface MedicalRecordItem extends Serializable {
     public String getTitle(Context context);
     public String getSubTitle(Context context);
     public int getColor();
+    public DialogFragment getInformation();
+
 }

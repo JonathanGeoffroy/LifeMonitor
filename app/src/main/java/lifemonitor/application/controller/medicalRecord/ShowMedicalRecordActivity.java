@@ -1,10 +1,13 @@
 package lifemonitor.application.controller.medicalRecord;
 
 import android.app.Activity;
+import android.app.DialogFragment;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -43,6 +46,19 @@ public class ShowMedicalRecordActivity extends Activity {
         adapter = new MedicalRecordAdapter(this);
         medicalRecord.setAdapter(adapter);
 
+        medicalRecord.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                MedicalRecordItem item = (MedicalRecordItem) adapter.getItem(position);
+                DialogFragment informationDialog = item.getInformation();
+                if(informationDialog != null) {
+                    Bundle bundle = new Bundle();
+                    bundle.putSerializable("item", item);
+                    informationDialog.setArguments(bundle);
+                    informationDialog.show(getFragmentManager(), "MedicalRecordItemInformation");
+                }
+            }
+        });
         // Find Medical Record information from REST Service
         refreshListView();
     }
@@ -59,7 +75,7 @@ public class ShowMedicalRecordActivity extends Activity {
                 adapter.clear();
 
                 // Add new items
-                List<MedicalRecordItem> items = new LinkedList<MedicalRecordItem>();
+                List<MedicalRecordItem> items = new LinkedList<>();
                 items.addAll(medicalRecord.getAllergies());
                 items.addAll(medicalRecord.getIllnesses());
                 items.addAll(medicalRecord.getTreatments());

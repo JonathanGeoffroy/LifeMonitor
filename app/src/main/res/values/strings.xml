@@ -41,7 +41,7 @@
     <string name="medicineNotChosen">Veuillez choisir un medicament existant</string>
     <string name="intent_medicine_id_error">Le médicament n\'a pas été trouvé, veuillez réessayer.</string>
     <string name="quantity">Dosage</string>
-    <string name="frequency_separator">par</string>
+    <string name="frequency_separator">fois par</string>
 
     <!-- Shape (medicine) -->
     <string name="gel">Gel</string>
@@ -105,4 +105,5 @@
     <string name="week">semaine</string>
     <string name="month">mois</string>
     <string name="year">année</string>
+    <string name="doctor_prescription">Prescrit par</string>
 </resources>

@@ -1,11 +1,12 @@
 package lifemonitor.application.model.medicalRecord;
 
+import java.io.Serializable;
 import java.util.Date;
 
 /**
  * @author Célia Cacciatore, Jonathan Geoffroy
  */
-public class Prescription {
+public class Prescription implements Serializable {
 
     private int id;
     private Date date;

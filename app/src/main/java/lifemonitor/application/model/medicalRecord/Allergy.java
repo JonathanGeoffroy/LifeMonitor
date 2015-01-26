@@ -1,5 +1,6 @@
 package lifemonitor.application.model.medicalRecord;
 
+import android.app.DialogFragment;
 import android.content.Context;
 import android.graphics.Color;
 
@@ -47,5 +48,10 @@ public class Allergy implements MedicalRecordItem {
     @Override
     public int getColor() {
         return Color.argb(255, 242, 222, 222);
+    }
+
+    @Override
+    public DialogFragment getInformation() {
+        return null;
     }
 }

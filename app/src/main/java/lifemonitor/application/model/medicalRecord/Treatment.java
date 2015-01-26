@@ -1,5 +1,6 @@
 package lifemonitor.application.model.medicalRecord;
 
+import android.app.DialogFragment;
 import android.content.Context;
 import android.graphics.Color;
 
@@ -7,6 +8,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import lifemonitor.application.R;
+import lifemonitor.application.controller.medicalRecord.widget.medicalRecordItem.TreatmentInformationDialog;
 
 /**
  * A Treatment must contain the following information: <br/>
@@ -19,6 +21,8 @@ import lifemonitor.application.R;
  * @author Celia Cacciatore and Jonathan Geoffroy
  */
 public class Treatment implements MedicalRecordItem {
+
+    private final static long MILLISECONDS_PER_DAY = 24 * 60 * 60 * 1000;
 
     /*
      * The id is automatically generated in database.
@@ -89,6 +93,14 @@ public class Treatment implements MedicalRecordItem {
         this.quantity = quantity;
         this.duration = duration;
         this.medicine = medicine;
+    }
+
+    /**
+     * Compute the end date by adding <code>duration</code> to <code>date</code>
+     * @return the end date of this Treatment
+     */
+    public Date getEndDate() {
+        return new Date(date.getTime() + duration * MILLISECONDS_PER_DAY);
     }
 
     public int getId() {
@@ -196,5 +208,10 @@ public class Treatment implements MedicalRecordItem {
     @Override
     public int getColor() {
         return Color.argb(255, 223, 240, 216);
+    }
+
+    @Override
+    public DialogFragment getInformation() {
+        return new TreatmentInformationDialog();
     }
 }
