@@ -89,15 +89,15 @@
     <string name="user_firstname_sample">Anne</string>
     <string name="user_surname_sample">Nonime</string>
     <string name="user_blood_group">Groupe Sanguin</string>
-    <string name="user_urgency_number">N° Urgence</string>
-    <string name="user_urgency_number_sample">555</string>
+    <string name="user_emergency_number">N° Urgence</string>
+    <string name="user_emergency_number_sample">555</string>
     <string name="user_doctor_name">Nom médecin Traitant</string>
     <string name="user_doctor_name_sample">Dr. Acula</string>
     <string name="user_doctor_number">N° médecin Traitant</string>
     <string name="treatment_prepend_title">"Traitement au "</string>
     <string name="treatment_prepend_subtitle">"Depuis le "</string>
     <string name="user_email_sample">lifemonitor@lifelab.com</string>
-    <string name="user_empty">Veuiller entrer le numéro dans "Configuration"</string>
+    <string name="emergency_number_empty">Veuillez entrer le numéro dans "Configuration"</string>
 
 
     <!-- Frequency possibilities -->

@@ -141,7 +141,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                     user.setPhoneNumber(cursor.getString(3));
                     user.setEmail(cursor.getString(4));
                     user.setBloodGroup(cursor.getString(5));
-                    user.setUrgencyNumber(cursor.getString(6));
+                    user.setEmergencyNumber(cursor.getString(6));
                     user.setDrName(cursor.getString(7));
                     user.setDrNumber(cursor.getString(8));
 
@@ -175,7 +175,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         values.put(KEY_PH_NO, user.getPhoneNumber());
         values.put(KEY_EMAIL, user.getEmail());
         values.put(KEY_BLOOD_GROUP, user.getBloodGroup());
-        values.put(KEY_URGENCY_NUMBER, user.getUrgencyNumber());
+        values.put(KEY_URGENCY_NUMBER, user.getEmergencyNumber());
         values.put(KEY_DR_NAME, user.getDrName());
         values.put(KEY_DR_NUMBER, user.getDrNumber());
         // updating row
