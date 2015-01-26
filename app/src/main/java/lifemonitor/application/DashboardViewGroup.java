@@ -13,6 +13,7 @@ import android.view.ViewGroup;
 public class DashboardViewGroup extends ViewGroup {
 
     private static final int UNEVEN_GRID_PENALTY_MULTIPLIER = 10;
+    private final int try_it = 0;
 
     private int mMaxChildWidth = 0;
     private int mMaxChildHeight = 0;
@@ -102,8 +103,8 @@ public class DashboardViewGroup extends ViewGroup {
         int spaceDifference;
 
         // Horizontal and vertical space between items
-        int hSpace = 0;
-        int vSpace = 0;
+        int hSpace = try_it;
+        int vSpace = try_it;
 
         int cols = 1;
         int rows;
@@ -111,8 +112,8 @@ public class DashboardViewGroup extends ViewGroup {
         while (true) {
             rows = (visibleCount - 1) / cols + 1;
 
-            hSpace = ((width - mMaxChildWidth * cols) / (cols + 1));
-            vSpace = ((height - mMaxChildHeight * rows) / (rows + 1));
+            hSpace = ((width - mMaxChildWidth * cols) / (cols + 1)) + try_it;
+            vSpace = ((height - mMaxChildHeight * rows) / (rows + 1)) + try_it;
 
             spaceDifference = Math.abs(vSpace - hSpace);
             if (rows * cols != visibleCount) {
@@ -132,8 +133,8 @@ public class DashboardViewGroup extends ViewGroup {
                 // This is a worse whitespace ratio, use the previous value of cols and exit.
                 --cols;
                 rows = (visibleCount - 1) / cols + 1;
-                hSpace = ((width - mMaxChildWidth * cols) / (cols + 1));
-                vSpace = ((height - mMaxChildHeight * rows) / (rows + 1));
+                hSpace = ((width - mMaxChildWidth * cols) / (cols + 1)) + try_it;
+                vSpace = ((height - mMaxChildHeight * rows) / (rows + 1)) + try_it;
                 break;
             }
 

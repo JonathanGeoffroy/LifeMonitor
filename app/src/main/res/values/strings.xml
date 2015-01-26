@@ -40,6 +40,8 @@
     <string name="addTreatment_error">Impossible d\'ajouter ce traitement</string>
     <string name="medicineNotChosen">Veuillez choisir un medicament existant</string>
     <string name="intent_medicine_id_error">Le médicament n\'a pas été trouvé, veuillez réessayer.</string>
+    <string name="quantity">Dosage</string>
+    <string name="frequency_separator">par</string>
 
     <!-- Shape (medicine) -->
     <string name="gel">Gel</string>
@@ -78,6 +80,7 @@
 
     <!--Config menu-->
     <string name="title_user_config_menu">Configuration</string>
+    <string name="title_call">Appel d\'urgence</string>
     <string name="user_save_button">Sauvegarder et Quitter</string>
     <string name="user_firstname">Prénom </string>
     <string name="user_surname">Nom </string>
@@ -87,13 +90,15 @@
     <string name="user_surname_sample">Nonime</string>
     <string name="user_blood_group">Groupe Sanguin</string>
     <string name="user_urgency_number">N° Urgence</string>
+    <string name="user_urgency_number_sample">555</string>
     <string name="user_doctor_name">Nom médecin Traitant</string>
+    <string name="user_doctor_name_sample">Dr. Acula</string>
     <string name="user_doctor_number">N° médecin Traitant</string>
     <string name="treatment_prepend_title">"Traitement au "</string>
     <string name="treatment_prepend_subtitle">"Depuis le "</string>
     <string name="user_email_sample">lifemonitor@lifelab.com</string>
-    <string name="quantity">Dosage</string>
-    <string name="frequency_separator">par</string>
+    <string name="user_empty">Veuiller entrer le numéro dans "Configuration"</string>
+
 
     <!-- Frequency possibilities -->
     <string name="day">jour</string>

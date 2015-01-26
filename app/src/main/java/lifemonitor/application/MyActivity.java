@@ -2,11 +2,14 @@ package lifemonitor.application;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.Toast;
+
 import lifemonitor.application.controller.medicalRecord.AddTreatmentActivity;
 import lifemonitor.application.controller.medicalRecord.ShowMedicalRecordActivity;
 import lifemonitor.application.controller.medicalRecord.ShowMedicineActivity;
@@ -14,9 +17,12 @@ import lifemonitor.application.controller.userconfig.UserConfigActivity;
 
 public class MyActivity extends Activity {
 
+    private DatabaseHandler dbHandler;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        dbHandler = new DatabaseHandler(this);
         //Remove title bar
         this.requestWindowFeature(Window.FEATURE_NO_TITLE);
 
@@ -39,6 +45,10 @@ public class MyActivity extends Activity {
 
         // Dashboard show configuration button
         Button btn_showconfig = (Button) findViewById(R.id.btn_showconfig);
+
+        // Dashboard show configuration button
+        Button btn_call = (Button) findViewById(R.id.btn_call);
+
 
         /**
          * Handling all button click events
@@ -79,6 +89,24 @@ public class MyActivity extends Activity {
                 startActivity(i);
             }
         });
+
+        // Make a phone call
+        btn_call.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent callIntent = new Intent(Intent.ACTION_CALL);
+                String call=dbHandler.getUser(dbHandler.getFirstUserId()).getUrgencyNumber();
+                if (!call.equals("")) {
+                    callIntent.setData(Uri.parse("tel:"+call));
+                    startActivity(callIntent);
+                }
+                else {
+                    Toast.makeText(MyActivity.this, R.string.user_empty, Toast.LENGTH_LONG).show();
+                }
+            }
+        });
+
+        dbHandler.close();
     }
 }
 
