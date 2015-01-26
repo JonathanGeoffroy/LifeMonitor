@@ -24,11 +24,11 @@ public class RESTHelperPOSTTest extends AbstractTestCase {
         RESTHelper<Treatment> restHelper = new RESTHelper<Treatment>(getContext());
         Medicine m = new Medicine(1, "doliprane", Shape.PILLS, HowToTake.ORAL, DangerLevel.LEVEL1);
         Calendar c = Calendar.getInstance();
-        c.set(2014, 10, 26, 1, 0, 0);
+        c.set(2014, 11, 26, 1, 0, 0);
         Date d = c.getTime();
-        final Treatment t = new Treatment(d, "2 fois par jour", 12, m);
+        final Treatment t = new Treatment(d, 8, 1.0, 12, m);
         t.setId(1);
-        restHelper.sendPOSTRequest(t, "/treatments/", Treatment.class, new PostListener<Treatment>() {
+        restHelper.sendPOSTRequest(t, "/treatments", Treatment.class, new PostListener<Treatment>() {
             @Override
             public void onSuccess(Treatment addedObject) {
                 assertEquals("The treatment added and received are the same", t, addedObject);
