@@ -102,7 +102,6 @@
 
     <!-- Frequency possibilities -->
     <string name="day">jour</string>
-    <string name="hour">heure</string>
     <string name="week">semaine</string>
     <string name="month">mois</string>
     <string name="year">année</string>

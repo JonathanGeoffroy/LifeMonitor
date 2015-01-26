@@ -12,7 +12,7 @@ import lifemonitor.application.R;
  * A Treatment must contain the following information: <br/>
  * - the date of beginning of treatment,<br/>
  * - the frequency, which is how many times you must follow the treatment,<br/>
- * - the quantity of medicine you must take (units),<br/>
+ * - the quantity of medicine you must take,<br/>
  * - the medicine you take,<br/>
  * - the prescription which has determined the treatment (optional).
  *
@@ -33,12 +33,12 @@ public class Treatment implements MedicalRecordItem {
     /*
      * how many times you must follow the treatment
      */
-    private String frequency;
+    private int frequency;
 
     /*
      * the quantity of medicine you must take
      */
-    private int units;
+    private double quantity;
 
     /*
      * the medicine to take
@@ -50,20 +50,27 @@ public class Treatment implements MedicalRecordItem {
      */
     private Prescription prescription;
 
+    /*
+     * the number of day that the treatment lasts
+     */
+    private int duration;
+
     public Treatment() {}
 
     /**
      * Create a treatment.
      * @param date date of beginning of treatment
      * @param frequency how many times you must follow the treatment
-     * @param units the quantity of medicine you must take
+     * @param quantity the quantity of medicine you must take
+     * @param duration the number of days that the treatment lasts
      * @param medicine the medicine to take
      * @param prescription the prescription which determined the treatment
      */
-    public Treatment(Date date, String frequency, int units, Medicine medicine, Prescription prescription) {
+    public Treatment(Date date, int frequency, double quantity, int duration, Medicine medicine, Prescription prescription) {
         this.date = date;
         this.frequency = frequency;
-        this.units = units;
+        this.quantity = quantity;
+        this.duration = duration;
         this.medicine = medicine;
         this.prescription = prescription;
     }
@@ -72,13 +79,15 @@ public class Treatment implements MedicalRecordItem {
      * Create a treatment.
      * @param date date of beginning of treatment
      * @param frequency how many times you must follow the treatment
-     * @param units the quantity of medicine you must take
+     * @param quantity the quantity of medicine you must take
+     * @param duration the number of days that the treatment lasts
      * @param medicine the medicine to take
      */
-    public Treatment(Date date, String frequency, int units, Medicine medicine) {
+    public Treatment(Date date, int frequency, double quantity, int duration, Medicine medicine) {
         this.date = date;
         this.frequency = frequency;
-        this.units = units;
+        this.quantity = quantity;
+        this.duration = duration;
         this.medicine = medicine;
     }
 
@@ -98,20 +107,20 @@ public class Treatment implements MedicalRecordItem {
         this.date = date;
     }
 
-    public String getFrequency() {
+    public int getFrequency() {
         return frequency;
     }
 
-    public void setFrequency(String frequency) {
+    public void setFrequency(int frequency) {
         this.frequency = frequency;
     }
 
-    public int getUnits() {
-        return units;
+    public double getQuantity() {
+        return quantity;
     }
 
-    public void setUnits(int units) {
-        this.units = units;
+    public void setQuantity(int quantity) {
+        this.quantity = quantity;
     }
 
     public Medicine getMedicine() {
@@ -130,6 +139,14 @@ public class Treatment implements MedicalRecordItem {
         this.prescription = prescription;
     }
 
+    public int getDuration() {
+        return duration;
+    }
+
+    public void setDuration(int duration) {
+        this.duration = duration;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -137,11 +154,13 @@ public class Treatment implements MedicalRecordItem {
 
         Treatment treatment = (Treatment) o;
 
+        if (duration != treatment.duration) return false;
+        if (frequency != treatment.frequency) return false;
         if (id != treatment.id) return false;
-        if (units != treatment.units) return false;
-        if (!date.toString().equals(treatment.date.toString())) return false;
-        if (!frequency.equals(treatment.frequency)) return false;
-        if (!medicine.equals(treatment.medicine)) return false;
+        if (Double.compare(treatment.quantity, quantity) != 0) return false;
+        if (date != null ? !date.equals(treatment.date) : treatment.date != null) return false;
+        if (medicine != null ? !medicine.equals(treatment.medicine) : treatment.medicine != null)
+            return false;
         if (prescription != null ? !prescription.equals(treatment.prescription) : treatment.prescription != null)
             return false;
 
@@ -150,12 +169,16 @@ public class Treatment implements MedicalRecordItem {
 
     @Override
     public int hashCode() {
-        int result = id;
-        result = 31 * result + date.hashCode();
-        result = 31 * result + frequency.hashCode();
-        result = 31 * result + units;
-        result = 31 * result + medicine.hashCode();
+        int result;
+        long temp;
+        result = id;
+        result = 31 * result + (date != null ? date.hashCode() : 0);
+        result = 31 * result + frequency;
+        temp = Double.doubleToLongBits(quantity);
+        result = 31 * result + (int) (temp ^ (temp >>> 32));
+        result = 31 * result + (medicine != null ? medicine.hashCode() : 0);
         result = 31 * result + (prescription != null ? prescription.hashCode() : 0);
+        result = 31 * result + duration;
         return result;
     }
 
