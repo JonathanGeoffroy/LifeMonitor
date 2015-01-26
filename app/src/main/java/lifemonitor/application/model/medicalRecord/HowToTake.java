@@ -14,7 +14,7 @@ import lifemonitor.application.model.jsonMapping.HowToTakeDeserializer;
 public enum HowToTake {
     ORAL(R.string.Oral),
     DERMAL(R.string.Dermal),
-    INTRAVENOUS(R.string.Intravenous),
+    INTRAVEINOUS(R.string.Intraveinous),
     AURICULAR(R.string.Auricular),
     INTRAMUSCULAR(R.string.Intramuscular),
     INHALED(R.string.Inhaled),
