@@ -1,14 +1,19 @@
 package lifemonitor.application.controller.medicalRecord;
 
+import android.app.AlarmManager;
+import android.app.PendingIntent;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.NumberPicker;
 import android.widget.Toast;
 import android.widget.Spinner;
@@ -16,10 +21,15 @@ import android.widget.Spinner;
 import com.fourmob.datetimepicker.date.DatePickerDialog;
 
 import java.util.Calendar;
+import java.util.Date;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import lifemonitor.application.R;
 import lifemonitor.application.controller.exceptions.medicalRecord.IllegalValueException;
 import lifemonitor.application.controller.medicalRecord.adapter.MedicineOptionsAdapter;
+import lifemonitor.application.controller.monitor.TreatmentBroadcastReceiver;
+import lifemonitor.application.controller.monitor.TreatmentNotifier;
 import lifemonitor.application.helper.rest.RESTHelper;
 import lifemonitor.application.helper.rest.listeners.PostListener;
 import lifemonitor.application.model.medicalRecord.Frequency;
@@ -38,6 +48,7 @@ public class AddTreatmentActivity extends FragmentActivity {
     private static final String DATEPICKER_TAG = "datepicker";
     private final static String[] quantityValues = {"0.5","1","1.5","2","2.5","3","3.5","4","4.5","5"};
     private final static long MILLISECONDS_PER_DAY = 24 * 60 * 60 * 1000;
+    private final static long MILLISECONDS_PER_HOUR = 60 * 60 * 1000;
 
     /**
      * Bundle key for each value
@@ -156,7 +167,8 @@ public class AddTreatmentActivity extends FragmentActivity {
 
     /**
      * Add a treatment by creating a treatment with GUI values and sending it to REST Service.
-     * Check the GUI values, and throw an <code>IllegalValueException</code> with specific message for each error
+     * Check the GUI values, and throw an <code>IllegalValueException</code> with specific message for each error.
+     * Trigger notifications if checked.
      * @throws IllegalValueException if values aren't conform to expected.
      */
     private void addTreatment() throws IllegalValueException {
@@ -190,7 +202,7 @@ public class AddTreatmentActivity extends FragmentActivity {
         // Get duration
         int duration = getDuration();
         // Create a Treatment with GUI values and no prescription
-        Treatment treatment = new Treatment(
+        final Treatment treatment = new Treatment(
                 startDate.getTime(),
                 frequency,
                 quantity,
@@ -201,7 +213,14 @@ public class AddTreatmentActivity extends FragmentActivity {
         RESTHelper<Treatment> restHelper = new RESTHelper<>(this);
         restHelper.sendPOSTRequest(treatment, "/files/" + PATIENT_ID + "/treatments", Treatment.class, new PostListener<Treatment>() {
             @Override
-            public void onSuccess(Treatment addedObject) {
+            public void onSuccess(final Treatment addedObject) {
+                // Check if user wants to be notified
+                CheckBox notificationCheckbox = (CheckBox) findViewById(R.id.notification_checkBox);
+                if(notificationCheckbox.isChecked()) {
+                    triggerNotifications(addedObject);
+                }
+
+                // Exit
                 AddTreatmentActivity.this.finish();
             }
             @Override
@@ -327,5 +346,31 @@ public class AddTreatmentActivity extends FragmentActivity {
      */
     private int getDuration() {
         return (int) ((endDate.getTimeInMillis() - startDate.getTimeInMillis()) / MILLISECONDS_PER_DAY) + 1;
+    }
+
+    /**
+     * Create two notifications :
+     * one that appears 10 seconds after adding the treatment,
+     * and one that is repeated for each taking of the medicine.
+     * @param treatment the treatment recalled in notifications
+     */
+    private void triggerNotifications(final Treatment treatment) {
+        // Create notification which is repeated
+        AlarmManager alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
+        Intent intent = new Intent(this, TreatmentBroadcastReceiver.class);
+        intent.putExtra("treatment", treatment);
+        PendingIntent alarmIntent = PendingIntent.getBroadcast(this, 0, intent, 0);
+        Date startDate = treatment.getDate();
+        alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, startDate.getTime(), treatment.getFrequency() * MILLISECONDS_PER_HOUR, alarmIntent);
+
+        // Make the notification appear 10 seconds after adding the treatment
+        Timer timer = new Timer();
+        TimerTask timerTask = new TimerTask() {
+            @Override
+            public void run() {
+                TreatmentNotifier.createNotification(AddTreatmentActivity.this, treatment);
+            }
+        };
+        timer.schedule(timerTask, 10000);
     }
 }

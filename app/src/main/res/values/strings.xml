@@ -17,6 +17,12 @@
     <string name="units">Dosage</string>
     <string name="db_error">problème d\'accès à la base de données</string>
 
+    <!-- Frequency possibilities -->
+    <string name="day">jour</string>
+    <string name="week">semaine</string>
+    <string name="month">mois</string>
+    <string name="year">année</string>
+
     <!-- Add genetic desease -->
     <string name="dialog_title_add_genetic_desease">Ajouter une maladie génétique</string>
 
@@ -91,7 +97,7 @@
     <string name="user_surname_sample">Nonime</string>
     <string name="user_blood_group">Groupe Sanguin</string>
     <string name="user_emergency_number">N° Urgence</string>
-    <string name="user_emergency_number_sample">555</string>
+    <string name="user_emergency_number_sample">911</string>
     <string name="user_doctor_name">Nom médecin Traitant</string>
     <string name="user_doctor_name_sample">Dr. Acula</string>
     <string name="user_doctor_number">N° médecin Traitant</string>
@@ -99,11 +105,8 @@
     <string name="treatment_prepend_subtitle">"Depuis le "</string>
     <string name="user_email_sample">lifemonitor@lifelab.com</string>
     <string name="emergency_number_empty">Veuillez entrer le numéro dans "Configuration"</string>
+    <string name="treatment">LifeMonitof - Rappel</string>
+    <string name="activate_notifications">Activer les notifications</string>
+    <string name="of">" de "</string>
 
-
-    <!-- Frequency possibilities -->
-    <string name="day">jour</string>
-    <string name="week">semaine</string>
-    <string name="month">mois</string>
-    <string name="year">année</string>
 </resources>
