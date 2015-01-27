@@ -132,7 +132,7 @@ public class Treatment implements MedicalRecordItem, Serializable {
         return quantity;
     }
 
-    public void setQuantity(int quantity) {
+    public void setQuantity(double quantity) {
         this.quantity = quantity;
     }
 
