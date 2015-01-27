@@ -50,7 +50,7 @@ public class ShowMedicalRecordActivity extends Activity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 MedicalRecordItem item = (MedicalRecordItem) adapter.getItem(position);
-                DialogFragment informationDialog = item.getInformation();
+                DialogFragment informationDialog = item.acceptInformation();
                 if(informationDialog != null) {
                     Bundle bundle = new Bundle();
                     bundle.putSerializable("item", item);
