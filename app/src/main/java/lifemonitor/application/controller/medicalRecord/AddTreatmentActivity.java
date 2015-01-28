@@ -1,14 +1,18 @@
 package lifemonitor.application.controller.medicalRecord;
 
+import android.app.Activity;
 import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
@@ -43,7 +47,7 @@ import lifemonitor.application.model.medicalRecord.Treatment;
  * Check values entered by user. Show a specific message if the treatment is not conform as expected,
  * and just quit the Activity in case of success.
  */
-public class AddTreatmentActivity extends FragmentActivity {
+public class AddTreatmentActivity extends Fragment {
 
     private static final String DATEPICKER_TAG = "datepicker";
     private final static String[] quantityValues = {"0.5","1","1.5","2","2.5","3","3.5","4","4.5","5"};
@@ -81,21 +85,22 @@ public class AddTreatmentActivity extends FragmentActivity {
     private Medicine medicine;
     private double quantity;
     private int frequency = 1;
+    private Activity mActivity;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_add_treatment);
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+
+        View rootView = inflater.inflate(R.layout.activity_add_treatment, container, false);
 
         // Load startDate and endDate
         loadInstanceState(savedInstanceState);
 
         // Create datePickers for startDate and endDate
-        createDatePicker(R.id.start_date, R.string.start_date_prefix, startDate);
-        createDatePicker(R.id.end_date, R.string.end_date_prefix, endDate);
+        createDatePicker(rootView,R.id.start_date, R.string.start_date_prefix, startDate);
+        createDatePicker(rootView,R.id.end_date, R.string.end_date_prefix, endDate);
 
         // Change values in quantity NumberPicker
-        NumberPicker quantityPicker = (NumberPicker) findViewById(R.id.quantity_picker);
+        NumberPicker quantityPicker = (NumberPicker) rootView.findViewById(R.id.quantity_picker);
         quantityPicker.setDisplayedValues(quantityValues);
         quantityPicker.setMaxValue(quantityValues.length - 1);
         quantityPicker.setOnValueChangedListener(new NumberPicker.OnValueChangeListener() {
@@ -106,7 +111,7 @@ public class AddTreatmentActivity extends FragmentActivity {
         });
 
         // Change values in frequency NumberPicker
-        NumberPicker frequencyPicker = (NumberPicker) findViewById(R.id.frequency_number);
+        NumberPicker frequencyPicker = (NumberPicker) rootView.findViewById(R.id.frequency_number);
         frequencyPicker.setMinValue(FREQUENCY_MIN_VALUE);
         frequencyPicker.setMaxValue(FREQUENCY_MAX_VALUE);
         frequencyPicker.setValue(frequency);
@@ -118,14 +123,14 @@ public class AddTreatmentActivity extends FragmentActivity {
         });
 
         // Change frequency Spinner values
-        Spinner spinner = (Spinner) findViewById(R.id.frequency_possibilities);
-        ArrayAdapter<CharSequence> spinnerAdapter = ArrayAdapter.createFromResource(this,R.array.frequency, android.R.layout.simple_spinner_item);
+        Spinner spinner = (Spinner) rootView.findViewById(R.id.frequency_possibilities);
+        ArrayAdapter<CharSequence> spinnerAdapter = ArrayAdapter.createFromResource(rootView.getContext(),R.array.frequency, android.R.layout.simple_spinner_item);
         spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(spinnerAdapter);
 
         // Load options for auto-complete medicine TextView
-        final MedicineOptionsAdapter medicineOptionsAdapter = new MedicineOptionsAdapter(this, android.R.layout.simple_list_item_1);
-        final AutoCompleteTextView medicineTextView = (AutoCompleteTextView) findViewById(R.id.medicine);
+        final MedicineOptionsAdapter medicineOptionsAdapter = new MedicineOptionsAdapter(rootView.getContext(), android.R.layout.simple_list_item_1);
+        final AutoCompleteTextView medicineTextView = (AutoCompleteTextView) rootView.findViewById(R.id.medicine);
         medicineTextView.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -152,17 +157,19 @@ public class AddTreatmentActivity extends FragmentActivity {
         });
 
         // Add the treatment in database or show error toast
-        Button submitTreatment = (Button) findViewById(R.id.submit_treatment);
+        Button submitTreatment = (Button) rootView.findViewById(R.id.submit_treatment);
         submitTreatment.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 try {
                     addTreatment();
                 } catch (IllegalValueException e) {
-                    Toast.makeText(AddTreatmentActivity.this, e.getMessage(), Toast.LENGTH_LONG).show();
+                    Toast.makeText(getActivity().getApplicationContext(), e.getMessage(), Toast.LENGTH_LONG).show();
                 }
             }
         });
+
+        return rootView;
     }
 
     /**
@@ -210,37 +217,39 @@ public class AddTreatmentActivity extends FragmentActivity {
                 medicine,
                 null);
         // Add the new Treatment into REST Service
-        RESTHelper<Treatment> restHelper = new RESTHelper<>(this);
+        RESTHelper<Treatment> restHelper = new RESTHelper<>(getActivity().getApplicationContext());
         restHelper.sendPOSTRequest(treatment, "/files/" + PATIENT_ID + "/treatments", Treatment.class, new PostListener<Treatment>() {
             @Override
             public void onSuccess(final Treatment addedObject) {
                 // Check if user wants to be notified
-                CheckBox notificationCheckbox = (CheckBox) findViewById(R.id.notification_checkBox);
+                CheckBox notificationCheckbox = (CheckBox) getActivity().findViewById(R.id.notification_checkBox);
                 if(notificationCheckbox.isChecked()) {
                     triggerNotifications(addedObject);
                 }
 
                 // Exit
-                AddTreatmentActivity.this.finish();
+                getFragmentManager().popBackStackImmediate();
             }
             @Override
             public void onError() {
-                Toast.makeText(AddTreatmentActivity.this, R.string.addTreatment_error, Toast.LENGTH_LONG).show();
+                Toast.makeText(getActivity().getApplicationContext(), R.string.addTreatment_error, Toast.LENGTH_LONG).show();
             }
         });
     }
 
     /**
      * Create a new DatePickerDialog which updates the calendar and the text button as soon as the date changes
+     *
+     * @param rootView
      * @param buttonId the button id to change
      * @param prefixStringId the prefix of the text button
      * @param calendar the calendar to update
      * @return the created calendar
      */
-    private DatePickerDialog createDatePicker(int buttonId, final int prefixStringId, final Calendar calendar) {
+    private DatePickerDialog createDatePicker(View rootView, int buttonId, final int prefixStringId, final Calendar calendar) {
         final int currentYear = calendar.get(Calendar.YEAR);
         final DatePickerDialog datePickerDialog = DatePickerDialog.newInstance(null, calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH), false);
-        final Button button = (Button) findViewById(buttonId);
+        final Button button = (Button) rootView.findViewById(buttonId);
         // When user clicked on button, display the DatePickerDialog
         button.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -248,7 +257,7 @@ public class AddTreatmentActivity extends FragmentActivity {
                 datePickerDialog.setVibrate(false);
                 datePickerDialog.setYearRange(currentYear, currentYear + 10);
                 datePickerDialog.setCloseOnSingleTapDay(true);
-                datePickerDialog.show(getSupportFragmentManager(), DATEPICKER_TAG);
+                datePickerDialog.show(getActivity().getSupportFragmentManager(), DATEPICKER_TAG);
             }
         });
         // On date changed, update the text button to chosen date
@@ -282,7 +291,7 @@ public class AddTreatmentActivity extends FragmentActivity {
     }
 
     @Override
-    protected void onSaveInstanceState(Bundle outState) {
+    public void onSaveInstanceState(Bundle outState) {
         outState.putSerializable(START_DATE_BUNDLE_KEY, startDate);
         outState.putSerializable(END_DATE_BUNDLE_KEY, endDate);
         outState.putSerializable(MEDICINE_BUNDLE_KEY, medicine);
@@ -317,10 +326,10 @@ public class AddTreatmentActivity extends FragmentActivity {
      */
     public int getFrequency() {
         // Get number of times
-        NumberPicker frequencyNumberPicker = (NumberPicker) findViewById(R.id.frequency_number);
+        NumberPicker frequencyNumberPicker = (NumberPicker) getActivity().findViewById(R.id.frequency_number);
         int frequencyNumber = frequencyNumberPicker.getValue();
         // Get selected frequency between possibilities
-        Spinner frequencySpinner = (Spinner) findViewById(R.id.frequency_possibilities);
+        Spinner frequencySpinner = (Spinner) getActivity().findViewById(R.id.frequency_possibilities);
         int frequencyIndex = frequencySpinner.getSelectedItemPosition();
         Frequency selectedFrequency = Frequency.values()[frequencyIndex];
         // Compute frequency
@@ -336,7 +345,7 @@ public class AddTreatmentActivity extends FragmentActivity {
      * @return the quantity of medicine to take
      */
     public double getQuantity() {
-        NumberPicker quantityPicker = (NumberPicker) findViewById(R.id.quantity_picker);
+        NumberPicker quantityPicker = (NumberPicker) getActivity().findViewById(R.id.quantity_picker);
         return Double.parseDouble(quantityValues[quantityPicker.getValue()]);
     }
 
@@ -356,10 +365,10 @@ public class AddTreatmentActivity extends FragmentActivity {
      */
     private void triggerNotifications(final Treatment treatment) {
         // Create notification which is repeated
-        AlarmManager alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
-        Intent intent = new Intent(this, TreatmentBroadcastReceiver.class);
+        AlarmManager alarmManager = (AlarmManager) getActivity().getSystemService(getActivity().getApplicationContext().ALARM_SERVICE);
+        Intent intent = new Intent(getActivity(), TreatmentBroadcastReceiver.class);
         intent.putExtra("treatment", treatment);
-        PendingIntent alarmIntent = PendingIntent.getBroadcast(this, 0, intent, 0);
+        PendingIntent alarmIntent = PendingIntent.getBroadcast(getActivity().getApplicationContext(), 0, intent, 0);
         Date startDate = treatment.getDate();
         alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, startDate.getTime(), treatment.getFrequency() * MILLISECONDS_PER_HOUR, alarmIntent);
 
@@ -368,9 +377,15 @@ public class AddTreatmentActivity extends FragmentActivity {
         TimerTask timerTask = new TimerTask() {
             @Override
             public void run() {
-                TreatmentNotifier.createNotification(AddTreatmentActivity.this, treatment);
+                TreatmentNotifier.createNotification(mActivity.getApplicationContext(), treatment);
             }
         };
         timer.schedule(timerTask, 10000);
+    }
+
+    @Override
+    public void onAttach(Activity activity) {
+        super.onAttach(activity);
+        mActivity = activity;
     }
 }

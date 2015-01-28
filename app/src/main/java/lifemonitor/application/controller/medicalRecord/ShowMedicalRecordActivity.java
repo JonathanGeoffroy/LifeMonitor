@@ -1,12 +1,14 @@
 package lifemonitor.application.controller.medicalRecord;
 
-import android.app.Activity;
-import android.app.DialogFragment;
+import android.support.v4.app.DialogFragment;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.Toast;
@@ -29,7 +31,7 @@ import lifemonitor.application.model.medicalRecord.MedicalRecordItem;
  *
  * @author Jonathan Geoffroy
  */
-public class ShowMedicalRecordActivity extends Activity {
+public class ShowMedicalRecordActivity extends Fragment {
     private static final int PATIENT_ID = 1;
     /**
      * Adapter of the ListView displayed
@@ -37,13 +39,14 @@ public class ShowMedicalRecordActivity extends Activity {
     private MedicalRecordAdapter adapter;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_show_medical_record);
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+
+        View rootView = inflater.inflate(R.layout.activity_show_medical_record, container, false);
 
         // Link the ListView with a specific Adapter
-        ListView medicalRecord = (ListView) findViewById(R.id.medicalRecord);
-        adapter = new MedicalRecordAdapter(this);
+        ListView medicalRecord = (ListView) rootView.findViewById(R.id.medicalRecord);
+        adapter = new MedicalRecordAdapter(rootView.getContext());
         medicalRecord.setAdapter(adapter);
 
         medicalRecord.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -61,6 +64,7 @@ public class ShowMedicalRecordActivity extends Activity {
         });
         // Find Medical Record information from REST Service
         refreshListView();
+        return rootView;
     }
 
     /**
@@ -68,7 +72,7 @@ public class ShowMedicalRecordActivity extends Activity {
      * Remove old ListView items and add new ones.
      */
     private void refreshListView() {
-        MedicalRecord.findMedicalRecordFor(PATIENT_ID, this, new SingleResultRESTListener<MedicalRecord>() {
+        MedicalRecord.findMedicalRecordFor(PATIENT_ID, getActivity().getApplicationContext(), new SingleResultRESTListener<MedicalRecord>() {
             @Override
             public void onGetResponse(MedicalRecord medicalRecord) {
                 // Remove old items
@@ -84,17 +88,16 @@ public class ShowMedicalRecordActivity extends Activity {
 
             @Override
             public void onError() {
-                Toast.makeText(ShowMedicalRecordActivity.this, R.string.connexion_error, Toast.LENGTH_LONG).show();
+                Toast.makeText(getActivity().getApplicationContext(), R.string.connexion_error, Toast.LENGTH_LONG).show();
             }
         });
     }
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         // Inflate the menu items for use in the action bar
-        MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.menu_show_medical_record, menu);
-        return super.onCreateOptionsMenu(menu);
+        super.onCreateOptionsMenu(menu,inflater);
     }
 
     @Override
