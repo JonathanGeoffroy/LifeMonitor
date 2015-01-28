@@ -66,7 +66,7 @@ public class TreatmentInformationDialog extends DialogFragment {
 
         // end date
         TextView endDateTextView = (TextView) dialogLayout.findViewById(R.id.treatment_enddate);
-        endDateTextView.setText(dateFormat.format(treatment.getEndDate()));
+        endDateTextView.setText(dateFormat.format(treatment.computeEndDate()));
 
         // quantity
         TextView unitsTextView = (TextView) dialogLayout.findViewById(R.id.treatment_quantity);

@@ -7,6 +7,7 @@ import java.io.Serializable;
  */
 public class Doctor implements Serializable {
 
+    private static final long serialVersionUID = -3516580140054817293L;
     private int id;
     private String name;
 

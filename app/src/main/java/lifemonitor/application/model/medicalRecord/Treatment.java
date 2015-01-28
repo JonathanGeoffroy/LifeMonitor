@@ -24,6 +24,7 @@ import lifemonitor.application.controller.medicalRecord.widget.medicalRecordItem
 public class Treatment implements MedicalRecordItem, Serializable {
 
     private final static long MILLISECONDS_PER_DAY = 24 * 60 * 60 * 1000;
+    private static final long serialVersionUID = -1553669749402707344L;
 
     /*
      * The id is automatically generated in database.
@@ -100,7 +101,7 @@ public class Treatment implements MedicalRecordItem, Serializable {
      * Compute the end date by adding <code>duration</code> to <code>date</code>
      * @return the end date of this Treatment
      */
-    public Date getEndDate() {
+    public Date computeEndDate() {
         return new Date(date.getTime() + duration * MILLISECONDS_PER_DAY);
     }
 

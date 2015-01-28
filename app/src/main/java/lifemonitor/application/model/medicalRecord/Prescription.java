@@ -8,6 +8,7 @@ import java.util.Date;
  */
 public class Prescription implements Serializable {
 
+    private static final long serialVersionUID = 8303367019659427160L;
     private int id;
     private Date date;
     private Doctor doctor;

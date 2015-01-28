@@ -105,7 +105,7 @@
     <string name="treatment_prepend_subtitle">"Depuis le "</string>
     <string name="user_email_sample">lifemonitor@lifelab.com</string>
     <string name="emergency_number_empty">Veuillez entrer le numéro dans "Configuration"</string>
-    <string name="treatment">LifeMonitof - Rappel</string>
+    <string name="treatment">LifeMonitor - Rappel</string>
     <string name="activate_notifications">Activer les notifications</string>
     <string name="of">" de "</string>
 

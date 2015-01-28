@@ -36,6 +36,8 @@
             android:label="@string/title_user_config_menu" >
         </activity>
 
+        <receiver android:name=".controller.monitor.TreatmentBroadcastReceiver"></receiver>
+
     </application>
 
 </manifest>

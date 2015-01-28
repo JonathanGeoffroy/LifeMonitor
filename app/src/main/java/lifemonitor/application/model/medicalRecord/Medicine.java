@@ -7,6 +7,7 @@ import java.io.Serializable;
  */
 //@JsonIdentityInfo(generator = ObjectIdGenerators.IntSequenceGenerator.class, property = "@id")
 public class Medicine implements Serializable {
+    private static final long serialVersionUID = -5986538717853802677L;
     private int id;
     private String name;
     private String dosage;
