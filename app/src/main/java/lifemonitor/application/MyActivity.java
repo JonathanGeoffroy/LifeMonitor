@@ -27,6 +27,9 @@ import lifemonitor.application.controller.userconfig.UserConfigActivity;
 import lifemonitor.application.model.menu.NavDrawerItem;
 import lifemonitor.application.model.menu.NavDrawerListAdapter;
 
+/**
+ * Home Page
+ */
 public class MyActivity extends FragmentActivity {
     private DrawerLayout mDrawerLayout;
     private ListView mDrawerList;
