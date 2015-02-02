@@ -64,6 +64,9 @@ public class ShowMedicalRecordActivity extends Fragment {
         });
         // Find Medical Record information from REST Service
         refreshListView();
+
+        setHasOptionsMenu(true);
+
         return rootView;
     }
 
@@ -96,7 +99,7 @@ public class ShowMedicalRecordActivity extends Fragment {
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         // Inflate the menu items for use in the action bar
-        inflater.inflate(R.menu.menu_show_medical_record, menu);
+       inflater.inflate(R.menu.menu_show_medical_record, menu);
         super.onCreateOptionsMenu(menu,inflater);
     }
 
