@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.support.v4.app.NotificationCompat;
 
+import lifemonitor.application.MyActivity;
 import lifemonitor.application.R;
 import lifemonitor.application.controller.medicalRecord.ShowMedicalRecordActivity;
 import lifemonitor.application.model.medicalRecord.Medicine;
@@ -25,7 +26,7 @@ public class TreatmentNotifier {
     public static void createNotification(Context context, Treatment treatment) {
         Medicine medicine = treatment.getMedicine();
 
-        Intent intent = new Intent(context, ShowMedicalRecordActivity.class);
+        Intent intent = new Intent(context, MyActivity.class);
         PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
 
         NotificationCompat.Builder builder =
