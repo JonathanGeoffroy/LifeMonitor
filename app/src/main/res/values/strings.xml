@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!--Global-->
-    <string name="app_name">Lifemonitor</string>
-    <string name="hello_world">Hello world!</string>
+    <string name="app_name">LifeMonitor</string>
     <string name="action_settings">Settings</string>
     <string name="address_lifemonitor">www.lifemonitor.com</string>
 
@@ -24,7 +23,11 @@
     <string name="year">année</string>
 
     <!-- Add genetic desease -->
-    <string name="dialog_title_add_genetic_desease">Ajouter une maladie génétique</string>
+    <string name="dialog_title_add_genetic_disease">Ajouter une maladie génétique</string>
+    <string name="confirm_text_button">Confirmer</string>
+    <string name="cancel_text_buttom">Annuler</string>
+    <string name="confirmation_message">Êtes-vous de sûr de vouloir ajouter </string>
+    <string name="addGeneticDiseaseError">Impossible d\'ajouter cette maladie à votre dossier médical</string>
 
     <!--ShowMedicine-->
     <string name="title_activity_show_medicine">ShowMedicineActivity</string>
@@ -119,6 +122,7 @@
     <string-array name="nav_drawer_items">
         <item >Dossier médical</item>
         <item >Ajouter un traitement</item>
+        <item>Ajouter une maladie génétique</item>
         <item >Configuration</item>
         <item >Appel d\'urgence</item>
     </string-array>
@@ -127,6 +131,7 @@
     <!-- Keep them in order as the titles are in -->
     <array name="nav_drawer_icons">
         <item>@drawable/ic_menu_archive</item>
+        <item>@android:drawable/ic_menu_add</item>
         <item>@android:drawable/ic_menu_add</item>
         <item>@android:drawable/ic_menu_info_details</item>
         <item>@android:drawable/stat_sys_phone_call</item>

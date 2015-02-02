@@ -152,6 +152,7 @@ public class RESTHelper<T> {
                         T resultObject = parser.parseResult(response.toString(), clazz);
                         postListener.onSuccess(resultObject);
                     } catch (IOException e) {
+                        Log.e("Parsing exception :", e.getMessage());
                         postListener.onError();
                     }
                 }
@@ -164,6 +165,7 @@ public class RESTHelper<T> {
             });
             queue.add(request);
         } catch (Exception e) {
+            Log.e("Error sending POST :", e.getMessage());
             postListener.onError();
         }
     }

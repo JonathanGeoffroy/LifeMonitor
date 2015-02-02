@@ -1,6 +1,5 @@
 package lifemonitor.application;
 
-
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.content.res.TypedArray;
@@ -23,6 +22,7 @@ import java.util.ArrayList;
 
 import lifemonitor.application.controller.medicalRecord.AddTreatmentActivity;
 import lifemonitor.application.controller.medicalRecord.ShowMedicalRecordActivity;
+import lifemonitor.application.controller.medicalRecord.widget.AddGeneticDiseaseDialog;
 import lifemonitor.application.controller.userconfig.UserConfigActivity;
 import lifemonitor.application.model.menu.NavDrawerItem;
 import lifemonitor.application.model.menu.NavDrawerListAdapter;
@@ -71,10 +71,12 @@ public class MyActivity extends FragmentActivity {
         navDrawerItems.add(new NavDrawerItem(navMenuTitles[0], navMenuIcons.getResourceId(0, -1)));
         // Add treatment
         navDrawerItems.add(new NavDrawerItem(navMenuTitles[1], navMenuIcons.getResourceId(1, -1)));
-        // Configuration
+        // add genetic disease
         navDrawerItems.add(new NavDrawerItem(navMenuTitles[2], navMenuIcons.getResourceId(2, -1)));
-        // Emergency call
+        // Configuration
         navDrawerItems.add(new NavDrawerItem(navMenuTitles[3], navMenuIcons.getResourceId(3, -1)));
+        // Emergency call
+        navDrawerItems.add(new NavDrawerItem(navMenuTitles[4], navMenuIcons.getResourceId(4, -1)));
 
 
         // Recycle the typed array
@@ -179,9 +181,13 @@ public class MyActivity extends FragmentActivity {
                 fragment = new AddTreatmentActivity();
                 break;
             case 2:
-                fragment = new UserConfigActivity();
+                AddGeneticDiseaseDialog dialog = AddGeneticDiseaseDialog.newInstance();
+                dialog.show(this.getFragmentManager(), "genetic box");
                 break;
             case 3:
+                fragment = new UserConfigActivity();
+                break;
+            case 4:
                 emergency_call();
                 break;
             default:

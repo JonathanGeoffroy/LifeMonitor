@@ -3,24 +3,33 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:weightSum="1">
-
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="@string/add_treatment_title"
-        android:layout_gravity="center_horizontal"
-        android:layout_weight="0.12"
-        android:gravity="center" />
-
-    <Space
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="0.20" />
+    android:weightSum="1"
+    android:showDividers="middle">
 
     <Spinner
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/spinner_genetic_list" />
+        android:id="@+id/spinner_genetic_list"
+        />
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical|center_horizontal|fill_vertical"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="10px">
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/confirm_text_button"
+            android:id="@+id/confirm_genetic_disease" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/cancel_text_buttom"
+            android:id="@+id/cancel_genetic_disease" />
+    </LinearLayout>
 </LinearLayout>
