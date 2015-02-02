@@ -20,6 +20,7 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 
+import lifemonitor.application.controller.gmap.GoogleMapFragment;
 import lifemonitor.application.controller.medicalRecord.AddTreatmentActivity;
 import lifemonitor.application.controller.medicalRecord.ShowMedicalRecordActivity;
 import lifemonitor.application.controller.medicalRecord.TodayTreatmentActivity;
@@ -49,8 +50,6 @@ public class MyActivity extends FragmentActivity {
 
     private ArrayList<NavDrawerItem> navDrawerItems;
     private NavDrawerListAdapter adapter;
-
-    private int old_choice = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -82,11 +81,12 @@ public class MyActivity extends FragmentActivity {
         navDrawerItems.add(new NavDrawerItem(navMenuTitles[3], navMenuIcons.getResourceId(3, -1)));
         // add genetic disease
         navDrawerItems.add(new NavDrawerItem(navMenuTitles[4], navMenuIcons.getResourceId(4, -1)));
-        // Configuration
+        // Find closest pharmacy
         navDrawerItems.add(new NavDrawerItem(navMenuTitles[5], navMenuIcons.getResourceId(5, -1)));
-        // Emergency call
+        // Configuration
         navDrawerItems.add(new NavDrawerItem(navMenuTitles[6], navMenuIcons.getResourceId(6, -1)));
-
+        // Emergency call
+        navDrawerItems.add(new NavDrawerItem(navMenuTitles[7], navMenuIcons.getResourceId(7, -1)));
 
         // Recycle the typed array
         navMenuIcons.recycle();
@@ -200,9 +200,12 @@ public class MyActivity extends FragmentActivity {
                 dialog.show(this.getFragmentManager(), "genetic box");
                 break;
             case 5:
-                fragment = new UserConfigActivity();
+                fragment = new GoogleMapFragment();
                 break;
             case 6:
+                fragment = new UserConfigActivity();
+                break;
+            case 7:
                 emergency_call();
                 break;
             default:

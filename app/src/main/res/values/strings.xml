@@ -129,11 +129,11 @@
     <!-- SLIDER MENU -->
     <!-- Nav Drawer Menu Items -->
     <string-array name="nav_drawer_items">
-        <item >Dossier médical</item>
-        <item>Ajouter un rendez-vous médical</item>
+        <item>Dossier médical</item>
         <item>Ajouter un traitement</item>
         <item>Médicaments à prendre</item>
         <item>Ajouter une maladie génétique</item>
+        <item>Pharmacies proches</item>
         <item>Configuration</item>
         <item>Appel d\'urgence</item>
     </string-array>
@@ -143,9 +143,9 @@
     <array name="nav_drawer_icons">
         <item>@drawable/ic_menu_archive</item>
         <item>@android:drawable/ic_menu_add</item>
-        <item>@android:drawable/ic_menu_add</item>
         <item>@drawable/view_medicine_button</item>
         <item>@android:drawable/ic_menu_add</item>
+        <item>@android:drawable/ic_menu_mapmode</item>
         <item>@android:drawable/ic_menu_info_details</item>
         <item>@android:drawable/stat_sys_phone_call</item>
     </array>
@@ -153,4 +153,5 @@
     <!-- Content Description -->
     <string name="desc_list_item_icon">Item Icon</string>
     <string name="autoCompleteTextAppointmentDoctor">Chercher un docteur</string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
