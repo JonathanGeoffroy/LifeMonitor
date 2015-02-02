@@ -49,6 +49,10 @@
     <string name="quantity">Dosage</string>
     <string name="frequency_separator">fois par</string>
     <string name="doctor_prescription">Prescrit par</string>
+    <string name="prefixBeginTreatmentDateDialog">Du</string>
+    <string name="prefixEndTreatmentDateDialog">Au</string>
+    <string name="prefixMedicineToTakeDialog">À prendre</string>
+    <string name="suffixQuantityOfMedicineToTake">par prise</string>
 
     <!-- Shape (medicine) -->
     <string name="gel">Gel</string>

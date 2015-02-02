@@ -111,7 +111,7 @@ public class TreatmentInformationDialog extends DialogFragment {
     private String getQuantity() {
         double quantity = treatment.getQuantity();
         String shape = treatment.getMedicine().getShape().resource(getActivity());
-        return String.format("%s %s", quantity, shape);
+        return String.format("%s %s ", quantity, shape);
     }
 
     /**
@@ -145,7 +145,7 @@ public class TreatmentInformationDialog extends DialogFragment {
         // Convert frequency in human sentence
         possibility = frequencyPossibility.resource(getActivity());
         frequency = frequencyPossibility.getHours() / hoursFrequency;
-        return String.format("%d %s %s", frequency, getResources().getString(R.string.frequency_separator), possibility);
+        return String.format(" %d %s %s", frequency, getResources().getString(R.string.frequency_separator), possibility);
     }
 
     @Override
