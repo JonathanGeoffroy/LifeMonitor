@@ -200,7 +200,7 @@ public class MyActivity extends FragmentActivity {
                 dialog.show(this.getFragmentManager(), "genetic box");
                 break;
             case 5:
-                fragment = new GoogleMapFragment();
+                fragment = GoogleMapFragment.newInstance();
                 break;
             case 6:
                 fragment = new UserConfigActivity();
