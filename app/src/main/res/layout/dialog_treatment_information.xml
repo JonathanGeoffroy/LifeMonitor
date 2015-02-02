@@ -82,14 +82,6 @@
                     android:layout_height="wrap_content" />
 
             </GridLayout>
-
-            <ImageButton
-                android:id="@+id/treatment_medicine_button"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:background="@null"
-                android:src="@drawable/view_medicine_button" />
         </LinearLayout>
     </ScrollView>
 </RelativeLayout>
