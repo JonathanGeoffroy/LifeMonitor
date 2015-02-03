@@ -6,9 +6,13 @@ import android.graphics.Color;
 
 import java.io.Serializable;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
+import java.util.List;
 
 import lifemonitor.application.R;
+import lifemonitor.application.controller.medicalRecord.adapter.items.TodayTreatmentItem;
 import lifemonitor.application.controller.medicalRecord.widget.medicalRecordItem.TreatmentInformationDialog;
 
 /**
@@ -23,7 +27,10 @@ import lifemonitor.application.controller.medicalRecord.widget.medicalRecordItem
  */
 public class Treatment implements MedicalRecordItem, Serializable {
 
+    private static final int MILLISECONDS_PER_MINUTE = 1000 * 60;
+    private static final int MILLISECONDS_PER_HOUR = 1000 * 60 * 60;
     private final static long MILLISECONDS_PER_DAY = 24 * 60 * 60 * 1000;
+
     private static final long serialVersionUID = -1553669749402707344L;
 
     /*
@@ -103,6 +110,63 @@ public class Treatment implements MedicalRecordItem, Serializable {
      */
     public Date computeEndDate() {
         return new Date(date.getTime() + duration * MILLISECONDS_PER_DAY);
+    }
+
+    /**
+     * Compute every doses to take today for this Treatment. and add them to the provided <code>items</code>
+     * The time of the first dose to take today is computed by using the <code>date</code> of the treatment.
+     * So a time to take dose is the time of the <code>date</code>. Other doses to take appears in the day
+     * in order to verify the<code>frequency</code>
+     * example: if the treatement begins at 12:00, and frequency = 3, so added doses are:
+     *  <ul>
+     *      <li>4:00</li>
+     *      <li>12:00</li>
+     *      <li>20:00</li>
+     *  </ul>
+     *
+     * @param items a list where to add computed doses
+     */
+    public void findTodayDoses(List<TodayTreatmentItem> items) {
+        // Transform date to Calendar
+        Calendar treatmentDate = new GregorianCalendar();
+        treatmentDate.setTime(date);
+
+        // Today at midnight
+        Calendar todayCalendar = Calendar.getInstance();
+        todayCalendar.set(Calendar.HOUR_OF_DAY, 0);
+        todayCalendar.set(Calendar.MINUTE, 0);
+        todayCalendar.set(Calendar.SECOND, 0);
+        todayCalendar.set(Calendar.MILLISECOND, 0);
+
+        // Tomorrow at midnight
+        Calendar tomorrowCalendar = Calendar.getInstance();
+        tomorrowCalendar.set(Calendar.HOUR_OF_DAY, 0);
+        tomorrowCalendar.set(Calendar.MINUTE, 0);
+        tomorrowCalendar.set(Calendar.SECOND, 0);
+        tomorrowCalendar.set(Calendar.MILLISECOND, 0);
+        tomorrowCalendar.add(Calendar.DAY_OF_MONTH, 1);
+        Date tomorrow = tomorrowCalendar.getTime();
+
+        // If treatments have to be taken today
+        Date endDate = new Date(date.getTime() + duration * MILLISECONDS_PER_DAY);
+        if(date.before(tomorrow) && endDate.after(todayCalendar.getTime())) {
+            // Compute the date of the first dose to take today
+            Calendar nextDoseCalendar = Calendar.getInstance();
+            long firstDoseMs = treatmentDate.get(Calendar.HOUR_OF_DAY) * MILLISECONDS_PER_HOUR + treatmentDate.get(Calendar.MINUTE) * MILLISECONDS_PER_MINUTE;
+            firstDoseMs = firstDoseMs % (frequency * MILLISECONDS_PER_HOUR);
+            int firstDoseHour = (int) (firstDoseMs / MILLISECONDS_PER_HOUR);
+            int firstDoseMinute = (int) ((firstDoseMs - (firstDoseHour * MILLISECONDS_PER_HOUR)) / MILLISECONDS_PER_MINUTE);
+            nextDoseCalendar.set(Calendar.HOUR_OF_DAY, firstDoseHour);
+            nextDoseCalendar.set(Calendar.MINUTE, firstDoseMinute);
+            nextDoseCalendar.set(Calendar.SECOND, 0);
+            Date nextDose = nextDoseCalendar.getTime();
+
+            // Compute all doses to take today
+            while (nextDose.before(tomorrow)) {
+                items.add(new TodayTreatmentItem(this, nextDose));
+                nextDose = new Date(nextDose.getTime() + frequency * MILLISECONDS_PER_HOUR);
+            }
+        }
     }
 
     public int getId() {
