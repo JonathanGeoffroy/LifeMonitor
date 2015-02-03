@@ -23,6 +23,7 @@ import java.util.ArrayList;
 import lifemonitor.application.controller.medicalRecord.AddTreatmentActivity;
 import lifemonitor.application.controller.medicalRecord.ShowMedicalRecordActivity;
 import lifemonitor.application.controller.medicalRecord.widget.AddGeneticDiseaseDialog;
+import lifemonitor.application.controller.service.AddMedicalAppointment;
 import lifemonitor.application.controller.userconfig.UserConfigActivity;
 import lifemonitor.application.model.menu.NavDrawerItem;
 import lifemonitor.application.model.menu.NavDrawerListAdapter;
@@ -72,14 +73,16 @@ public class MyActivity extends FragmentActivity {
         // adding nav drawer items to array
         // Medical record
         navDrawerItems.add(new NavDrawerItem(navMenuTitles[0], navMenuIcons.getResourceId(0, -1)));
+        // Add doctor appointment
+        navDrawerItems.add(new NavDrawerItem(navMenuTitles[1], navMenuIcons.getResourceId(1, - 1)));
         // Add treatment
-        navDrawerItems.add(new NavDrawerItem(navMenuTitles[1], navMenuIcons.getResourceId(1, -1)));
-        // add genetic disease
         navDrawerItems.add(new NavDrawerItem(navMenuTitles[2], navMenuIcons.getResourceId(2, -1)));
-        // Configuration
+        // add genetic disease
         navDrawerItems.add(new NavDrawerItem(navMenuTitles[3], navMenuIcons.getResourceId(3, -1)));
-        // Emergency call
+        // Configuration
         navDrawerItems.add(new NavDrawerItem(navMenuTitles[4], navMenuIcons.getResourceId(4, -1)));
+        // Emergency call
+        navDrawerItems.add(new NavDrawerItem(navMenuTitles[5], navMenuIcons.getResourceId(5, -1)));
 
 
         // Recycle the typed array
@@ -181,16 +184,19 @@ public class MyActivity extends FragmentActivity {
                 fragment = new ShowMedicalRecordActivity();
                 break;
             case 1:
-                fragment = new AddTreatmentActivity();
+                fragment = new AddMedicalAppointment();
                 break;
             case 2:
+                fragment = new AddTreatmentActivity();
+                break;
+            case 3:
                 AddGeneticDiseaseDialog dialog = AddGeneticDiseaseDialog.newInstance();
                 dialog.show(this.getFragmentManager(), "genetic box");
                 break;
-            case 3:
+            case 4:
                 fragment = new UserConfigActivity();
                 break;
-            case 4:
+            case 5:
                 emergency_call();
                 break;
             default:
