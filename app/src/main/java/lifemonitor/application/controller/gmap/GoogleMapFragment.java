@@ -30,7 +30,7 @@ import lifemonitor.application.R;
 public class GoogleMapFragment extends Fragment implements LocationListener {
     private List<Marker> markers;
     private LocationManager locationManager;
-    private GoogleMap googleMap;
+    private MapView mapView;
     private Marker user;
 
     public GoogleMapFragment() {
@@ -58,9 +58,11 @@ public class GoogleMapFragment extends Fragment implements LocationListener {
                              Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_google_map, container, false);
 
-        googleMap = ((MapFragment) getActivity().getFragmentManager().findFragmentById(R.id.googleMap)).getMap();
-        user = googleMap.addMarker(new MarkerOptions().title("You are here").position(new LatLng(0, 0)));
+        //googleMap = ((MapFragment) getActivity().getFragmentManager().findFragmentById(R.id.googleMap)).getMap();
+        mapView = (MapView) v.findViewById(R.id.googleMap);
+        mapView.onCreate(savedInstanceState);
         MapsInitializer.initialize(this.getActivity());
+        user = mapView.getMap().addMarker(new MarkerOptions().title("You are here").position(new LatLng(0, 0)));
 
         return v;
     }
@@ -78,6 +80,7 @@ public class GoogleMapFragment extends Fragment implements LocationListener {
     @Override
     public void onResume() {
         super.onResume();
+        mapView.onResume();
         locationManager = (LocationManager) this.getActivity().getSystemService(this.getActivity().LOCATION_SERVICE);
         if(locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
             subscriptionGPS();
@@ -87,17 +90,20 @@ public class GoogleMapFragment extends Fragment implements LocationListener {
     @Override
     public void onPause() {
         super.onPause();
+        mapView.onPause();
         unsubscriptionGPS();
     }
 
     @Override
     public void onDestroy() {
         super.onDestroy();
+        mapView.onDestroy();
     }
 
     @Override
     public void onLowMemory() {
         super.onLowMemory();
+        mapView.onLowMemory();
     }
 
     @Override
@@ -121,7 +127,7 @@ public class GoogleMapFragment extends Fragment implements LocationListener {
 
     @Override
     public void onLocationChanged(final Location location) {
-        googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(location.getLatitude(), location.getLongitude()), 15));
+        mapView.getMap().moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(location.getLatitude(), location.getLongitude()), 15));
         user.setPosition(new LatLng(location.getLatitude(), location.getLongitude()));
     }
 

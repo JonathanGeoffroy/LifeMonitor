@@ -1,6 +1,15 @@
-<?xml version="1.0" encoding="utf-8"?>
-<fragment xmlns:android="http://schemas.android.com/apk/res/android"
-android:id="@+id/googleMap"
-android:layout_width="match_parent"
-android:layout_height="match_parent"
-class="com.google.android.gms.maps.MapFragment" />
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="lifemonitor.application.controller.gmap.GoogleMapFragment">
+
+    <com.google.android.gms.maps.MapView xmlns:map="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/googleMap"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        map:cameraTargetLat="50.636"
+        map:cameraTargetLng="3.06968"
+        map:cameraZoom="13"
+        map:mapType="normal" />
+
+</LinearLayout>
