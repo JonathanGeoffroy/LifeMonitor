@@ -5,13 +5,13 @@ import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
-import com.google.android.gms.maps.MapFragment;
 import com.google.android.gms.maps.MapView;
 import com.google.android.gms.maps.MapsInitializer;
 import com.google.android.gms.maps.model.LatLng;
@@ -32,6 +32,10 @@ public class GoogleMapFragment extends Fragment implements LocationListener {
     private LocationManager locationManager;
     private MapView mapView;
     private Marker user;
+
+    private static final String PLACES_SEARCH_URL =  "https://maps.googleapis.com/maps/api/place/search/json?";
+
+    private static final boolean PRINT_AS_STRING = false;
 
     public GoogleMapFragment() {
         markers = new LinkedList<Marker>();
@@ -59,6 +63,13 @@ public class GoogleMapFragment extends Fragment implements LocationListener {
         View v = inflater.inflate(R.layout.fragment_google_map, container, false);
 
         //googleMap = ((MapFragment) getActivity().getFragmentManager().findFragmentById(R.id.googleMap)).getMap();
+        GooglePlacesSearch gps = new GooglePlacesSearch();
+        try {
+            gps.performSearch();
+            Log.e("","try");
+        } catch (java.lang.Exception e) {
+            e.printStackTrace();
+        }
         mapView = (MapView) v.findViewById(R.id.googleMap);
         mapView.onCreate(savedInstanceState);
         MapsInitializer.initialize(this.getActivity());
@@ -162,4 +173,6 @@ public class GoogleMapFragment extends Fragment implements LocationListener {
      */
     public interface OnFragmentInteractionListener {
     }
+
+
 }
