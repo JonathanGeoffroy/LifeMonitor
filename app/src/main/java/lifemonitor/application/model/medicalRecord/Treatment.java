@@ -137,6 +137,7 @@ public class Treatment implements MedicalRecordItem, Serializable {
         todayCalendar.set(Calendar.MINUTE, 0);
         todayCalendar.set(Calendar.SECOND, 0);
         todayCalendar.set(Calendar.MILLISECOND, 0);
+        Date today = todayCalendar.getTime();
 
         // Tomorrow at midnight
         Calendar tomorrowCalendar = Calendar.getInstance();
@@ -149,9 +150,11 @@ public class Treatment implements MedicalRecordItem, Serializable {
 
         // If treatments have to be taken today
         Date endDate = new Date(date.getTime() + duration * MILLISECONDS_PER_DAY);
-        if(date.before(tomorrow) && endDate.after(todayCalendar.getTime())) {
+        if(date.before(tomorrow) && endDate.after(today)) {
             // Compute the date of the first dose to take today
-            Calendar nextDoseCalendar = Calendar.getInstance();
+            Calendar nextDoseCalendar = new GregorianCalendar();
+            nextDoseCalendar.setTimeInMillis(date.getTime());
+
             long firstDoseMs = treatmentDate.get(Calendar.HOUR_OF_DAY) * MILLISECONDS_PER_HOUR + treatmentDate.get(Calendar.MINUTE) * MILLISECONDS_PER_MINUTE;
             firstDoseMs = firstDoseMs % (frequency * MILLISECONDS_PER_HOUR);
             int firstDoseHour = (int) (firstDoseMs / MILLISECONDS_PER_HOUR);
@@ -163,7 +166,9 @@ public class Treatment implements MedicalRecordItem, Serializable {
 
             // Compute all doses to take today
             while (nextDose.before(tomorrow)) {
-                items.add(new TodayTreatmentItem(this, nextDose));
+                if(nextDose.after(today)) {
+                    items.add(new TodayTreatmentItem(this, nextDose));
+                }
                 nextDose = new Date(nextDose.getTime() + frequency * MILLISECONDS_PER_HOUR);
             }
         }
