@@ -2,9 +2,14 @@ package lifemonitor.application.model.medicalRecord;
 
 import android.content.Context;
 
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.LinkedList;
 import java.util.List;
 
+import lifemonitor.application.controller.medicalRecord.adapter.items.TodayTreatmentItem;
 import lifemonitor.application.helper.rest.RESTHelper;
 import lifemonitor.application.helper.rest.listeners.MultipleResultsRESTListener;
 import lifemonitor.application.helper.rest.listeners.SingleResultRESTListener;
@@ -13,6 +18,10 @@ import lifemonitor.application.helper.rest.listeners.SingleResultRESTListener;
  * @author Jonathan Geoffroy
  */
 public class MedicalRecord {
+    private static final int MILLISECONDS_PER_MINUTE = 1000 * 60;
+    private static final int MILLISECONDS_PER_HOUR = 1000 * 60 * 60;
+    private static final int MILLISECONDS_PER_DAY = MILLISECONDS_PER_HOUR * 24;
+
     private int id;
     private List<Allergy> allergies;
     private List<Illness> illnesses;
@@ -67,6 +76,24 @@ public class MedicalRecord {
                 onResponse.onError();
             }
         });
+    }
+
+    /**
+     * Find doses to take today by a patient, by exploring its medical record.
+     * For each treatment, computes doses to take today.
+     * @see Treatment#findTodayDoses(java.util.List)
+     * @return the list of TodayTreatmentItem to take today
+     */
+    public List<TodayTreatmentItem> findTreatmentItems() {
+        List<TodayTreatmentItem> items = new ArrayList<>();
+
+        // For each treatment, find all doses to take today
+        for(Treatment treatment: treatments) {
+            Date endDate = new Date(treatment.getDate().getTime() + treatment.getDuration() * MILLISECONDS_PER_DAY);
+            treatment.findTodayDoses(items);
+        }
+
+        return items;
     }
 
     public int getId() {
