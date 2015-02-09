@@ -34,6 +34,15 @@ import lifemonitor.application.model.menu.NavDrawerListAdapter;
  * Home Page
  */
 public class MyActivity extends FragmentActivity {
+    public static final String FRAGMENT_ID_BUNDLE = "fragmentId";
+    public static final int MEDICAL_RECORD_FRAGMENT_ID = 0,
+            APPOINTMENT_FRAGMENT_ID = 1,
+            ADD_TREATMENT_FRAGMENT_ID = 2,
+            TODAY_TREATMENTS_FRAGMENT_ID = 3,
+            GENETIC_DISEASE_FRAGMENT_ID = 4,
+            PHARMACY_FRAGMENT_ID = 5,
+            CONFIGURATION_FRAGMENT_ID = 6,
+            EMERGENCY_CALL_FRAGMENT_ID = 7;
     private DrawerLayout mDrawerLayout;
     private ListView mDrawerList;
     private ActionBarDrawerToggle mDrawerToggle;
@@ -72,21 +81,21 @@ public class MyActivity extends FragmentActivity {
 
         // adding nav drawer items to array
         // Medical record
-        navDrawerItems.add(new NavDrawerItem(navMenuTitles[0], navMenuIcons.getResourceId(0, -1)));
+        navDrawerItems.add(new NavDrawerItem(navMenuTitles[MEDICAL_RECORD_FRAGMENT_ID], navMenuIcons.getResourceId(0, -1)));
         // Add doctor appointment
-        navDrawerItems.add(new NavDrawerItem(navMenuTitles[1], navMenuIcons.getResourceId(1, - 1)));
+        navDrawerItems.add(new NavDrawerItem(navMenuTitles[APPOINTMENT_FRAGMENT_ID], navMenuIcons.getResourceId(1, - 1)));
         // Add treatment
-        navDrawerItems.add(new NavDrawerItem(navMenuTitles[2], navMenuIcons.getResourceId(2, -1)));
+        navDrawerItems.add(new NavDrawerItem(navMenuTitles[ADD_TREATMENT_FRAGMENT_ID], navMenuIcons.getResourceId(2, -1)));
         // Medicines to take today
-        navDrawerItems.add(new NavDrawerItem(navMenuTitles[3], navMenuIcons.getResourceId(3, -1)));
+        navDrawerItems.add(new NavDrawerItem(navMenuTitles[TODAY_TREATMENTS_FRAGMENT_ID], navMenuIcons.getResourceId(3, -1)));
         // add genetic disease
-        navDrawerItems.add(new NavDrawerItem(navMenuTitles[4], navMenuIcons.getResourceId(4, -1)));
+        navDrawerItems.add(new NavDrawerItem(navMenuTitles[GENETIC_DISEASE_FRAGMENT_ID], navMenuIcons.getResourceId(4, -1)));
         // Find closest pharmacy
-        navDrawerItems.add(new NavDrawerItem(navMenuTitles[5], navMenuIcons.getResourceId(5, -1)));
+        navDrawerItems.add(new NavDrawerItem(navMenuTitles[PHARMACY_FRAGMENT_ID], navMenuIcons.getResourceId(5, -1)));
         // Configuration
-        navDrawerItems.add(new NavDrawerItem(navMenuTitles[6], navMenuIcons.getResourceId(6, -1)));
+        navDrawerItems.add(new NavDrawerItem(navMenuTitles[CONFIGURATION_FRAGMENT_ID], navMenuIcons.getResourceId(6, -1)));
         // Emergency call
-        navDrawerItems.add(new NavDrawerItem(navMenuTitles[7], navMenuIcons.getResourceId(7, -1)));
+        navDrawerItems.add(new NavDrawerItem(navMenuTitles[EMERGENCY_CALL_FRAGMENT_ID], navMenuIcons.getResourceId(7, -1)));
 
         // Recycle the typed array
         navMenuIcons.recycle();
@@ -183,29 +192,29 @@ public class MyActivity extends FragmentActivity {
         // update the main content by replacing fragments
         Fragment fragment = null;
         switch (position) {
-            case 0:
+            case MEDICAL_RECORD_FRAGMENT_ID:
                 fragment = new ShowMedicalRecordActivity();
                 break;
-            case 1:
+            case APPOINTMENT_FRAGMENT_ID:
                 fragment = new AddMedicalAppointment();
                 break;
-            case 2:
+            case ADD_TREATMENT_FRAGMENT_ID:
                 fragment = new AddTreatmentActivity();
                 break;
-            case 3:
+            case TODAY_TREATMENTS_FRAGMENT_ID:
                 fragment = new TodayTreatmentActivity();
                 break;
-            case 4:
+            case GENETIC_DISEASE_FRAGMENT_ID:
                 AddGeneticDiseaseDialog dialog = AddGeneticDiseaseDialog.newInstance();
                 dialog.show(this.getFragmentManager(), "genetic box");
                 break;
-            case 5:
+            case PHARMACY_FRAGMENT_ID:
                 fragment = GoogleMapFragment.newInstance();
                 break;
-            case 6:
+            case CONFIGURATION_FRAGMENT_ID:
                 fragment = new UserConfigActivity();
                 break;
-            case 7:
+            case EMERGENCY_CALL_FRAGMENT_ID:
                 emergency_call();
                 break;
             default:
