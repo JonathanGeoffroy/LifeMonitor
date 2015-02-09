@@ -81,21 +81,21 @@ public class MyActivity extends FragmentActivity {
 
         // adding nav drawer items to array
         // Medical record
-        navDrawerItems.add(new NavDrawerItem(navMenuTitles[MEDICAL_RECORD_FRAGMENT_ID], navMenuIcons.getResourceId(0, -1)));
+        navDrawerItems.add(new NavDrawerItem(navMenuTitles[MEDICAL_RECORD_FRAGMENT_ID], navMenuIcons.getResourceId(MEDICAL_RECORD_FRAGMENT_ID, -1)));
         // Add doctor appointment
-        navDrawerItems.add(new NavDrawerItem(navMenuTitles[APPOINTMENT_FRAGMENT_ID], navMenuIcons.getResourceId(1, - 1)));
+        navDrawerItems.add(new NavDrawerItem(navMenuTitles[APPOINTMENT_FRAGMENT_ID], navMenuIcons.getResourceId(APPOINTMENT_FRAGMENT_ID, - 1)));
         // Add treatment
-        navDrawerItems.add(new NavDrawerItem(navMenuTitles[ADD_TREATMENT_FRAGMENT_ID], navMenuIcons.getResourceId(2, -1)));
+        navDrawerItems.add(new NavDrawerItem(navMenuTitles[ADD_TREATMENT_FRAGMENT_ID], navMenuIcons.getResourceId(ADD_TREATMENT_FRAGMENT_ID, -1)));
         // Medicines to take today
-        navDrawerItems.add(new NavDrawerItem(navMenuTitles[TODAY_TREATMENTS_FRAGMENT_ID], navMenuIcons.getResourceId(3, -1)));
+        navDrawerItems.add(new NavDrawerItem(navMenuTitles[TODAY_TREATMENTS_FRAGMENT_ID], navMenuIcons.getResourceId(TODAY_TREATMENTS_FRAGMENT_ID, -1)));
         // add genetic disease
-        navDrawerItems.add(new NavDrawerItem(navMenuTitles[GENETIC_DISEASE_FRAGMENT_ID], navMenuIcons.getResourceId(4, -1)));
+        navDrawerItems.add(new NavDrawerItem(navMenuTitles[GENETIC_DISEASE_FRAGMENT_ID], navMenuIcons.getResourceId(GENETIC_DISEASE_FRAGMENT_ID, -1)));
         // Find closest pharmacy
-        navDrawerItems.add(new NavDrawerItem(navMenuTitles[PHARMACY_FRAGMENT_ID], navMenuIcons.getResourceId(5, -1)));
+        navDrawerItems.add(new NavDrawerItem(navMenuTitles[PHARMACY_FRAGMENT_ID], navMenuIcons.getResourceId(PHARMACY_FRAGMENT_ID, -1)));
         // Configuration
-        navDrawerItems.add(new NavDrawerItem(navMenuTitles[CONFIGURATION_FRAGMENT_ID], navMenuIcons.getResourceId(6, -1)));
+        navDrawerItems.add(new NavDrawerItem(navMenuTitles[CONFIGURATION_FRAGMENT_ID], navMenuIcons.getResourceId(CONFIGURATION_FRAGMENT_ID, -1)));
         // Emergency call
-        navDrawerItems.add(new NavDrawerItem(navMenuTitles[EMERGENCY_CALL_FRAGMENT_ID], navMenuIcons.getResourceId(7, -1)));
+        navDrawerItems.add(new NavDrawerItem(navMenuTitles[EMERGENCY_CALL_FRAGMENT_ID], navMenuIcons.getResourceId(EMERGENCY_CALL_FRAGMENT_ID, -1)));
 
         // Recycle the typed array
         navMenuIcons.recycle();
@@ -130,13 +130,16 @@ public class MyActivity extends FragmentActivity {
         };
         mDrawerLayout.setDrawerListener(mDrawerToggle);
 
-        if (savedInstanceState == null) {
-            // on first time display view for first nav item
+        // Display the current fragment, depending on if a specific fragment is requested
+        Intent intent = getIntent();
+        int fragmentId = intent.getIntExtra(FRAGMENT_ID_BUNDLE, -1);
+        if(fragmentId != -1) {
+            displayView(fragmentId);
+        } else {
             displayView(0);
         }
 
         mDrawerList.setOnItemClickListener(new SlideMenuClickListener());
-
     }
 
 
