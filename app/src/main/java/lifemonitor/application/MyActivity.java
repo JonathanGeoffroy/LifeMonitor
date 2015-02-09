@@ -36,9 +36,9 @@ import lifemonitor.application.model.menu.NavDrawerListAdapter;
 public class MyActivity extends FragmentActivity {
     public static final String FRAGMENT_ID_BUNDLE = "fragmentId";
     public static final int MEDICAL_RECORD_FRAGMENT_ID = 0,
-            APPOINTMENT_FRAGMENT_ID = 1,
-            ADD_TREATMENT_FRAGMENT_ID = 2,
-            TODAY_TREATMENTS_FRAGMENT_ID = 3,
+            TODAY_TREATMENTS_FRAGMENT_ID = 1,
+            APPOINTMENT_FRAGMENT_ID = 2,
+            ADD_TREATMENT_FRAGMENT_ID = 3,
             GENETIC_DISEASE_FRAGMENT_ID = 4,
             PHARMACY_FRAGMENT_ID = 5,
             CONFIGURATION_FRAGMENT_ID = 6,
@@ -82,12 +82,12 @@ public class MyActivity extends FragmentActivity {
         // adding nav drawer items to array
         // Medical record
         navDrawerItems.add(new NavDrawerItem(navMenuTitles[MEDICAL_RECORD_FRAGMENT_ID], navMenuIcons.getResourceId(MEDICAL_RECORD_FRAGMENT_ID, -1)));
+        // Medicines to take today
+        navDrawerItems.add(new NavDrawerItem(navMenuTitles[TODAY_TREATMENTS_FRAGMENT_ID], navMenuIcons.getResourceId(TODAY_TREATMENTS_FRAGMENT_ID, -1)));
         // Add doctor appointment
         navDrawerItems.add(new NavDrawerItem(navMenuTitles[APPOINTMENT_FRAGMENT_ID], navMenuIcons.getResourceId(APPOINTMENT_FRAGMENT_ID, - 1)));
         // Add treatment
         navDrawerItems.add(new NavDrawerItem(navMenuTitles[ADD_TREATMENT_FRAGMENT_ID], navMenuIcons.getResourceId(ADD_TREATMENT_FRAGMENT_ID, -1)));
-        // Medicines to take today
-        navDrawerItems.add(new NavDrawerItem(navMenuTitles[TODAY_TREATMENTS_FRAGMENT_ID], navMenuIcons.getResourceId(TODAY_TREATMENTS_FRAGMENT_ID, -1)));
         // add genetic disease
         navDrawerItems.add(new NavDrawerItem(navMenuTitles[GENETIC_DISEASE_FRAGMENT_ID], navMenuIcons.getResourceId(GENETIC_DISEASE_FRAGMENT_ID, -1)));
         // Find closest pharmacy
