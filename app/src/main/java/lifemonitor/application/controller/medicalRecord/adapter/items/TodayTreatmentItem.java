@@ -27,12 +27,12 @@ public class TodayTreatmentItem {
     private Date dose;
 
     /**
-     * Does this Dose already been taken ?
+     * Has this Dose already been taken ?
      */
     private boolean taken;
 
     /**
-     * DateFormat which displays hours::minutes
+     * DateFormat which displays hours:minutes
      */
     private final static DateFormat dateFormat = new SimpleDateFormat("HH:mm");
 

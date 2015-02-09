@@ -115,9 +115,9 @@ public class Treatment implements MedicalRecordItem, Serializable {
     /**
      * Compute every doses to take today for this Treatment. and add them to the provided <code>items</code>
      * The time of the first dose to take today is computed by using the <code>date</code> of the treatment.
-     * So a time to take dose is the time of the <code>date</code>. Other doses to take appears in the day
+     * So a time to take dose is the time of the <code>date</code>. Other doses to take appear in the day
      * in order to verify the<code>frequency</code>
-     * example: if the treatement begins at 12:00, and frequency = 3, so added doses are:
+     * example: if the treatment begins at 12:00, and frequency = 3, so added doses are:
      *  <ul>
      *      <li>4:00</li>
      *      <li>12:00</li>
