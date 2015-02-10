@@ -8,11 +8,8 @@ import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.GregorianCalendar;
-import java.util.List;
 
 import lifemonitor.application.R;
-import lifemonitor.application.controller.medicalRecord.adapter.items.TodayTreatmentItem;
 import lifemonitor.application.controller.medicalRecord.widget.medicalRecordItem.TreatmentInformationDialog;
 
 /**
@@ -112,25 +109,13 @@ public class Treatment implements MedicalRecordItem, Serializable {
         return new Date(date.getTime() + duration * MILLISECONDS_PER_DAY);
     }
 
-    /**
-     * Compute every doses to take today for this Treatment. and add them to the provided <code>items</code>
-     * The time of the first dose to take today is computed by using the <code>date</code> of the treatment.
-     * So a time to take dose is the time of the <code>date</code>. Other doses to take appear in the day
-     * in order to verify the<code>frequency</code>
-     * example: if the treatment begins at 12:00, and frequency = 3, so added doses are:
-     *  <ul>
-     *      <li>4:00</li>
-     *      <li>12:00</li>
-     *      <li>20:00</li>
-     *  </ul>
-     *
-     * @param items a list where to add computed doses
-     */
-    public void findTodayDoses(List<TodayTreatmentItem> items) {
-        // Transform date to Calendar
-        Calendar treatmentDate = new GregorianCalendar();
-        treatmentDate.setTime(date);
 
+    /**
+     * Check if this treatment is a current one,
+     * i.e. if it began before today midnight, and will ends after tomorrow midnight
+     * @return true iff this treatment is a current one
+     */
+    public boolean isCurrent() {
         // Today at midnight
         Calendar todayCalendar = Calendar.getInstance();
         todayCalendar.set(Calendar.HOUR_OF_DAY, 0);
@@ -148,30 +133,8 @@ public class Treatment implements MedicalRecordItem, Serializable {
         tomorrowCalendar.add(Calendar.DAY_OF_MONTH, 1);
         Date tomorrow = tomorrowCalendar.getTime();
 
-        // If treatments have to be taken today
         Date endDate = new Date(date.getTime() + duration * MILLISECONDS_PER_DAY);
-        if(date.before(tomorrow) && endDate.after(today)) {
-            // Compute the date of the first dose to take today
-            Calendar nextDoseCalendar = new GregorianCalendar();
-            nextDoseCalendar.setTimeInMillis(date.getTime());
-
-            long firstDoseMs = treatmentDate.get(Calendar.HOUR_OF_DAY) * MILLISECONDS_PER_HOUR + treatmentDate.get(Calendar.MINUTE) * MILLISECONDS_PER_MINUTE;
-            firstDoseMs = firstDoseMs % (frequency * MILLISECONDS_PER_HOUR);
-            int firstDoseHour = (int) (firstDoseMs / MILLISECONDS_PER_HOUR);
-            int firstDoseMinute = (int) ((firstDoseMs - (firstDoseHour * MILLISECONDS_PER_HOUR)) / MILLISECONDS_PER_MINUTE);
-            nextDoseCalendar.set(Calendar.HOUR_OF_DAY, firstDoseHour);
-            nextDoseCalendar.set(Calendar.MINUTE, firstDoseMinute);
-            nextDoseCalendar.set(Calendar.SECOND, 0);
-            Date nextDose = nextDoseCalendar.getTime();
-
-            // Compute all doses to take today
-            while (nextDose.before(tomorrow)) {
-                if(nextDose.after(today)) {
-                    items.add(new TodayTreatmentItem(this, nextDose));
-                }
-                nextDose = new Date(nextDose.getTime() + frequency * MILLISECONDS_PER_HOUR);
-            }
-        }
+        return date.before(tomorrow) && endDate.after(today);
     }
 
     public int getId() {

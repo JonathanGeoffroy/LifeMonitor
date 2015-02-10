@@ -4,8 +4,8 @@ import android.content.Context;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.Date;
 
+import lifemonitor.application.model.medicalRecord.Intake;
 import lifemonitor.application.model.medicalRecord.Treatment;
 
 /**
@@ -15,30 +15,22 @@ import lifemonitor.application.model.medicalRecord.Treatment;
  *
  * @author Grégory Lefer, Jonathan Geoffroy
  */
-public class TodayTreatmentItem {
+public class TodayIntakeItem implements Comparable<TodayIntakeItem> {
     /**
      * Treatment to take
      */
     private Treatment treatment;
 
-    /**
-     * Date of the dose
-     */
-    private Date dose;
-
-    /**
-     * Has this Dose already been taken ?
-     */
-    private boolean taken;
+    private Intake intake;
 
     /**
      * DateFormat which displays hours:minutes
      */
     private final static DateFormat dateFormat = new SimpleDateFormat("HH:mm");
 
-    public TodayTreatmentItem(Treatment treatment, Date dose) {
+    public TodayIntakeItem(Intake intake, Treatment treatment) {
+        this.intake = intake;
         this.treatment = treatment;
-        this.dose = dose;
     }
 
     public String getMedicineName(Context context) {
@@ -46,10 +38,27 @@ public class TodayTreatmentItem {
     }
 
     public String getDate() {
-        return dateFormat.format(dose);
+        return dateFormat.format(intake.getTime());
     }
 
     public boolean isTaken() {
-        return taken;
+        return intake.getId() != 0;
+    }
+
+    public boolean isForgotten() {
+        return false;
+    }
+
+    public Intake getIntake() {
+        return intake;
+    }
+
+    public Treatment getTreatment() {
+        return treatment;
+    }
+
+    @Override
+    public int compareTo(TodayIntakeItem another) {
+        return (int) (intake.getTime().getTime() - another.intake.getTime().getTime());
     }
 }

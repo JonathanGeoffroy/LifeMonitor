@@ -23,7 +23,7 @@ import java.util.ArrayList;
 import lifemonitor.application.controller.gmap.GoogleMapFragment;
 import lifemonitor.application.controller.medicalRecord.AddTreatmentActivity;
 import lifemonitor.application.controller.medicalRecord.ShowMedicalRecordActivity;
-import lifemonitor.application.controller.medicalRecord.TodayTreatmentActivity;
+import lifemonitor.application.controller.medicalRecord.TodayIntakesActivity;
 import lifemonitor.application.controller.medicalRecord.widget.AddGeneticDiseaseDialog;
 import lifemonitor.application.controller.service.AddMedicalAppointment;
 import lifemonitor.application.controller.userconfig.UserConfigActivity;
@@ -205,7 +205,7 @@ public class MyActivity extends FragmentActivity {
                 fragment = new AddTreatmentActivity();
                 break;
             case TODAY_TREATMENTS_FRAGMENT_ID:
-                fragment = new TodayTreatmentActivity();
+                fragment = new TodayIntakesActivity();
                 break;
             case GENETIC_DISEASE_FRAGMENT_ID:
                 AddGeneticDiseaseDialog dialog = AddGeneticDiseaseDialog.newInstance();
