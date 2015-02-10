@@ -3,6 +3,7 @@ package lifemonitor.application.model.medicalRecord;
 import android.support.v4.app.DialogFragment;
 import android.content.Context;
 import android.graphics.Color;
+import android.util.Log;
 
 import java.io.Serializable;
 import java.text.SimpleDateFormat;
@@ -198,18 +199,25 @@ public class Treatment implements MedicalRecordItem, Serializable {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
+        Log.v("Treatment.equals", "Same type");
         Treatment treatment = (Treatment) o;
 
         SimpleDateFormat format = new SimpleDateFormat("ymd");
         if (duration != treatment.duration) return false;
+        Log.v("Treatment.equals", "Same duration");
         if (frequency != treatment.frequency) return false;
+        Log.v("Treatment.equals", "Same frequency");
         if (id != treatment.id) return false;
+        Log.v("Treatment.equals", "Same id");
         if (Double.compare(treatment.quantity, quantity) != 0) return false;
+        Log.v("Treatment.equals", "Same frequency");
         if (!format.format(date).equals(format.format(treatment.date))) return false;
+        Log.v("Treatment.equals", "Same Date");
         if (!medicine.equals(treatment.medicine)) return false;
+        Log.v("Treatment.equals", "Same medicine");
         if (prescription != null ? !prescription.equals(treatment.prescription) : treatment.prescription != null)
             return false;
-
+        Log.v("Treatment.equals", "Same prescription (or no prescription)");
         return true;
     }
 
