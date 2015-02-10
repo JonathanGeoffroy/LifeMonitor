@@ -200,7 +200,7 @@ public class Treatment implements MedicalRecordItem, Serializable {
         if (o == null || getClass() != o.getClass()) return false;
         Treatment treatment = (Treatment) o;
 
-        SimpleDateFormat format = new SimpleDateFormat("ymd");
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSZ");
         String dateFormat = format.format(date);
         String treatmentDateFormat = format.format(treatment.date);
 
