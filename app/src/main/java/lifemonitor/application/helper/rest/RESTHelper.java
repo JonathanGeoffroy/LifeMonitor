@@ -145,7 +145,7 @@ public class RESTHelper<T> {
      * @param clazz        class of the object to send
      * @param postListener listener handled when the add request ends.
      */
-    public void sendPOSTRequest(lifemonitor.application.model.medicalRecord.MedicalRecordItem object, String uri, final Class<T> clazz, final PostListener<T> postListener) {
+    public void sendPOSTRequest(T object, String uri, final Class<T> clazz, final PostListener<T> postListener) {
         try {
             String json = (new ObjectToJSONParser()).getJSONFrom(object);
             JsonRequest<JSONObject> request = new JsonObjectRequest(Request.Method.POST, RESTUrl + uri, new JSONObject(json), new Response.Listener<JSONObject>() {
