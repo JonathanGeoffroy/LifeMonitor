@@ -50,10 +50,6 @@ function cp_to {
     alias cp="cp -iv" > /dev/null 2>&1    
 }
 
-function rm_to {
-
-}
-
 
 # Faire un detectOS avant
 function ins {
