@@ -151,6 +151,7 @@ public class RESTHelper<T> {
             JsonRequest<JSONObject> request = new JsonObjectRequest(Request.Method.POST, RESTUrl + uri, new JSONObject(json), new Response.Listener<JSONObject>() {
                 @Override
                 public void onResponse(JSONObject response) {
+                    Log.v("PostRequestResponse", response.toString());
                     try {
                         SingleResultRESTParser<T> parser = new SingleResultRESTParser();
                         T resultObject = parser.parseResult(response.toString(), clazz);
