@@ -47,9 +47,15 @@ function cp_to {
     unalias cp > /dev/null 2>&1
     cp -fr `pwd`/$1 $2 > /dev/null 2>&1
     is_working "Copie de $1 sur $2"
-    alias cp="cp -iv" > /dev/null 2>&1    
+    alias cp="cp -iv" > /dev/null 2>&1
 }
 
+
+function rm_to {
+    all="$@" # pour fonction is_working
+    mv -fr $@ /tmp/> /dev/null 2>&1
+    is_working "Suppression de $all"
+}
 
 # Faire un detectOS avant
 function ins {
@@ -69,7 +75,19 @@ function ins {
 
 function make {
     detectOS
+    if  [ "$1" = "clean" ]
+    then
+        {
+            rm_to ~/.android/* `pwd`/.idea `pwd`/.gradle `pwd`/build
+        }
+    else
+        {
+            echo "Argument 'clean' pour nettoyage"
+        }
+    fi
+
     cp_to debug.keystore ~/.android/.
+
 }
 make $@
 exit 0
