@@ -198,23 +198,21 @@ public class Treatment implements MedicalRecordItem, Serializable {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-
-        Log.v("Treatment.equals", "Same type");
         Treatment treatment = (Treatment) o;
 
         SimpleDateFormat format = new SimpleDateFormat("ymd");
+        String dateFormat = format.format(date);
+        String treatmentDateFormat = format.format(treatment.date);
+
+        Log.v("Treatment.equals", dateFormat + "---");
+        Log.v("Treatment.equals", treatmentDateFormat + "---");
+
         if (duration != treatment.duration) return false;
-        Log.v("Treatment.equals", "Same duration");
         if (frequency != treatment.frequency) return false;
-        Log.v("Treatment.equals", "Same frequency");
         if (id != treatment.id) return false;
-        Log.v("Treatment.equals", "Same id");
         if (Double.compare(treatment.quantity, quantity) != 0) return false;
-        Log.v("Treatment.equals", "Same frequency");
-        if (!format.format(date).equals(format.format(treatment.date))) return false;
-        Log.v("Treatment.equals", "Same Date");
+        if (!dateFormat.equals(treatmentDateFormat)) return false;
         if (!medicine.equals(treatment.medicine)) return false;
-        Log.v("Treatment.equals", "Same medicine");
         if (prescription != null ? !prescription.equals(treatment.prescription) : treatment.prescription != null)
             return false;
         Log.v("Treatment.equals", "Same prescription (or no prescription)");
