@@ -2,6 +2,7 @@ package lifemonitor.application.controller.medicalRecord.adapter;
 
 import android.content.Context;
 import android.graphics.Color;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -27,6 +28,8 @@ import lifemonitor.application.model.medicalRecord.Intake;
  * @author Jonathan Geoffroy
  */
 public class TodayIntakeAdapter extends BaseAdapter {
+    public static final int RED = Color.argb(255, 242, 222, 222);
+    public static final int GREEN = Color.argb(255, 223, 240, 216);
     /**
      * Layout inflater used to map each item with <code>R.layout.medical_record_item</code>
      */
@@ -68,17 +71,16 @@ public class TodayIntakeAdapter extends BaseAdapter {
     public View getView(int position, View convertView, ViewGroup parent) {
         // Try to retrieve previously created ViewHolder
         ViewHolder viewHolder;
-        if(convertView == null) {
+        if (convertView == null) {
             // Add data into new convertView
-            convertView = layoutInflater.inflate(R.layout.today_treatment_item, null);
+            convertView = layoutInflater.inflate(R.layout.today_intake_item, null);
             viewHolder = new ViewHolder();
-            viewHolder.medicineName = (TextView)convertView.findViewById(R.id.medicine_name);
-            viewHolder.date = (TextView)convertView.findViewById(R.id.medicine_date);
-            viewHolder.taken = (Switch)convertView.findViewById(R.id.taken_toggleButton);
+            viewHolder.medicineName = (TextView) convertView.findViewById(R.id.medicine_name);
+            viewHolder.date = (TextView) convertView.findViewById(R.id.medicine_date);
+            viewHolder.taken = (Switch) convertView.findViewById(R.id.taken_toggleButton);
             viewHolder.taken.setOnCheckedChangeListener(new TakenIntakeCheckedChangeListener(todayIntakeItems.get(position), convertView));
             convertView.setTag(viewHolder);
-        }
-        else {
+        } else {
             // Retrieve old convertView
             viewHolder = (ViewHolder) convertView.getTag();
         }
@@ -91,14 +93,12 @@ public class TodayIntakeAdapter extends BaseAdapter {
         viewHolder.taken.setChecked(item.isTaken());
 
         // Change background color
-        if(item.isTaken()) {
-            convertView.setBackgroundColor(Color.GREEN);
-        }
-        else if (item.isForgotten()) {
-            convertView.setBackgroundColor(Color.RED);
-        }
-        else {
-            convertView.setBackgroundColor(Color.GRAY);
+        if (item.isTaken()) {
+            convertView.setBackgroundColor(GREEN);
+        } else if (item.isForgotten()) {
+            convertView.setBackgroundColor(RED);
+        } else {
+            convertView.setBackgroundColor(Color.WHITE);
         }
 
         return convertView;
@@ -118,7 +118,8 @@ public class TodayIntakeAdapter extends BaseAdapter {
         private TextView date;
         private Switch taken;
 
-        public ViewHolder() {}
+        public ViewHolder() {
+        }
     }
 
     /**
@@ -143,23 +144,25 @@ public class TodayIntakeAdapter extends BaseAdapter {
 
         @Override
         public void onCheckedChanged(final CompoundButton buttonView, boolean isChecked) {
-            if(buttonView.isEnabled() && isChecked) {
+            if (buttonView.isEnabled() && isChecked) {
                 // Display the intake as taken
                 buttonView.setEnabled(false);
-                convertView.setBackgroundColor(Color.GREEN);
+                convertView.setBackgroundColor(GREEN);
 
                 // Send request to REST Service to inform that intake is taken
                 RESTHelper<Intake> restHelper = new RESTHelper<>(context);
                 int treatmentId = todayIntakeItem.getTreatment().getId();
+
                 restHelper.sendPOSTRequest(todayIntakeItem.getIntake(), String.format("/treatments/%d/intakes", treatmentId), Intake.class, new PostListener<Intake>() {
                     @Override
-                    public void onSuccess(Intake addedObject) {}
+                    public void onSuccess(Intake addedObject) {
+                    }
 
                     @Override
                     public void onError() {
                         buttonView.setChecked(false);
                         buttonView.setEnabled(true);
-                        convertView.setBackgroundColor(Color.GRAY);
+                        convertView.setBackgroundColor(Color.WHITE);
                         Toast.makeText(context, R.string.connexion_error, Toast.LENGTH_LONG).show();
                     }
                 });

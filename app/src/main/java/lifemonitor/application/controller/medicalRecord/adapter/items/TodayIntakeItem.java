@@ -46,7 +46,7 @@ public class TodayIntakeItem implements Comparable<TodayIntakeItem> {
     }
 
     public boolean isForgotten() {
-        return false;
+        return !isTaken() && intake.isExpired();
     }
 
     public Intake getIntake() {
