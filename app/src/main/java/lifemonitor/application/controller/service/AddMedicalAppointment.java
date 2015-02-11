@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,15 +16,22 @@ import android.widget.TextView;
 
 import com.fourmob.datetimepicker.date.DatePickerDialog;
 
+import java.sql.SQLException;
 import java.util.Calendar;
 import java.util.LinkedList;
 import java.util.List;
 
 import lifemonitor.application.R;
 import lifemonitor.application.controller.service.adapter.DoctorAdapter;
+import lifemonitor.application.database.LocalDataBase;
+import lifemonitor.application.database.RemoteDataBase;
 import lifemonitor.application.helper.rest.RESTHelper;
 import lifemonitor.application.helper.rest.listeners.MultipleResultsRESTListener;
+import lifemonitor.application.helper.rest.listeners.PostListener;
+import lifemonitor.application.model.User;
+import lifemonitor.application.model.medicalRecord.Patient;
 import lifemonitor.application.model.medicalRecord.Doctor;
+import lifemonitor.application.model.service.Appointment;
 
 /**
  * @author Romain Philippon
@@ -43,12 +51,14 @@ public class AddMedicalAppointment extends Fragment {
     private LinkedList<Doctor> doctors;
     private AutoCompleteTextView doctorInputText;
 
+    private static String FLAG_LOG = "AddMedicalAppointment Class";
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         this.chosenHour = this.chosenMinute = 0;
         this.chosenDate = Calendar.getInstance();
-        this.doctors = new LinkedList<Doctor>();
+        this.doctors = new LinkedList<>();
         this.adapter = new DoctorAdapter(this.getActivity(), android.R.layout.simple_list_item_1);
     }
 
@@ -60,6 +70,15 @@ public class AddMedicalAppointment extends Fragment {
         /* UI : CHOOSE DOCTORS */
         this.initAdapter();
         this.doctorInputText = (AutoCompleteTextView) layout.findViewById(R.id.chooseDoctorAppointment);
+
+        final int PATIENT_ID = 1;
+        try {
+            User user = new LocalDataBase(this.getActivity()).getUser(PATIENT_ID);
+            this.doctorInputText.setText(user.getDrName());
+        }
+        catch (SQLException sqle) {  }
+
+
         doctorInputText.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
@@ -161,7 +180,7 @@ public class AddMedicalAppointment extends Fragment {
 
     public void onDateChanged() {
         String year = Integer.toString(this.chosenDate.get(Calendar.YEAR));
-        String month = (this.chosenDate.get(Calendar.MONTH) < 10) ? "0"+ this.chosenDate.get(Calendar.MONTH) : Integer.toString(this.chosenDate.get(Calendar.MONTH));
+        String month = ((this.chosenDate.get(Calendar.MONTH) + 1) < 10) ? "0"+ (this.chosenDate.get(Calendar.MONTH) + 1) : Integer.toString(this.chosenDate.get(Calendar.MONTH) + 1);
         String day = (this.chosenDate.get(Calendar.DAY_OF_MONTH) < 10) ? "0"+ this.chosenDate.get(Calendar.DAY_OF_MONTH) : Integer.toString(this.chosenDate.get(Calendar.DAY_OF_MONTH));
 
         String displayingText = String.format("%s / %s / %s", day, month, year);
@@ -176,7 +195,24 @@ public class AddMedicalAppointment extends Fragment {
     }
 
     private void appendAppointmentDoctor() {
-        System.out.println("RDV : "+ this.chosenDate.get(Calendar.DAY_OF_MONTH) +"/"+ this.chosenDate.get(Calendar.MONTH) +"/"+ this.chosenDate.get(Calendar.YEAR) +" - "+ this.chosenHour +"h"+ this.chosenMinute +"min with Dr "+ this.chosenDoctor.getName());
+        final int PATIENT_ID = 1;
+        final String requestToParse = "/files/%d/appointments";
+        final String request = String.format(requestToParse, PATIENT_ID);
+
+        Appointment appointment = new Appointment(this.chosenDoctor, this.getDate(this.chosenDate, this.chosenHour, this.chosenMinute));
+
+        new RESTHelper<Appointment>(this.getActivity()).sendPOSTRequest(appointment, request, Appointment.class, new PostListener<Appointment>() {
+            @Override
+            public void onSuccess(Appointment addedObject) {
+                getFragmentManager().popBackStackImmediate();
+            }
+
+            @Override
+            public void onError() {
+
+            }
+        });
+
     }
 
     private void initAdapter() {
@@ -208,5 +244,18 @@ public class AddMedicalAppointment extends Fragment {
         }
 
         this.doctorInputText.setAdapter(this.adapter);
+    }
+
+    private Calendar getDate(Calendar calendar, int hour, int minute) {
+        calendar.set(
+                calendar.get(Calendar.YEAR),
+                calendar.get(Calendar.MONTH),
+                calendar.get(Calendar.DAY_OF_MONTH),
+                hour,
+                minute,
+                0
+        );
+
+        return calendar;
     }
 }
