@@ -14,5 +14,4 @@ public interface MedicalRecordItem extends Serializable {
     public String getSubTitle(Context context);
     public int getColor();
     public DialogFragment acceptInformation();
-
 }

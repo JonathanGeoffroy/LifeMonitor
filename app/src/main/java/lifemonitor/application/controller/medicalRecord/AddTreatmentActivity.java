@@ -3,13 +3,12 @@ package lifemonitor.application.controller.medicalRecord;
 import android.app.Activity;
 import android.app.AlarmManager;
 import android.app.PendingIntent;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentActivity;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -96,8 +95,8 @@ public class AddTreatmentActivity extends Fragment {
         loadInstanceState(savedInstanceState);
 
         // Create datePickers for startDate and endDate
-        createDatePicker(rootView,R.id.start_date, R.string.start_date_prefix, startDate);
-        createDatePicker(rootView,R.id.end_date, R.string.end_date_prefix, endDate);
+        createDatePicker(rootView,R.id.start_date, R.string.prefixBeginTreatmentDateDialog, startDate);
+        createDatePicker(rootView,R.id.end_date, R.string.prefixEndTreatmentDateDialog, endDate);
 
         // Change values in quantity NumberPicker
         NumberPicker quantityPicker = (NumberPicker) rootView.findViewById(R.id.quantity_picker);
@@ -365,7 +364,7 @@ public class AddTreatmentActivity extends Fragment {
      */
     private void triggerNotifications(final Treatment treatment) {
         // Create notification which is repeated
-        AlarmManager alarmManager = (AlarmManager) getActivity().getSystemService(getActivity().getApplicationContext().ALARM_SERVICE);
+        AlarmManager alarmManager = (AlarmManager) getActivity().getSystemService(Context.ALARM_SERVICE);
         Intent intent = new Intent(getActivity(), TreatmentBroadcastReceiver.class);
         intent.putExtra("treatment", treatment);
         PendingIntent alarmIntent = PendingIntent.getBroadcast(getActivity().getApplicationContext(), 0, intent, 0);

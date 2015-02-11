@@ -51,9 +51,9 @@ public class ShowMedicineActivity extends Activity {
         howToConsume = (TextView) findViewById(R.id.medicine_consumption_value);
         dangerLevel = (ImageView) findViewById(R.id.medicine_dangerlevel_value);
 
-        Intent intent= getIntent();
+        Intent intent = getIntent();
         int id;
-        id=intent.getIntExtra("medicineId",-1);
+        id = intent.getIntExtra("medicineId", -1);
 
         // Test : if default value in id, intent hasn't the real medicine id so we don't make request
         if (id == -1) {

@@ -1,6 +1,5 @@
 package lifemonitor.application;
 
-
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.content.res.TypedArray;
@@ -19,11 +18,16 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 
+import lifemonitor.application.controller.gmap.GoogleMapFragment;
 import lifemonitor.application.controller.medicalRecord.AddTreatmentActivity;
 import lifemonitor.application.controller.medicalRecord.ShowMedicalRecordActivity;
+import lifemonitor.application.controller.medicalRecord.TodayIntakesActivity;
+import lifemonitor.application.controller.service.AddMedicalAppointment;
 import lifemonitor.application.controller.userconfig.UserConfigActivity;
+import lifemonitor.application.database.LocalDataBase;
 import lifemonitor.application.model.menu.NavDrawerItem;
 import lifemonitor.application.model.menu.NavDrawerListAdapter;
 
@@ -31,9 +35,18 @@ import lifemonitor.application.model.menu.NavDrawerListAdapter;
  * Home Page
  */
 public class MyActivity extends FragmentActivity {
+    public static final String FRAGMENT_ID_BUNDLE = "fragmentId";
+    public static final int MEDICAL_RECORD_FRAGMENT_ID = 0,
+            TODAY_TREATMENTS_FRAGMENT_ID = 1,
+            APPOINTMENT_FRAGMENT_ID = 2,
+            ADD_TREATMENT_FRAGMENT_ID = 3,
+            PHARMACY_FRAGMENT_ID = 4,
+            CONFIGURATION_FRAGMENT_ID = 5,
+            EMERGENCY_CALL_FRAGMENT_ID = 6;
     private DrawerLayout mDrawerLayout;
     private ListView mDrawerList;
     private ActionBarDrawerToggle mDrawerToggle;
+    private int position;
 
     // nav drawer title
     private CharSequence mDrawerTitle;
@@ -47,8 +60,6 @@ public class MyActivity extends FragmentActivity {
 
     private ArrayList<NavDrawerItem> navDrawerItems;
     private NavDrawerListAdapter adapter;
-
-    private int old_choice = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -71,14 +82,19 @@ public class MyActivity extends FragmentActivity {
 
         // adding nav drawer items to array
         // Medical record
-        navDrawerItems.add(new NavDrawerItem(navMenuTitles[0], navMenuIcons.getResourceId(0, -1)));
+        navDrawerItems.add(new NavDrawerItem(navMenuTitles[MEDICAL_RECORD_FRAGMENT_ID], navMenuIcons.getResourceId(MEDICAL_RECORD_FRAGMENT_ID, -1)));
+        // Medicines to take today
+        navDrawerItems.add(new NavDrawerItem(navMenuTitles[TODAY_TREATMENTS_FRAGMENT_ID], navMenuIcons.getResourceId(TODAY_TREATMENTS_FRAGMENT_ID, -1)));
+        // Add doctor appointment
+        navDrawerItems.add(new NavDrawerItem(navMenuTitles[APPOINTMENT_FRAGMENT_ID], navMenuIcons.getResourceId(APPOINTMENT_FRAGMENT_ID, - 1)));
         // Add treatment
-        navDrawerItems.add(new NavDrawerItem(navMenuTitles[1], navMenuIcons.getResourceId(1, -1)));
+        navDrawerItems.add(new NavDrawerItem(navMenuTitles[ADD_TREATMENT_FRAGMENT_ID], navMenuIcons.getResourceId(ADD_TREATMENT_FRAGMENT_ID, -1)));
+        // Find closest pharmacy
+        navDrawerItems.add(new NavDrawerItem(navMenuTitles[PHARMACY_FRAGMENT_ID], navMenuIcons.getResourceId(PHARMACY_FRAGMENT_ID, -1)));
         // Configuration
-        navDrawerItems.add(new NavDrawerItem(navMenuTitles[2], navMenuIcons.getResourceId(2, -1)));
+        navDrawerItems.add(new NavDrawerItem(navMenuTitles[CONFIGURATION_FRAGMENT_ID], navMenuIcons.getResourceId(CONFIGURATION_FRAGMENT_ID, -1)));
         // Emergency call
-        navDrawerItems.add(new NavDrawerItem(navMenuTitles[3], navMenuIcons.getResourceId(3, -1)));
-
+        navDrawerItems.add(new NavDrawerItem(navMenuTitles[EMERGENCY_CALL_FRAGMENT_ID], navMenuIcons.getResourceId(EMERGENCY_CALL_FRAGMENT_ID, -1)));
 
         // Recycle the typed array
         navMenuIcons.recycle();
@@ -113,13 +129,21 @@ public class MyActivity extends FragmentActivity {
         };
         mDrawerLayout.setDrawerListener(mDrawerToggle);
 
-        if (savedInstanceState == null) {
-            // on first time display view for first nav item
-            displayView(0);
+        // Display the current fragment, depending on if a specific fragment is requested
+        Intent intent = getIntent();
+        int fragmentId = intent.getIntExtra(FRAGMENT_ID_BUNDLE, -1);
+        if(fragmentId != -1) {
+            displayView(fragmentId);
+        } else {
+            if (savedInstanceState != null) {
+                position = savedInstanceState.getInt(FRAGMENT_ID_BUNDLE, 0);
+                displayView(position);
+            } else {
+                displayView(0);
+            }
         }
 
         mDrawerList.setOnItemClickListener(new SlideMenuClickListener());
-
     }
 
 
@@ -172,19 +196,29 @@ public class MyActivity extends FragmentActivity {
      * Diplaying fragment view for selected nav drawer list item
      */
     private void displayView(int position) {
+        this.position = position;
         // update the main content by replacing fragments
         Fragment fragment = null;
         switch (position) {
-            case 0:
+            case MEDICAL_RECORD_FRAGMENT_ID:
                 fragment = new ShowMedicalRecordActivity();
                 break;
-            case 1:
+            case APPOINTMENT_FRAGMENT_ID:
+                fragment = new AddMedicalAppointment();
+                break;
+            case ADD_TREATMENT_FRAGMENT_ID:
                 fragment = new AddTreatmentActivity();
                 break;
-            case 2:
+            case TODAY_TREATMENTS_FRAGMENT_ID:
+                fragment = new TodayIntakesActivity();
+                break;
+            case PHARMACY_FRAGMENT_ID:
+                fragment = GoogleMapFragment.newInstance();
+                break;
+            case CONFIGURATION_FRAGMENT_ID:
                 fragment = new UserConfigActivity();
                 break;
-            case 3:
+            case EMERGENCY_CALL_FRAGMENT_ID:
                 emergency_call();
                 break;
             default:
@@ -203,22 +237,26 @@ public class MyActivity extends FragmentActivity {
             mDrawerLayout.closeDrawer(mDrawerList);
         } else {
             // error in creating fragment
-            Log.e("MainActivity", "Error in creating fragment");
+            Log.e("MyActivity", "Error in creating fragment");
         }
     }
 
     private void emergency_call() {
-        DatabaseHandler dbHandler;
-        dbHandler = new DatabaseHandler(this);
+        LocalDataBase dbHandler;
+        dbHandler = new LocalDataBase(this);
         Intent callIntent = new Intent(Intent.ACTION_CALL);
-        String call = dbHandler.getUser(dbHandler.getFirstUserId()).getEmergencyNumber();
-        if (!call.equals("")) {
-            callIntent.setData(Uri.parse("tel:" + call));
-            startActivity(callIntent);
-        } else {
-            Toast.makeText(MyActivity.this, R.string.emergency_number_empty, Toast.LENGTH_LONG).show();
+
+        try {
+            String call = dbHandler.getUser(dbHandler.getFirstUserId()).getEmergencyNumber();
+
+            if (!call.equals("")) {
+                callIntent.setData(Uri.parse("tel:" + call));
+                startActivity(callIntent);
+            } else {
+                Toast.makeText(MyActivity.this, R.string.emergency_number_empty, Toast.LENGTH_LONG).show();
+            }
         }
-        dbHandler.close();
+        catch (SQLException sqle) { }
     }
 
     @Override
@@ -246,4 +284,9 @@ public class MyActivity extends FragmentActivity {
         mDrawerToggle.onConfigurationChanged(newConfig);
     }
 
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        outState.putInt(FRAGMENT_ID_BUNDLE, position);
+        super.onSaveInstanceState(outState);
+    }
 }

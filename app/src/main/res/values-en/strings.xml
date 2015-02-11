@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- Global -->
+    <string name="app_name">LifeMonitor</string>
+    <string name="action_settings">Settings</string>
+    <string name="address_lifemonitor">www.lifemonitor.com</string>
+
+    <!-- AddTreatment -->
+    <string name="title_activity_add_treatment">AddTreatmentActivity</string>
+    <string name="add_treatment_button">Add a treatment</string>
+    <string name="add_treatment_title">Add a treatment</string>
+    <string name="start_date">Start date of treatment</string>
+    <string name="medicine">Medicine</string>
+    <string name="units">Units</string>
+    <string name="db_error">Error during access to database</string>
+
+    <!-- Frequency possibilities -->
+    <string name="day">day</string>
+    <string name="week">week</string>
+    <string name="month">month</string>
+    <string name="year">year</string>
+
+    <!-- Add genetic desease -->
+    <string name="dialog_title_add_genetic_disease">Add a genetic disease</string>
+    <string name="confirm_text_button">Submit</string>
+    <string name="cancel_text_buttom">Cancel</string>
+    <string name="confirmation_message">Are you sure you want to add </string>
+    <string name="addGeneticDiseaseError">Impossible to add this genetic disease to your medical record</string>
+
+    <!-- ShowMedicine -->
+    <string name="title_activity_show_medicine">ShowMedicineActivity</string>
+    <string name="show_medicine_button">Show medicine information</string>
+    <string name="show_medicine_title">Display medicine information</string>
+    <string name="medicine_name">Designation</string>
+    <string name="medicine_shape">Shape</string>
+    <string name="medicine_consumption">Consumption method</string>
+    <string name="medicine_danger_level">Danger level</string>
+    <string name="danger_level1_description">Be careful. Do not drive without having read the notice.</string>
+    <string name="danger_level2_description">Be very careful. Do not drive without the advice of a health professional.</string>
+    <string name="danger_level3_description">Attention, danger : do not drive.</string>
+    <string name="start_date_prefix">Beginning of treatment on:</string>
+    <string name="end_date_prefix">End of treatment on:</string>
+    <string name="end_date">End of treatment</string>
+    <string name="submit_treatment">Add treatment</string>
+    <string name="startDateBeforeTodayError">Start date of treatment has already passed</string>
+    <string name="startDateAfterEndDate">Start date is after end date</string>
+    <string name="addTreatment_error">Cannot add this treatment</string>
+    <string name="medicineNotChosen">Please choose an existing treatment</string>
+    <string name="intent_medicine_id_error">This medicine could not be found, please try again.</string>
+    <string name="quantity">Quantity</string>
+    <string name="frequency_separator">times per</string>
+    <string name="doctor_prescription">Prescribed by</string>
+    <string name="prefixBeginTreatmentDateDialog">From</string>
+    <string name="prefixEndTreatmentDateDialog">To</string>
+    <string name="prefixMedicineToTakeDialog">To take</string>
+    <string name="suffixQuantityOfMedicineToTake">per dose</string>
+
+    <!-- Shape (medicine) -->
+    <string name="gel">Gel</string>
+    <string name="capsule">Capsule</string>
+    <string name="pills">Pills</string>
+    <string name="ointment">Ointment</string>
+    <string name="powder">Powder</string>
+    <string name="gas">Gas</string>
+    <string name="plant">Plant</string>
+    <string name="solution">Solution</string>
+    <string name="pellet">Pellet</string>
+    <string name="cream">Cream</string>
+    <string name="liquid">Liquid</string>
+    <string name="suspension">Suspension</string>
+
+    <!-- How to take (medicine) -->
+    <string name="Oral">Oral</string>
+    <string name="Dermal">Dermal</string>
+    <string name="Intraveinous">Intraveinous</string>
+    <string name="Auricular">Auricular</string>
+    <string name="Intramuscular">Intramuscular</string>
+    <string name="Inhaled">Inhaled</string>
+    <string name="Sublingual">Sublingual</string>
+    <string name="Ophtalmic">Ophtalmic</string>
+    <string name="Perineural">Perineural</string>
+    <string name="Nasal">Nasal</string>
+    <string name="Endotracheopulmonary">Endotracheopulmonary</string>
+    <string name="Plant">Plant</string>
+    <string name="notChosenUnits">Please choose a quantity</string>
+    <string name="show_medical_record_title">Medical Record</string>
+    <string name="connexion_error">Could not connect to the server</string>
+    <string name="show_medical_record_button">Display my Medical Record</string>
+    <string name="popup_sync">Refresh</string>
+    <string name="prepend_treatment_title_listview">Treatment for </string>
+    <string name="prepend_treatment_subtitle_listview">since</string>
+
+    <!-- Config menu -->
+    <string name="title_user_config_menu">Settings</string>
+    <string name="title_call">Emergency call</string>
+    <string name="user_save_button">Save and exit</string>
+    <string name="user_firstname">Firstname </string>
+    <string name="user_surname">Name </string>
+    <string name="user_phone">Phone number </string>
+    <string name="user_mail">Email </string>
+    <string name="user_firstname_sample">Anne</string>
+    <string name="user_surname_sample">Nonime</string>
+    <string name="user_blood_group">Blood group </string>
+    <string name="user_emergency_number">Emergency number </string>
+    <string name="user_emergency_number_sample">911</string>
+    <string name="user_doctor_name">Attending physician\'s name</string>
+    <string name="user_doctor_name_sample">Dr. Acula</string>
+    <string name="user_doctor_number">Attending physician\'s phone </string>
+    <string name="treatment_prepend_title">"Treatment with "</string>
+    <string name="treatment_prepend_subtitle">"Since "</string>
+    <string name="user_email_sample">lifemonitor@lifelab.com</string>
+    <string name="emergency_number_empty">Please set the emergency number in Settings"</string>
+    <string name="treatment">LifeMonitor - Reminder</string>
+    <string name="activate_notifications">Activate notifications</string>
+    <string name="of">" of "</string>
+    <string name="hour_separator">" at "</string>
+
+    <!-- Add doctor appointment -->
+    <string name="prefixDoctorName">Doctor:</string>
+    <string name="prefixDateDayAppointmentDoctor">Date:</string>
+    <string name="prefixDateHourAppointmentDoctor">Hours:</string>
+    <string name="addAppointementDoctorButtonText">Add this appointment</string>
+    <string name="autoCompleteTextAppointmentDoctor">Find a doctor</string>
+    <string name="chooseDateAppointmentDoctor">Appointment\'s date:</string>
+
+    <!-- SLIDER MENU -->
+    <!-- Nav Drawer Menu Items -->
+    <string-array name="nav_drawer_items">
+        <item>Medical Record</item>
+        <item>Medication of the day</item>
+        <item>Add an appointment</item>
+        <item>Add a treatment</item>
+        <item>Pharmacies nearby</item>
+        <item>Settings</item>
+        <item>Emergency call</item>
+    </string-array>
+
+    <!-- Nav Drawer List Item Icons -->
+    <!-- Keep them in order as the titles are in -->
+    <array name="nav_drawer_icons">
+        <item>@drawable/ic_menu_archive</item>
+        <item>@drawable/view_medicine_button</item>
+        <item>@android:drawable/ic_menu_today</item>
+        <item>@android:drawable/ic_menu_add</item>
+        <item>@android:drawable/ic_menu_mapmode</item>
+        <item>@android:drawable/ic_menu_manage</item>
+        <item>@android:drawable/ic_menu_call</item>
+    </array>
+
+    <!-- Content Description -->
+    <string name="desc_list_item_icon">Item Icon</string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="self_position">You are here</string>
+    <string name="activate_gps">Please activate your geolocation</string>
+</resources>

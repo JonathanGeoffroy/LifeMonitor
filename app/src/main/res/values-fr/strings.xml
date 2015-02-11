@@ -119,11 +119,9 @@
     <!-- Add doctor appointment -->
     <string name="prefixDoctorName">Docteur :</string>
     <string name="prefixDateDayAppointmentDoctor">Date :</string>
-    <string name="modify">Modifier</string>
     <string name="prefixDateHourAppointmentDoctor">Heure :</string>
-    <string name="addAppointementDoctorButtonText">Ajouter le Rendez-Vous</string>
-    <string name="undefinedDateAppointmentDoctor">Choisir une date</string>
-    <string name="autoCompleteTextAppointmentDoctor">Chercher un docteur</string>
+    <string name="addAppointementDoctorButtonText">Ajouter le rendez-vous</string>
+    <string name="chooseDateAppointmentDoctor">Date du rendez-vous :</string>
 
     <!-- SLIDER MENU -->
     <!-- Nav Drawer Menu Items -->
@@ -151,6 +149,8 @@
 
     <!-- Content Description -->
     <string name="desc_list_item_icon">Item Icon</string>
+    <string name="autoCompleteTextAppointmentDoctor">Chercher un docteur</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="self_position">Vous êtes ici</string>
+    <string name="activate_gps">Veuillez activer votre géolocalisation</string>
 </resources>

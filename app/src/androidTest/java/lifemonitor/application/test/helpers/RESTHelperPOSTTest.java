@@ -1,5 +1,7 @@
 package lifemonitor.application.test.helpers;
 
+import android.util.Log;
+
 import java.util.Calendar;
 import java.util.Date;
 import java.util.concurrent.CountDownLatch;
@@ -21,16 +23,19 @@ public class RESTHelperPOSTTest extends AbstractTestCase {
     public void testAddTreatment() {
         final CountDownLatch signal = new CountDownLatch(1);
 
-        RESTHelper<Treatment> restHelper = new RESTHelper<Treatment>(getContext());
+        RESTHelper<Treatment> restHelper = new RESTHelper<>(getContext());
         Medicine m = new Medicine(1, "doliprane", Shape.PILLS, HowToTake.ORAL, DangerLevel.LEVEL1);
         Calendar c = Calendar.getInstance();
-        c.set(2014, 11, 26, 1, 0, 0);
+        c.set(2014, 10, 26, 0, 0, 0);
+        c.set(Calendar.MILLISECOND, 0);
+
         Date d = c.getTime();
         final Treatment t = new Treatment(d, 8, 1.0, 12, m);
         t.setId(1);
         restHelper.sendPOSTRequest(t, "/treatments", Treatment.class, new PostListener<Treatment>() {
             @Override
             public void onSuccess(Treatment addedObject) {
+                Log.v("Treatment.equals", "addedObject.id = " + addedObject.getId());
                 assertEquals("The treatment added and received are the same", t, addedObject);
                 signal.countDown();
             }

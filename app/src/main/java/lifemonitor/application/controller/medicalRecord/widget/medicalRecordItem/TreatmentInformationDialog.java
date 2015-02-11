@@ -2,6 +2,7 @@ package lifemonitor.application.controller.medicalRecord.widget.medicalRecordIte
 
 import android.app.AlertDialog;
 import android.app.Dialog;
+import android.content.DialogInterface;
 import android.support.v4.app.DialogFragment;
 import android.content.Intent;
 import android.os.Bundle;
@@ -53,7 +54,16 @@ public class TreatmentInformationDialog extends DialogFragment {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         LayoutInflater inflater = getActivity().getLayoutInflater();
         View dialogLayout = inflater.inflate(R.layout.dialog_treatment_information, null);
-        builder.setView(dialogLayout).setPositiveButton("Ok", null);
+        builder.setView(dialogLayout)
+                .setPositiveButton("Voir Médicament", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        Intent intent = new Intent(getActivity(), ShowMedicineActivity.class);
+                        intent.putExtra(MEDICINE_ID, treatment.getMedicine().getId());
+                        startActivity(intent);
+                    }
+                })
+                .setNegativeButton(android.R.string.cancel, null);
 
         // name
         TextView nameTextView = (TextView) dialogLayout.findViewById(R.id.treatment_name);
@@ -88,17 +98,6 @@ public class TreatmentInformationDialog extends DialogFragment {
             TextView doctorNameTextView = (TextView) dialogLayout.findViewById(R.id.treatment_doctor_name);
             doctorNameTextView.setText(prescription.getDoctor().getName());
         }
-
-        // Add "medicine Button" which execute ShowMedicineActivity
-        ImageButton medicineButton = (ImageButton) dialogLayout.findViewById(R.id.treatment_medicine_button);
-        medicineButton.setOnClickListener( new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getActivity(), ShowMedicineActivity.class);
-                intent.putExtra(MEDICINE_ID, treatment.getMedicine().getId());
-                startActivity(intent);
-            }
-        });
 
         // Create the AlertDialog object and return it
         return builder.create();

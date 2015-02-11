@@ -4,15 +4,17 @@ import android.support.v4.app.DialogFragment;
 import android.content.Context;
 import android.graphics.Color;
 
+import java.io.Serializable;
+import java.util.Comparator;
+
 /**
  * @author Jonathan Geoffroy
  */
-public class Illness implements  MedicalRecordItem {
+public class Illness implements MedicalRecordItem, Serializable, Comparable<Illness> {
     private int id;
     private String name;
 
-    public Illness() {
-    }
+    public Illness() { }
 
     public int getId() {
         return id;
@@ -53,5 +55,10 @@ public class Illness implements  MedicalRecordItem {
     @Override
     public DialogFragment acceptInformation() {
         return null;
+    }
+
+    @Override
+    public int compareTo(Illness another) {
+        return this.getName().compareTo(another.getName());
     }
 }
