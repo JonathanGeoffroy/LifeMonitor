@@ -200,22 +200,14 @@ public class Treatment implements MedicalRecordItem, Serializable {
         if (o == null || getClass() != o.getClass()) return false;
         Treatment treatment = (Treatment) o;
 
-        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSZ");
-        String dateFormat = format.format(date);
-        String treatmentDateFormat = format.format(treatment.date);
-
-        Log.v("Treatment.equals", dateFormat + "---");
-        Log.v("Treatment.equals", treatmentDateFormat + "---");
-
         if (duration != treatment.duration) return false;
         if (frequency != treatment.frequency) return false;
         if (id != treatment.id) return false;
         if (Double.compare(treatment.quantity, quantity) != 0) return false;
-        if (!dateFormat.equals(treatmentDateFormat)) return false;
+        if (date.getTime() != treatment.date.getTime()) return false;
         if (!medicine.equals(treatment.medicine)) return false;
         if (prescription != null ? !prescription.equals(treatment.prescription) : treatment.prescription != null)
             return false;
-        Log.v("Treatment.equals", "Same prescription (or no prescription)");
         return true;
     }
 
@@ -232,6 +224,19 @@ public class Treatment implements MedicalRecordItem, Serializable {
         result = 31 * result + (prescription != null ? prescription.hashCode() : 0);
         result = 31 * result + duration;
         return result;
+    }
+
+    @Override
+    public String toString() {
+        return "Treatment{" +
+                "id=" + id +
+                ", date=" + date +
+                ", frequency=" + frequency +
+                ", quantity=" + quantity +
+                ", medicine=" + medicine +
+                ", prescription=" + prescription +
+                ", duration=" + duration +
+                '}';
     }
 
     @Override
