@@ -8,7 +8,6 @@ import android.support.v4.app.NotificationCompat;
 
 import lifemonitor.application.MyActivity;
 import lifemonitor.application.R;
-import lifemonitor.application.controller.medicalRecord.ShowMedicalRecordActivity;
 import lifemonitor.application.model.medicalRecord.Medicine;
 import lifemonitor.application.model.medicalRecord.Treatment;
 
@@ -27,16 +26,18 @@ public class TreatmentNotifier {
         Medicine medicine = treatment.getMedicine();
 
         Intent intent = new Intent(context, MyActivity.class);
+        intent.putExtra(MyActivity.FRAGMENT_ID_BUNDLE, MyActivity.TODAY_TREATMENTS_FRAGMENT_ID);
         PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
 
         NotificationCompat.Builder builder =
                 new NotificationCompat.Builder(context)
+                        .setAutoCancel(true)
                         .setSmallIcon(R.drawable.ic_launcher)
                         .setContentTitle(context.getString(R.string.treatment))
                         .setContentText(String.format("%s %s %s %s", treatment.getQuantity(), medicine.getShape().resource(context), context.getString(R.string.of), medicine))
                         .setContentIntent(pendingIntent);
 
-        NotificationManager notificationManager = (NotificationManager) context.getSystemService(context.NOTIFICATION_SERVICE);
+        NotificationManager notificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
         notificationManager.notify(treatment.getId(), builder.build());
     }
 }

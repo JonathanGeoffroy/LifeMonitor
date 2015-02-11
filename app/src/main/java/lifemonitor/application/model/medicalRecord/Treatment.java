@@ -3,9 +3,11 @@ package lifemonitor.application.model.medicalRecord;
 import android.support.v4.app.DialogFragment;
 import android.content.Context;
 import android.graphics.Color;
+import android.util.Log;
 
 import java.io.Serializable;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 
 import lifemonitor.application.R;
@@ -23,7 +25,10 @@ import lifemonitor.application.controller.medicalRecord.widget.medicalRecordItem
  */
 public class Treatment implements MedicalRecordItem, Serializable {
 
+    private static final int MILLISECONDS_PER_MINUTE = 1000 * 60;
+    private static final int MILLISECONDS_PER_HOUR = 1000 * 60 * 60;
     private final static long MILLISECONDS_PER_DAY = 24 * 60 * 60 * 1000;
+
     private static final long serialVersionUID = -1553669749402707344L;
 
     /*
@@ -105,6 +110,34 @@ public class Treatment implements MedicalRecordItem, Serializable {
         return new Date(date.getTime() + duration * MILLISECONDS_PER_DAY);
     }
 
+
+    /**
+     * Check if this treatment is a current one,
+     * i.e. if it began before today midnight, and will ends after tomorrow midnight
+     * @return true iff this treatment is a current one
+     */
+    public boolean isCurrent() {
+        // Today at midnight
+        Calendar todayCalendar = Calendar.getInstance();
+        todayCalendar.set(Calendar.HOUR_OF_DAY, 0);
+        todayCalendar.set(Calendar.MINUTE, 0);
+        todayCalendar.set(Calendar.SECOND, 0);
+        todayCalendar.set(Calendar.MILLISECOND, 0);
+        Date today = todayCalendar.getTime();
+
+        // Tomorrow at midnight
+        Calendar tomorrowCalendar = Calendar.getInstance();
+        tomorrowCalendar.set(Calendar.HOUR_OF_DAY, 0);
+        tomorrowCalendar.set(Calendar.MINUTE, 0);
+        tomorrowCalendar.set(Calendar.SECOND, 0);
+        tomorrowCalendar.set(Calendar.MILLISECOND, 0);
+        tomorrowCalendar.add(Calendar.DAY_OF_MONTH, 1);
+        Date tomorrow = tomorrowCalendar.getTime();
+
+        Date endDate = new Date(date.getTime() + duration * MILLISECONDS_PER_DAY);
+        return date.before(tomorrow) && endDate.after(today);
+    }
+
     public int getId() {
         return id;
     }
@@ -165,19 +198,24 @@ public class Treatment implements MedicalRecordItem, Serializable {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-
         Treatment treatment = (Treatment) o;
 
-        SimpleDateFormat format = new SimpleDateFormat("ymd");
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSZ");
+        String dateFormat = format.format(date);
+        String treatmentDateFormat = format.format(treatment.date);
+
+        Log.v("Treatment.equals", dateFormat + "---");
+        Log.v("Treatment.equals", treatmentDateFormat + "---");
+
         if (duration != treatment.duration) return false;
         if (frequency != treatment.frequency) return false;
         if (id != treatment.id) return false;
         if (Double.compare(treatment.quantity, quantity) != 0) return false;
-        if (!format.format(date).equals(format.format(treatment.date))) return false;
+        if (!dateFormat.equals(treatmentDateFormat)) return false;
         if (!medicine.equals(treatment.medicine)) return false;
         if (prescription != null ? !prescription.equals(treatment.prescription) : treatment.prescription != null)
             return false;
-
+        Log.v("Treatment.equals", "Same prescription (or no prescription)");
         return true;
     }
 

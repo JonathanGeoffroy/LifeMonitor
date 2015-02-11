@@ -17,14 +17,14 @@ import org.json.JSONObject;
 import java.io.IOException;
 import java.util.List;
 
-import lifemonitor.application.helper.rest.listeners.PostListener;
 import lifemonitor.application.helper.rest.listeners.MultipleResultsRESTListener;
+import lifemonitor.application.helper.rest.listeners.PostListener;
 import lifemonitor.application.helper.rest.listeners.RESTListener;
 import lifemonitor.application.helper.rest.listeners.SingleResultRESTListener;
 import lifemonitor.application.helper.rest.parsers.MultipleResultsRESTParser;
 import lifemonitor.application.helper.rest.parsers.ObjectToJSONParser;
 import lifemonitor.application.helper.rest.parsers.SingleResultRESTParser;
-
+import org.json.*;
 /**
  * Sends HTTP requests to REST service, parses JSON result to get a list of T objects and gives this list to the Requester.
  *
@@ -36,9 +36,11 @@ public class RESTHelper<T> {
      * REST service address.
      */
     private static String RESTUrl = "http://leferazure.cloudapp.net:443";
+
     public static String getRESTUrl() {
         return RESTUrl;
     }
+
     public static void setRESTUrl(String RESTUrl) {
         RESTHelper.RESTUrl = RESTUrl;
     }
@@ -56,8 +58,8 @@ public class RESTHelper<T> {
      * Send a GET request for single result.<br>
      * Call <code>restListener.onGetResponse</code> if request succeeded, <code>restListener.onError</code> otherwise
      *
-     * @param uri uri, begins with "/" (for example "/treatment"), will be concatenated with RESTUrl.
-     * @param clazz class of objects to get.
+     * @param uri          uri, begins with "/" (for example "/treatment"), will be concatenated with RESTUrl.
+     * @param clazz        class of objects to get.
      * @param restListener the listener which is called when the request ended.
      */
     public void sendGETRequestForSingleResult(String uri, final Class<T> clazz, final SingleResultRESTListener<T> restListener) {
@@ -82,8 +84,8 @@ public class RESTHelper<T> {
      * Send a GET request for multiple results.<br>
      * Call <code>restListener.onGetResponse</code> if request succeeded, <code>restListener.onError</code> otherwise
      *
-     * @param uri uri, begins with "/" (for example "/treatment"), will be concatenated with RESTUrl.
-     * @param clazz class of objects to get.
+     * @param uri          uri, begins with "/" (for example "/treatment"), will be concatenated with RESTUrl.
+     * @param clazz        class of objects to get.
      * @param restListener the listener which is called when the request ended.
      */
     public void sendGETRequestForMultipleResults(String uri, final Class<T> clazz, final MultipleResultsRESTListener<T> restListener) {
@@ -107,19 +109,20 @@ public class RESTHelper<T> {
 
     /**
      * Launch a GET request by running responseListener when request succeeds, else provides a default error.
-     * @param uri uri, begins with "/" (for example "/treatment"), will be concatenated with RESTUrl.
-     * @param restListener listener called when the request is sent
+     *
+     * @param uri              uri, begins with "/" (for example "/treatment"), will be concatenated with RESTUrl.
+     * @param restListener     listener called when the request is sent
      * @param responseListener run when GET request succeeds
      */
     private void sendGETRequest(String uri, final RESTListener<T> restListener, Response.Listener responseListener) {
         // Request a string response from the provided URL.
         StringRequest stringRequest = new StringRequest(Request.Method.GET, RESTUrl + uri, responseListener,
-            new Response.ErrorListener() {
-                @Override
-                public void onErrorResponse(VolleyError error) {
-                    sendError(error, restListener);
-                }
-            });
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        sendError(error, restListener);
+                    }
+                });
 
         // Add the request to the RequestQueue.
         queue.add(stringRequest);
@@ -127,6 +130,7 @@ public class RESTHelper<T> {
 
     /**
      * Send the occurred error: write an error message into log and call listener.onError()
+     *
      * @param error the occurred error
      */
     protected void sendError(Exception error, RESTListener<T> listener) {
@@ -136,17 +140,18 @@ public class RESTHelper<T> {
 
     /**
      * Launch a POST request in order to add <code>object</code> to <code>uri</code>
-     * @param object the object to add in the REST service
-     * @param uri the uri where to add the object
-     * @param clazz class of the object to send
+     * @param object       the object to add in the REST service
+     * @param uri          the uri where to add the object
+     * @param clazz        class of the object to send
      * @param postListener listener handled when the add request ends.
      */
-    public void sendPOSTRequest(Object object, String uri, final Class<T> clazz, final PostListener<T> postListener) {
+    public void sendPOSTRequest(T object, String uri, final Class<T> clazz, final PostListener<T> postListener) {
         try {
             String json = (new ObjectToJSONParser()).getJSONFrom(object);
-            JsonRequest request = new JsonObjectRequest(Request.Method.POST, RESTUrl + uri, new JSONObject(json), new Response.Listener<JSONObject>() {
+            JsonRequest<JSONObject> request = new JsonObjectRequest(Request.Method.POST, RESTUrl + uri, new JSONObject(json), new Response.Listener<JSONObject>() {
                 @Override
                 public void onResponse(JSONObject response) {
+                    Log.v("PostRequestResponse", response.toString());
                     try {
                         SingleResultRESTParser<T> parser = new SingleResultRESTParser();
                         T resultObject = parser.parseResult(response.toString(), clazz);
@@ -168,5 +173,29 @@ public class RESTHelper<T> {
             Log.e("Error sending POST :", e.getMessage());
             postListener.onError();
         }
+    }
+
+    /**
+     * Make a request at the provided url
+     * @param url the webservices' url
+     * @param listener the listener which is called when the request ended
+     */
+    public void makeRequest(String url, final SingleResultRESTListener listener) {
+        // Request a string response from the provided URL
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, url, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String o) {
+                // Return the string result to the listener
+                String result = (String) o;
+                listener.onGetResponse(result);
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                sendError(error, listener);
+            }
+        });
+        // Add the request to the RequestQueue.
+        queue.add(stringRequest);
     }
 }
