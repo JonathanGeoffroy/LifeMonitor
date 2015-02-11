@@ -82,7 +82,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="0.1"
-                    android:text="@string/start_date" />
+                    android:text="@string/prefixBeginTreatmentDateDialog" />
 
                 <Button
                     android:id="@+id/end_date"
@@ -90,7 +90,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="0.1"
-                    android:text="@string/end_date" />
+                    android:text="@string/prefixEndTreatmentDateDialog" />
             </LinearLayout>
 
             <CheckBox
