@@ -89,8 +89,8 @@ public class TodayIntakeAdapter extends BaseAdapter {
         TodayIntakeItem item = todayIntakeItems.get(position);
         viewHolder.medicineName.setText(item.getMedicineName(context));
         viewHolder.date.setText(item.getDate());
-        viewHolder.taken.setEnabled(!item.isTaken());
         viewHolder.taken.setChecked(item.isTaken());
+        viewHolder.taken.setEnabled(!item.isTaken());
 
         // Change background color
         if (item.isTaken()) {
@@ -145,10 +145,6 @@ public class TodayIntakeAdapter extends BaseAdapter {
         @Override
         public void onCheckedChanged(final CompoundButton buttonView, boolean isChecked) {
             if (buttonView.isEnabled() && isChecked) {
-                // Display the intake as taken
-                buttonView.setEnabled(false);
-                convertView.setBackgroundColor(GREEN);
-
                 // Send request to REST Service to inform that intake is taken
                 RESTHelper<Intake> restHelper = new RESTHelper<>(context);
                 int treatmentId = todayIntakeItem.getTreatment().getId();
@@ -156,13 +152,14 @@ public class TodayIntakeAdapter extends BaseAdapter {
                 restHelper.sendPOSTRequest(todayIntakeItem.getIntake(), String.format("/treatments/%d/intakes", treatmentId), Intake.class, new PostListener<Intake>() {
                     @Override
                     public void onSuccess(Intake addedObject) {
+                        // Display the intake as taken
+                        buttonView.setEnabled(false);
+                        convertView.setBackgroundColor(GREEN);
                     }
 
                     @Override
                     public void onError() {
                         buttonView.setChecked(false);
-                        buttonView.setEnabled(true);
-                        convertView.setBackgroundColor(Color.WHITE);
                         Toast.makeText(context, R.string.connexion_error, Toast.LENGTH_LONG).show();
                     }
                 });
