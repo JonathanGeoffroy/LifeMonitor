@@ -119,7 +119,6 @@
     <!-- Add doctor appointment -->
     <string name="prefixDoctorName">Doctor:</string>
     <string name="prefixDateDayAppointmentDoctor">Date:</string>
-    <string name="modify">Modify</string>
     <string name="prefixDateHourAppointmentDoctor">Hours:</string>
     <string name="addAppointementDoctorButtonText">Add this appointment</string>
     <string name="undefinedDateAppointmentDoctor">Choose a date</string>

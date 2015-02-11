@@ -31,36 +31,22 @@
         android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:text="@string/prefixDateDayAppointmentDoctor"
-            android:layout_marginRight="10px" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:text="@string/undefinedDateAppointmentDoctor"
-            android:id="@+id/dateDayAppointmentDoctor" />
+        android:layout_gravity="center_horizontal"
+        android:gravity="center">
 
         <Button
             style="?android:attr/buttonStyleSmall"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/modify"
-            android:id="@+id/changeDateDayAppointmentDoctor"
-            android:layout_marginLeft="10px" />
+            android:text="@string/undefinedDateAppointmentDoctor"
+            android:id="@+id/changeDateDayAppointmentDoctor" />
     </LinearLayout>
 
     <LinearLayout
         android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="center_vertical">
+        android:gravity="center">
 
         <TextView
             android:layout_width="wrap_content"

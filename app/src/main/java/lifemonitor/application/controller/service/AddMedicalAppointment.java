@@ -4,7 +4,6 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,7 +11,6 @@ import android.widget.AdapterView;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.NumberPicker;
-import android.widget.TextView;
 
 import com.fourmob.datetimepicker.date.DatePickerDialog;
 
@@ -25,12 +23,10 @@ import java.util.List;
 import lifemonitor.application.R;
 import lifemonitor.application.controller.service.adapter.DoctorAdapter;
 import lifemonitor.application.database.LocalDataBase;
-import lifemonitor.application.database.RemoteDataBase;
 import lifemonitor.application.helper.rest.RESTHelper;
 import lifemonitor.application.helper.rest.listeners.MultipleResultsRESTListener;
 import lifemonitor.application.helper.rest.listeners.PostListener;
 import lifemonitor.application.model.User;
-import lifemonitor.application.model.medicalRecord.Patient;
 import lifemonitor.application.model.medicalRecord.Doctor;
 import lifemonitor.application.model.service.Appointment;
 
@@ -90,6 +86,7 @@ public class AddMedicalAppointment extends Fragment {
 
                         if (user.getDrName().equals(doc.getName())) {
                             AddMedicalAppointment.this.doctorInputText.setText(user.getDrName());
+                            AddMedicalAppointment.this.chosenDoctor = doc;
                             keepGoing = false;
                         }
                     }
@@ -167,6 +164,8 @@ public class AddMedicalAppointment extends Fragment {
                 AddMedicalAppointment.this.appendAppointmentDoctor();
             }
         });
+
+        onDateChanged();
 
         return layout;
     }
