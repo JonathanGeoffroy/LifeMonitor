@@ -209,7 +209,13 @@ public class AddMedicalAppointment extends Fragment {
         String month = ((this.chosenDate.get(Calendar.MONTH) + 1) < 10) ? "0"+ (this.chosenDate.get(Calendar.MONTH) + 1) : Integer.toString(this.chosenDate.get(Calendar.MONTH) + 1);
         String day = (this.chosenDate.get(Calendar.DAY_OF_MONTH) < 10) ? "0"+ this.chosenDate.get(Calendar.DAY_OF_MONTH) : Integer.toString(this.chosenDate.get(Calendar.DAY_OF_MONTH));
 
-        String displayingText = String.format("%s / %s / %s", day, month, year);
+        String displayingText = String.format(
+                "%s %s / %s / %s",
+                this.getResources().getString(R.string.chooseDateAppointmentDoctor),
+                day,
+                month,
+                year
+        );
 
         this.buttonDayAppointment.setText(displayingText);
     }

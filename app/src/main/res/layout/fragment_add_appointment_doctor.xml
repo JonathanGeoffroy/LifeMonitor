@@ -35,8 +35,8 @@
         android:gravity="center">
 
         <Button
-            style="?android:attr/buttonStyleSmall"
-            android:layout_width="wrap_content"
+            style="?android:attr/borderlessButtonStyle"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/undefinedDateAppointmentDoctor"
             android:id="@+id/changeDateDayAppointmentDoctor" />
@@ -54,7 +54,7 @@
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:text="@string/prefixDateHourAppointmentDoctor"
             android:id="@+id/dateHourAppointmentDoctor"
-            android:layout_marginRight="10px" />
+            android:layout_marginRight="20px" />
 
         <NumberPicker
             android:id="@+id/hourAppointment"

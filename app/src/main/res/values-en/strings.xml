@@ -121,8 +121,8 @@
     <string name="prefixDateDayAppointmentDoctor">Date:</string>
     <string name="prefixDateHourAppointmentDoctor">Hours:</string>
     <string name="addAppointementDoctorButtonText">Add this appointment</string>
-    <string name="undefinedDateAppointmentDoctor">Choose a date</string>
     <string name="autoCompleteTextAppointmentDoctor">Find a doctor</string>
+    <string name="chooseDateAppointmentDoctor">Appointment\'s date:</string>
 
     <!-- SLIDER MENU -->
     <!-- Nav Drawer Menu Items -->

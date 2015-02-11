@@ -5,4 +5,8 @@
         android:icon="@android:drawable/ic_popup_sync"
         android:showAsAction="ifRoom"
         android:title="@string/popup_sync" />
+    <item android:id="@+id/show_legend_medical_record"
+        android:icon="@android:drawable/ic_menu_help"
+        android:showAsAction="ifRoom"
+        android:title="Afficher" />
 </menu>
