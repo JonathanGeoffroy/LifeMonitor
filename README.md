@@ -1,9 +1,9 @@
 LifeMonitor
 ============
 
-Branch master -> [![Build Status](http://bouya.cloudapp.net/job/LifeMonitor-Master/badge/icon)](http://bouya.cloudapp.net/job/LifeMonitor-Master/)
+Branch master -> [![Build Status](http://lifelab.cloudapp.net/job/LifeMonitor-master/badge/icon)](http://lifelab.cloudapp.net/job/LifeMonitor-master/)
 
-Branch dev -> [![Build Status](http://bouya.cloudapp.net/job/LifeMonitor-Dev/badge/icon)](http://bouya.cloudapp.net/job/LifeMonitor-Dev/)
+Branch dev -> [![Build Status](http://lifelab.cloudapp.net/job/LifeMonitor-dev/badge/icon)](http://lifelab.cloudapp.net/job/LifeMonitor-dev/)
 
 
 
