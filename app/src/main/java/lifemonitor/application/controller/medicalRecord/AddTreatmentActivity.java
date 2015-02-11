@@ -95,8 +95,8 @@ public class AddTreatmentActivity extends Fragment {
         loadInstanceState(savedInstanceState);
 
         // Create datePickers for startDate and endDate
-        createDatePicker(rootView,R.id.start_date, R.string.start_date_prefix, startDate);
-        createDatePicker(rootView,R.id.end_date, R.string.end_date_prefix, endDate);
+        createDatePicker(rootView,R.id.start_date, R.string.prefixBeginTreatmentDateDialog, startDate);
+        createDatePicker(rootView,R.id.end_date, R.string.prefixEndTreatmentDateDialog, endDate);
 
         // Change values in quantity NumberPicker
         NumberPicker quantityPicker = (NumberPicker) rootView.findViewById(R.id.quantity_picker);
