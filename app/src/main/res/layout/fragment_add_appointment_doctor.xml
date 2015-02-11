@@ -22,7 +22,7 @@
         <AutoCompleteTextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/autoCompleteTextAppointmentDoctor"
+            android:hint="@string/autoCompleteTextAppointmentDoctor"
             android:id="@+id/chooseDoctorAppointment"
             android:layout_weight="1" />
     </LinearLayout>
