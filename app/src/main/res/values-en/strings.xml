@@ -123,6 +123,7 @@
     <string name="prefixDateHourAppointmentDoctor">Hours:</string>
     <string name="addAppointementDoctorButtonText">Add this appointment</string>
     <string name="undefinedDateAppointmentDoctor">Choose a date</string>
+    <string name="autoCompleteTextAppointmentDoctor">Find a doctor</string>
 
     <!-- SLIDER MENU -->
     <!-- Nav Drawer Menu Items -->
@@ -152,7 +153,6 @@
 
     <!-- Content Description -->
     <string name="desc_list_item_icon">Item Icon</string>
-    <string name="autoCompleteTextAppointmentDoctor">Find a doctor</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="self_position">You are here</string>
     <string name="activate_gps">Please activate your geolocation</string>

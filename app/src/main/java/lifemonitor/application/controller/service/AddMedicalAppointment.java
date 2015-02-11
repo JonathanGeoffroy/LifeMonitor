@@ -18,6 +18,7 @@ import com.fourmob.datetimepicker.date.DatePickerDialog;
 
 import java.sql.SQLException;
 import java.util.Calendar;
+import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -37,8 +38,6 @@ import lifemonitor.application.model.service.Appointment;
  * @author Romain Philippon
  */
 public class AddMedicalAppointment extends Fragment {
-
-    private TextView textDayAppointment;
     private int chosenHour, chosenMinute;
     private Calendar chosenDate;
     private Doctor chosenDoctor;
@@ -50,6 +49,7 @@ public class AddMedicalAppointment extends Fragment {
     private DoctorAdapter adapter;
     private LinkedList<Doctor> doctors;
     private AutoCompleteTextView doctorInputText;
+    private Button buttonDayAppointment;
 
     private static String FLAG_LOG = "AddMedicalAppointment Class";
 
@@ -72,11 +72,38 @@ public class AddMedicalAppointment extends Fragment {
         this.doctorInputText = (AutoCompleteTextView) layout.findViewById(R.id.chooseDoctorAppointment);
 
         final int PATIENT_ID = 1;
+
         try {
-            User user = new LocalDataBase(this.getActivity()).getUser(PATIENT_ID);
-            this.doctorInputText.setText(user.getDrName());
+            final String request = "/doctors/all";
+            final User user = new LocalDataBase(this.getActivity()).getUser(PATIENT_ID);
+
+
+            new RESTHelper<Doctor>(this.getActivity()).sendGETRequestForMultipleResults(request, Doctor.class, new MultipleResultsRESTListener<Doctor>() {
+                @Override
+                public void onGetResponse(List<Doctor> results) {
+                    Iterator<Doctor> iterator = results.iterator();
+                    boolean keepGoing = true;
+                    Doctor doc;
+
+                    while(iterator.hasNext() && keepGoing) {
+                        doc = iterator.next();
+
+                        if (user.getDrName().equals(doc.getName())) {
+                            AddMedicalAppointment.this.doctorInputText.setText(user.getDrName());
+                            keepGoing = false;
+                        }
+                    }
+                }
+
+                @Override
+                public void onError() {
+
+                }
+            });
         }
-        catch (SQLException sqle) {  }
+        catch (SQLException sqle) {
+
+        }
 
 
         doctorInputText.addTextChangedListener(new TextWatcher() {
@@ -107,9 +134,9 @@ public class AddMedicalAppointment extends Fragment {
         });
 
         /* UI : DATE APPOINTMENT */
-        this.textDayAppointment = (TextView)layout.findViewById(R.id.dateDayAppointmentDoctor);
-        Button modifyDayAppointment = (Button)layout.findViewById(R.id.changeDateDayAppointmentDoctor);
-        makeDatePickerDialog(modifyDayAppointment);
+        this.buttonDayAppointment = (Button)layout.findViewById(R.id.changeDateDayAppointmentDoctor);
+        this.buttonDayAppointment.setText(R.string.undefinedDateAppointmentDoctor);
+        makeDatePickerDialog();
 
         /* UI : HOUR APPOINTMENT */
         NumberPicker pickerHourAppointment = (NumberPicker)layout.findViewById(R.id.hourAppointment);
@@ -144,7 +171,7 @@ public class AddMedicalAppointment extends Fragment {
         return layout;
     }
 
-    public DatePickerDialog makeDatePickerDialog(Button button) {
+    public DatePickerDialog makeDatePickerDialog() {
         final String TAG_DIALOG = "dialogChooseDateAppointmentDoctor";
         final Calendar calendar = Calendar.getInstance();
         final DatePickerDialog datePickerDialog = DatePickerDialog.newInstance(
@@ -156,7 +183,7 @@ public class AddMedicalAppointment extends Fragment {
         );
 
         // When user clicked on button, display the DatePickerDialog
-        button.setOnClickListener(new View.OnClickListener() {
+        this.buttonDayAppointment.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 datePickerDialog.setVibrate(false);
@@ -185,7 +212,7 @@ public class AddMedicalAppointment extends Fragment {
 
         String displayingText = String.format("%s / %s / %s", day, month, year);
 
-        this.textDayAppointment.setText(displayingText);
+        this.buttonDayAppointment.setText(displayingText);
     }
 
     public void populateNumberPicker(int startValue, int endValue, NumberPicker picker) {
