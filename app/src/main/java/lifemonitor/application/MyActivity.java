@@ -48,6 +48,7 @@ public class MyActivity extends FragmentActivity {
     private DrawerLayout mDrawerLayout;
     private ListView mDrawerList;
     private ActionBarDrawerToggle mDrawerToggle;
+    private int position;
 
     // nav drawer title
     private CharSequence mDrawerTitle;
@@ -138,7 +139,12 @@ public class MyActivity extends FragmentActivity {
         if(fragmentId != -1) {
             displayView(fragmentId);
         } else {
-            displayView(0);
+            if (savedInstanceState != null) {
+                position = savedInstanceState.getInt(FRAGMENT_ID_BUNDLE, 0);
+                displayView(position);
+            } else {
+                displayView(0);
+            }
         }
 
         mDrawerList.setOnItemClickListener(new SlideMenuClickListener());
@@ -194,6 +200,7 @@ public class MyActivity extends FragmentActivity {
      * Diplaying fragment view for selected nav drawer list item
      */
     private void displayView(int position) {
+        this.position = position;
         // update the main content by replacing fragments
         Fragment fragment = null;
         switch (position) {
@@ -285,4 +292,9 @@ public class MyActivity extends FragmentActivity {
         mDrawerToggle.onConfigurationChanged(newConfig);
     }
 
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        outState.putInt(FRAGMENT_ID_BUNDLE, position);
+        super.onSaveInstanceState(outState);
+    }
 }
