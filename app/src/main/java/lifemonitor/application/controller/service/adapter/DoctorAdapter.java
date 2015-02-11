@@ -11,6 +11,9 @@ import java.util.LinkedList;
 import lifemonitor.application.model.medicalRecord.Doctor;
 
 /**
+ * Is an adapter to display only doctor's name in the automatchertextview in
+ * order to take a rendez-vous
+ *
  * @author Romain Philippon
  */
 public class DoctorAdapter extends ArrayAdapter<String> {
