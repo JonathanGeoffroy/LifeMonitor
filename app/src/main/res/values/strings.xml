@@ -123,6 +123,7 @@
     <string name="prefixDateHourAppointmentDoctor">Heure :</string>
     <string name="addAppointementDoctorButtonText">Ajouter le Rendez-Vous</string>
     <string name="undefinedDateAppointmentDoctor">Choisir une date</string>
+    <string name="autoCompleteTextAppointmentDoctor">Chercher un docteur</string>
 
     <!-- SLIDER MENU -->
     <!-- Nav Drawer Menu Items -->
@@ -131,7 +132,6 @@
         <item>Médicaments à prendre</item>
         <item>Ajouter un rendez-vous médical</item>
         <item>Ajouter un traitement</item>
-        <item>Ajouter une maladie génétique</item>
         <item>Pharmacies proches</item>
         <item>Configuration</item>
         <item>Appel d\'urgence</item>
@@ -144,7 +144,6 @@
         <item>@drawable/view_medicine_button</item>
         <item>@android:drawable/ic_menu_today</item>
         <item>@android:drawable/ic_menu_add</item>
-        <item>@android:drawable/ic_menu_add</item>
         <item>@android:drawable/ic_menu_mapmode</item>
         <item>@android:drawable/ic_menu_manage</item>
         <item>@android:drawable/ic_menu_call</item>
@@ -152,7 +151,6 @@
 
     <!-- Content Description -->
     <string name="desc_list_item_icon">Item Icon</string>
-    <string name="autoCompleteTextAppointmentDoctor">Chercher un docteur</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="self_position">Vous êtes ici</string>
 </resources>

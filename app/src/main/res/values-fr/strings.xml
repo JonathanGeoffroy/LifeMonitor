@@ -119,7 +119,6 @@
     <!-- Add doctor appointment -->
     <string name="prefixDoctorName">Docteur :</string>
     <string name="prefixDateDayAppointmentDoctor">Date :</string>
-    <string name="modify">Modifier</string>
     <string name="prefixDateHourAppointmentDoctor">Heure :</string>
     <string name="addAppointementDoctorButtonText">Ajouter le Rendez-Vous</string>
     <string name="undefinedDateAppointmentDoctor">Choisir une date</string>
@@ -131,7 +130,6 @@
         <item>Médicaments à prendre</item>
         <item>Ajouter un rendez-vous médical</item>
         <item>Ajouter un traitement</item>
-        <item>Ajouter une maladie génétique</item>
         <item>Pharmacies proches</item>
         <item>Configuration</item>
         <item>Appel d\'urgence</item>
@@ -143,7 +141,6 @@
         <item>@drawable/ic_menu_archive</item>
         <item>@drawable/view_medicine_button</item>
         <item>@android:drawable/ic_menu_today</item>
-        <item>@android:drawable/ic_menu_add</item>
         <item>@android:drawable/ic_menu_add</item>
         <item>@android:drawable/ic_menu_mapmode</item>
         <item>@android:drawable/ic_menu_manage</item>

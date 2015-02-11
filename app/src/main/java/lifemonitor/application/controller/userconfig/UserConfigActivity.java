@@ -2,14 +2,15 @@ package lifemonitor.application.controller.userconfig;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 
-import lifemonitor.application.DatabaseHandler;
+import java.sql.SQLException;
+
+import lifemonitor.application.database.LocalDataBase;
 import lifemonitor.application.R;
 import lifemonitor.application.model.User;
 
@@ -26,7 +27,7 @@ public class UserConfigActivity extends Fragment {
     private EditText editUrgency;
     private EditText editDrName;
     private EditText editDrNumber;
-    private DatabaseHandler dbHandler;
+    private LocalDataBase dbHandler;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -34,7 +35,8 @@ public class UserConfigActivity extends Fragment {
 
         View rootView = inflater.inflate(R.layout.activity_user_config, container, false);
 
-        dbHandler = new DatabaseHandler(rootView.getContext());
+        dbHandler = new LocalDataBase(rootView.getContext());
+
         this.editFirstName = (EditText) rootView.findViewById(R.id.firstname_editText);
         this.editNumber = (EditText) rootView.findViewById(R.id.number_editText);
         this.editMail = (EditText) rootView.findViewById(R.id.mail_editText);
@@ -51,7 +53,8 @@ public class UserConfigActivity extends Fragment {
             }
         });
         getEditText();
-        dbHandler.close();
+
+        //dbHandler.close();
 
         return rootView;
     }
@@ -61,19 +64,23 @@ public class UserConfigActivity extends Fragment {
      * Fill the input with value in the database
      */
     private void getEditText() {
-        int user_id = dbHandler.getFirstUserId();
+        try {
+            int user_id = dbHandler.getFirstUserId();
+            User user = dbHandler.getUser(user_id);
 
-        if (user_id != -1) {
-            editMail.setText("" + dbHandler.getUser(user_id).getEmail());
-            editFirstName.setText("" + dbHandler.getUser(user_id).getFirstName());
-            editSurname.setText("" + dbHandler.getUser(user_id).getSurname());
-            editNumber.setText("" + dbHandler.getUser(user_id).getPhoneNumber());
-            editBlood.setText("" + dbHandler.getUser(user_id).getBloodGroup());
-            editUrgency.setText("" + dbHandler.getUser(user_id).getEmergencyNumber());
-            editDrName.setText("" + dbHandler.getUser(user_id).getDrName());
-            editDrNumber.setText("" + dbHandler.getUser(user_id).getDrNumber());
+            if (user_id != -1) {
+                editMail.setText("" + user.getEmail());
+                editFirstName.setText("" + user.getFirstName());
+                editSurname.setText("" + user.getSurname());
+                editNumber.setText("" + user.getPhoneNumber());
+                editBlood.setText("" + user.getBloodGroup());
+                editUrgency.setText("" + user.getEmergencyNumber());
+                editDrName.setText("" + user.getDrName());
+                editDrNumber.setText("" + user.getDrNumber());
 
+            }
         }
+        catch (SQLException sqle) { }
 
     }
 
@@ -86,8 +93,6 @@ public class UserConfigActivity extends Fragment {
         this.editUrgency.getText().toString(), this.editDrName.getText().toString(), this.editDrNumber.getText().toString());
         dbHandler.updateUser(new_user);
         getFragmentManager().popBackStackImmediate();
-
-
     }
 }
 
