@@ -71,19 +71,12 @@ public class TodayIntakeAdapter extends BaseAdapter {
     public View getView(int position, View convertView, ViewGroup parent) {
         // Try to retrieve previously created ViewHolder
         ViewHolder viewHolder;
-        if (convertView == null) {
-            // Add data into new convertView
-            convertView = layoutInflater.inflate(R.layout.today_intake_item, null);
-            viewHolder = new ViewHolder();
-            viewHolder.medicineName = (TextView) convertView.findViewById(R.id.medicine_name);
-            viewHolder.date = (TextView) convertView.findViewById(R.id.medicine_date);
-            viewHolder.taken = (Switch) convertView.findViewById(R.id.taken_toggleButton);
-            viewHolder.taken.setOnCheckedChangeListener(new TakenIntakeCheckedChangeListener(todayIntakeItems.get(position), convertView));
-            convertView.setTag(viewHolder);
-        } else {
-            // Retrieve old convertView
-            viewHolder = (ViewHolder) convertView.getTag();
-        }
+        convertView = layoutInflater.inflate(R.layout.today_intake_item, null);
+        viewHolder = new ViewHolder();
+        viewHolder.medicineName = (TextView) convertView.findViewById(R.id.medicine_name);
+        viewHolder.date = (TextView) convertView.findViewById(R.id.medicine_date);
+        viewHolder.taken = (Switch) convertView.findViewById(R.id.taken_toggleButton);
+        convertView.setTag(viewHolder);
 
         // Update displayed data & background color
         TodayIntakeItem item = todayIntakeItems.get(position);
@@ -91,6 +84,7 @@ public class TodayIntakeAdapter extends BaseAdapter {
         viewHolder.date.setText(item.getDate());
         viewHolder.taken.setEnabled(!item.isTaken());
         viewHolder.taken.setChecked(item.isTaken());
+        viewHolder.taken.setOnCheckedChangeListener(new TakenIntakeCheckedChangeListener(item, convertView));
 
         // Change background color
         if (item.isTaken()) {
@@ -141,7 +135,6 @@ public class TodayIntakeAdapter extends BaseAdapter {
             this.convertView = convertView;
         }
 
-
         @Override
         public void onCheckedChanged(final CompoundButton buttonView, boolean isChecked) {
             if (buttonView.isEnabled() && isChecked) {
@@ -155,7 +148,8 @@ public class TodayIntakeAdapter extends BaseAdapter {
 
                 restHelper.sendPOSTRequest(todayIntakeItem.getIntake(), String.format("/treatments/%d/intakes", treatmentId), Intake.class, new PostListener<Intake>() {
                     @Override
-                    public void onSuccess(Intake addedObject) {
+                    public void onSuccess(Intake addedIntake) {
+                        todayIntakeItem.setIntake(addedIntake);
                     }
 
                     @Override

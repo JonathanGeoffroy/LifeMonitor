@@ -61,4 +61,8 @@ public class TodayIntakeItem implements Comparable<TodayIntakeItem> {
     public int compareTo(TodayIntakeItem another) {
         return (int) (intake.getTime().getTime() - another.intake.getTime().getTime());
     }
+
+    public void setIntake(Intake intake) {
+        this.intake = intake;
+    }
 }
