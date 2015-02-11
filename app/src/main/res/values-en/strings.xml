@@ -131,7 +131,6 @@
         <item>Medication of the day</item>
         <item>Add an appointment</item>
         <item>Add a treatment</item>
-        <item>Add a genetic disease</item>
         <item>Pharmacies nearby</item>
         <item>Settings</item>
         <item>Emergency call</item>
@@ -143,7 +142,6 @@
         <item>@drawable/ic_menu_archive</item>
         <item>@drawable/view_medicine_button</item>
         <item>@android:drawable/ic_menu_today</item>
-        <item>@android:drawable/ic_menu_add</item>
         <item>@android:drawable/ic_menu_add</item>
         <item>@android:drawable/ic_menu_mapmode</item>
         <item>@android:drawable/ic_menu_manage</item>

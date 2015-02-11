@@ -25,7 +25,6 @@ import lifemonitor.application.controller.gmap.GoogleMapFragment;
 import lifemonitor.application.controller.medicalRecord.AddTreatmentActivity;
 import lifemonitor.application.controller.medicalRecord.ShowMedicalRecordActivity;
 import lifemonitor.application.controller.medicalRecord.TodayIntakesActivity;
-import lifemonitor.application.controller.medicalRecord.widget.AddGeneticDiseaseDialog;
 import lifemonitor.application.controller.service.AddMedicalAppointment;
 import lifemonitor.application.controller.userconfig.UserConfigActivity;
 import lifemonitor.application.database.LocalDataBase;
@@ -41,13 +40,13 @@ public class MyActivity extends FragmentActivity {
             TODAY_TREATMENTS_FRAGMENT_ID = 1,
             APPOINTMENT_FRAGMENT_ID = 2,
             ADD_TREATMENT_FRAGMENT_ID = 3,
-            GENETIC_DISEASE_FRAGMENT_ID = 4,
-            PHARMACY_FRAGMENT_ID = 5,
-            CONFIGURATION_FRAGMENT_ID = 6,
-            EMERGENCY_CALL_FRAGMENT_ID = 7;
+            PHARMACY_FRAGMENT_ID = 4,
+            CONFIGURATION_FRAGMENT_ID = 5,
+            EMERGENCY_CALL_FRAGMENT_ID = 6;
     private DrawerLayout mDrawerLayout;
     private ListView mDrawerList;
     private ActionBarDrawerToggle mDrawerToggle;
+    private int position;
 
     // nav drawer title
     private CharSequence mDrawerTitle;
@@ -90,8 +89,6 @@ public class MyActivity extends FragmentActivity {
         navDrawerItems.add(new NavDrawerItem(navMenuTitles[APPOINTMENT_FRAGMENT_ID], navMenuIcons.getResourceId(APPOINTMENT_FRAGMENT_ID, - 1)));
         // Add treatment
         navDrawerItems.add(new NavDrawerItem(navMenuTitles[ADD_TREATMENT_FRAGMENT_ID], navMenuIcons.getResourceId(ADD_TREATMENT_FRAGMENT_ID, -1)));
-        // add genetic disease
-        navDrawerItems.add(new NavDrawerItem(navMenuTitles[GENETIC_DISEASE_FRAGMENT_ID], navMenuIcons.getResourceId(GENETIC_DISEASE_FRAGMENT_ID, -1)));
         // Find closest pharmacy
         navDrawerItems.add(new NavDrawerItem(navMenuTitles[PHARMACY_FRAGMENT_ID], navMenuIcons.getResourceId(PHARMACY_FRAGMENT_ID, -1)));
         // Configuration
@@ -138,7 +135,12 @@ public class MyActivity extends FragmentActivity {
         if(fragmentId != -1) {
             displayView(fragmentId);
         } else {
-            displayView(0);
+            if (savedInstanceState != null) {
+                position = savedInstanceState.getInt(FRAGMENT_ID_BUNDLE, 0);
+                displayView(position);
+            } else {
+                displayView(0);
+            }
         }
 
         mDrawerList.setOnItemClickListener(new SlideMenuClickListener());
@@ -194,6 +196,7 @@ public class MyActivity extends FragmentActivity {
      * Diplaying fragment view for selected nav drawer list item
      */
     private void displayView(int position) {
+        this.position = position;
         // update the main content by replacing fragments
         Fragment fragment = null;
         switch (position) {
@@ -208,10 +211,6 @@ public class MyActivity extends FragmentActivity {
                 break;
             case TODAY_TREATMENTS_FRAGMENT_ID:
                 fragment = new TodayIntakesActivity();
-                break;
-            case GENETIC_DISEASE_FRAGMENT_ID:
-                AddGeneticDiseaseDialog dialog = AddGeneticDiseaseDialog.newInstance();
-                dialog.show(this.getFragmentManager(), "genetic box");
                 break;
             case PHARMACY_FRAGMENT_ID:
                 fragment = GoogleMapFragment.newInstance();
@@ -238,7 +237,7 @@ public class MyActivity extends FragmentActivity {
             mDrawerLayout.closeDrawer(mDrawerList);
         } else {
             // error in creating fragment
-            Log.e("MainActivity", "Error in creating fragment");
+            Log.e("MyActivity", "Error in creating fragment");
         }
     }
 
@@ -285,4 +284,9 @@ public class MyActivity extends FragmentActivity {
         mDrawerToggle.onConfigurationChanged(newConfig);
     }
 
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        outState.putInt(FRAGMENT_ID_BUNDLE, position);
+        super.onSaveInstanceState(outState);
+    }
 }
