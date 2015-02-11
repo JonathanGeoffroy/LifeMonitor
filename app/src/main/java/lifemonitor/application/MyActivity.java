@@ -18,6 +18,7 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 import lifemonitor.application.controller.medicalRecord.AddTreatmentActivity;
@@ -25,6 +26,7 @@ import lifemonitor.application.controller.medicalRecord.ShowMedicalRecordActivit
 import lifemonitor.application.controller.medicalRecord.widget.AddGeneticDiseaseDialog;
 import lifemonitor.application.controller.service.AddMedicalAppointment;
 import lifemonitor.application.controller.userconfig.UserConfigActivity;
+import lifemonitor.application.database.LocalDataBase;
 import lifemonitor.application.model.menu.NavDrawerItem;
 import lifemonitor.application.model.menu.NavDrawerListAdapter;
 
@@ -220,17 +222,21 @@ public class MyActivity extends FragmentActivity {
     }
 
     private void emergency_call() {
-        DatabaseHandler dbHandler;
-        dbHandler = new DatabaseHandler(this);
+        LocalDataBase dbHandler;
+        dbHandler = new LocalDataBase(this);
         Intent callIntent = new Intent(Intent.ACTION_CALL);
-        String call = dbHandler.getUser(dbHandler.getFirstUserId()).getEmergencyNumber();
-        if (!call.equals("")) {
-            callIntent.setData(Uri.parse("tel:" + call));
-            startActivity(callIntent);
-        } else {
-            Toast.makeText(MyActivity.this, R.string.emergency_number_empty, Toast.LENGTH_LONG).show();
+
+        try {
+            String call = dbHandler.getUser(dbHandler.getFirstUserId()).getEmergencyNumber();
+
+            if (!call.equals("")) {
+                callIntent.setData(Uri.parse("tel:" + call));
+                startActivity(callIntent);
+            } else {
+                Toast.makeText(MyActivity.this, R.string.emergency_number_empty, Toast.LENGTH_LONG).show();
+            }
         }
-        dbHandler.close();
+        catch (SQLException sqle) { }
     }
 
     @Override
