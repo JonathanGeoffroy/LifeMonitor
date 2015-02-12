@@ -2,8 +2,17 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:id="@+id/layoutAddAppointmentDoctor"
-    android:padding="10px">
+    android:id="@+id/layoutAddAppointmentDoctor">
+
+    <LinearLayout
+        android:paddingBottom="@dimen/activity_vertical_margin"
+        android:paddingLeft="@dimen/activity_horizontal_margin"
+        android:paddingRight="@dimen/activity_horizontal_margin"
+        android:paddingTop="@dimen/activity_vertical_margin"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1.1"
+        android:orientation="vertical">
 
     <LinearLayout
         android:orientation="horizontal"
@@ -17,10 +26,11 @@
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:text="@string/prefixDoctorName"
             android:id="@+id/textView"
-            android:layout_marginRight="10px" />
+            android:layout_marginRight="5dp"
+            android:layout_marginEnd="5dp"/>
 
         <AutoCompleteTextView
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:hint="@string/autoCompleteTextAppointmentDoctor"
             android:id="@+id/chooseDoctorAppointment"
@@ -54,7 +64,8 @@
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:text="@string/prefixDateHourAppointmentDoctor"
             android:id="@+id/dateHourAppointmentDoctor"
-            android:layout_marginRight="20px" />
+            android:layout_marginRight="10dp"
+            android:layout_marginEnd="10dp"/>
 
         <NumberPicker
             android:id="@+id/hourAppointment"
@@ -66,9 +77,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceLarge"
-            android:text=":"
-            android:layout_marginLeft="10px"
-            android:layout_marginRight="10px" />
+            android:text="@string/colon"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp" />
 
         <NumberPicker
             android:id="@+id/minuteAppointment"
@@ -76,10 +87,13 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
     </LinearLayout>
-
+    </LinearLayout>
     <Button
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_weight="0.1"
+        android:background="@color/blue"
+        android:textColor="@color/white"
         android:text="@string/addAppointementDoctorButtonText"
         android:id="@+id/appendAppointmentDoctor"
         android:layout_gravity="center_horizontal" />
