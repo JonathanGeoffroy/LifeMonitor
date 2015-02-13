@@ -122,6 +122,7 @@
     <string name="prefixDateHourAppointmentDoctor">Heure :</string>
     <string name="addAppointementDoctorButtonText">Ajouter le rendez-vous</string>
     <string name="chooseDateAppointmentDoctor">Date du rendez-vous :</string>
+    <string name="doctorNotChosenError">Veuillez choisir un docteur</string>
 
     <!-- SLIDER MENU -->
     <!-- Nav Drawer Menu Items -->

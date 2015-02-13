@@ -124,6 +124,7 @@
     <string name="addAppointementDoctorButtonText">Ajouter le Rendez-Vous</string>
     <string name="undefinedDateAppointmentDoctor">Choisir une date</string>
     <string name="autoCompleteTextAppointmentDoctor">Chercher un docteur</string>
+    <string name="doctorNotChosenError">Veuillez choisir un docteur</string>
 
     <!-- SLIDER MENU -->
     <!-- Nav Drawer Menu Items -->

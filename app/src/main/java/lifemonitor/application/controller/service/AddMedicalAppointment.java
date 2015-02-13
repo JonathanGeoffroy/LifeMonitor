@@ -11,6 +11,7 @@ import android.widget.AdapterView;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.NumberPicker;
+import android.widget.Toast;
 
 import com.fourmob.datetimepicker.date.DatePickerDialog;
 
@@ -21,6 +22,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 import lifemonitor.application.R;
+import lifemonitor.application.controller.exceptions.medicalRecord.IllegalValueException;
 import lifemonitor.application.controller.service.adapter.DoctorAdapter;
 import lifemonitor.application.database.LocalDataBase;
 import lifemonitor.application.helper.rest.RESTHelper;
@@ -161,7 +163,11 @@ public class AddMedicalAppointment extends Fragment {
         submitButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                AddMedicalAppointment.this.appendAppointmentDoctor();
+                try {
+                    AddMedicalAppointment.this.appendAppointmentDoctor();
+                } catch (IllegalValueException e) {
+                    Toast.makeText(AddMedicalAppointment.this.getActivity(), e.getMessage(), Toast.LENGTH_LONG).show();
+                }
             }
         });
 
@@ -226,10 +232,17 @@ public class AddMedicalAppointment extends Fragment {
         picker.setValue(startValue);
     }
 
-    private void appendAppointmentDoctor() {
+    private void appendAppointmentDoctor() throws IllegalValueException {
         final int PATIENT_ID = 1;
         final String requestToParse = "/files/%d/appointments";
         final String request = String.format(requestToParse, PATIENT_ID);
+
+        if(chosenDoctor == null) {
+            throw new IllegalValueException(getString(R.string.doctorNotChosenError));
+        }
+        if (chosenDate.before(Calendar.getInstance().getTime())) {
+            throw new IllegalValueException(getString(R.string.startDateBeforeTodayError));
+        }
 
         Appointment appointment = new Appointment(this.chosenDoctor, this.getDate(this.chosenDate, this.chosenHour, this.chosenMinute));
 

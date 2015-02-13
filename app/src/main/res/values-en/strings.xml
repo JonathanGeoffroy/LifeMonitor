@@ -123,6 +123,7 @@
     <string name="addAppointementDoctorButtonText">Add this appointment</string>
     <string name="autoCompleteTextAppointmentDoctor">Find a doctor</string>
     <string name="chooseDateAppointmentDoctor">Appointment\'s date:</string>
+    <string name="doctorNotChosenError">Please choose a doctor</string>
 
     <!-- SLIDER MENU -->
     <!-- Nav Drawer Menu Items -->
