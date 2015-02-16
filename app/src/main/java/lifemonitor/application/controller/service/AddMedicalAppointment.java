@@ -20,6 +20,7 @@ import java.util.Calendar;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.TimeZone;
 
 import lifemonitor.application.R;
 import lifemonitor.application.controller.exceptions.medicalRecord.IllegalValueException;
@@ -241,6 +242,10 @@ public class AddMedicalAppointment extends Fragment {
             throw new IllegalValueException(getString(R.string.doctorNotChosenError));
         }
         // GLE : Change chosenDate.before by chosenDate.getTime().before because the first didn't work
+        chosenDate.setTimeZone(TimeZone.getTimeZone("Europe/Paris"));
+        chosenDate.set(Calendar.HOUR, chosenHour);
+        chosenDate.set(Calendar.MINUTE, chosenMinute);
+        System.out.println(this.getDate(this.chosenDate, this.chosenHour, this.chosenMinute));
         if (chosenDate.getTime().before(Calendar.getInstance().getTime())) {
             throw new IllegalValueException(getString(R.string.startDateBeforeTodayError));
         }
