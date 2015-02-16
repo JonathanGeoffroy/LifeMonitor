@@ -55,6 +55,7 @@
     <string name="prefixEndTreatmentDateDialog">Au</string>
     <string name="prefixMedicineToTakeDialog">À prendre</string>
     <string name="suffixQuantityOfMedicineToTake">par prise</string>
+    <string name="see_medicine_button">Voir Médicament</string>
 
     <!-- Shape (medicine) -->
     <string name="gel">Gel</string>
