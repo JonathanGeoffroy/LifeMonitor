@@ -55,6 +55,7 @@
     <string name="prefixEndTreatmentDateDialog">Au</string>
     <string name="prefixMedicineToTakeDialog">À prendre</string>
     <string name="suffixQuantityOfMedicineToTake">par prise</string>
+    <string name="see_medicine_button">Voir Médicament</string>
 
     <!-- Shape (medicine) -->
     <string name="gel">Gel</string>
@@ -122,6 +123,7 @@
     <string name="prefixDateHourAppointmentDoctor">Heure :</string>
     <string name="addAppointementDoctorButtonText">Ajouter le rendez-vous</string>
     <string name="chooseDateAppointmentDoctor">Date du rendez-vous :</string>
+    <string name="doctorNotChosenError">Veuillez choisir un docteur</string>
 
     <!-- SLIDER MENU -->
     <!-- Nav Drawer Menu Items -->

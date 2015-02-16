@@ -11,6 +11,7 @@ import android.widget.AdapterView;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.NumberPicker;
+import android.widget.Toast;
 
 import com.fourmob.datetimepicker.date.DatePickerDialog;
 
@@ -19,8 +20,10 @@ import java.util.Calendar;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.TimeZone;
 
 import lifemonitor.application.R;
+import lifemonitor.application.controller.exceptions.medicalRecord.IllegalValueException;
 import lifemonitor.application.controller.service.adapter.DoctorAdapter;
 import lifemonitor.application.database.LocalDataBase;
 import lifemonitor.application.helper.rest.RESTHelper;
@@ -54,7 +57,7 @@ public class AddMedicalAppointment extends Fragment {
         super.onCreate(savedInstanceState);
         this.chosenHour = this.chosenMinute = 0;
         this.chosenDate = Calendar.getInstance();
-        this.doctors = new LinkedList<>();
+        this.doctors = new LinkedList<Doctor>();
         this.adapter = new DoctorAdapter(this.getActivity(), android.R.layout.simple_list_item_1);
     }
 
@@ -161,7 +164,11 @@ public class AddMedicalAppointment extends Fragment {
         submitButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                AddMedicalAppointment.this.appendAppointmentDoctor();
+                try {
+                    AddMedicalAppointment.this.appendAppointmentDoctor();
+                } catch (IllegalValueException e) {
+                    Toast.makeText(AddMedicalAppointment.this.getActivity(), e.getMessage(), Toast.LENGTH_LONG).show();
+                }
             }
         });
 
@@ -226,10 +233,22 @@ public class AddMedicalAppointment extends Fragment {
         picker.setValue(startValue);
     }
 
-    private void appendAppointmentDoctor() {
+    private void appendAppointmentDoctor() throws IllegalValueException {
         final int PATIENT_ID = 1;
         final String requestToParse = "/files/%d/appointments";
         final String request = String.format(requestToParse, PATIENT_ID);
+
+        if(chosenDoctor == null) {
+            throw new IllegalValueException(getString(R.string.doctorNotChosenError));
+        }
+        // GLE : Change chosenDate.before by chosenDate.getTime().before because the first didn't work
+        chosenDate.setTimeZone(TimeZone.getTimeZone("Europe/Paris"));
+        chosenDate.set(Calendar.HOUR, chosenHour);
+        chosenDate.set(Calendar.MINUTE, chosenMinute);
+        System.out.println(this.getDate(this.chosenDate, this.chosenHour, this.chosenMinute));
+        if (chosenDate.getTime().before(Calendar.getInstance().getTime())) {
+            throw new IllegalValueException(getString(R.string.startDateBeforeTodayError));
+        }
 
         Appointment appointment = new Appointment(this.chosenDoctor, this.getDate(this.chosenDate, this.chosenHour, this.chosenMinute));
 

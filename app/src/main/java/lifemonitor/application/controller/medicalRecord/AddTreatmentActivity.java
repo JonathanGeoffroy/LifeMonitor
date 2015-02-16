@@ -28,6 +28,7 @@ import java.util.Date;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import lifemonitor.application.MyActivity;
 import lifemonitor.application.R;
 import lifemonitor.application.controller.exceptions.medicalRecord.IllegalValueException;
 import lifemonitor.application.controller.medicalRecord.adapter.MedicineOptionsAdapter;
@@ -227,7 +228,8 @@ public class AddTreatmentActivity extends Fragment {
                 }
 
                 // Exit
-                getFragmentManager().popBackStackImmediate();
+                MyActivity activity = (MyActivity) getActivity();
+                activity.displayView(MyActivity.MEDICAL_RECORD_FRAGMENT_ID);
             }
             @Override
             public void onError() {
