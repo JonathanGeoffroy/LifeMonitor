@@ -240,7 +240,8 @@ public class AddMedicalAppointment extends Fragment {
         if(chosenDoctor == null) {
             throw new IllegalValueException(getString(R.string.doctorNotChosenError));
         }
-        if (chosenDate.before(Calendar.getInstance().getTime())) {
+        // GLE : Change chosenDate.before by chosenDate.getTime().before because the first didn't work
+        if (chosenDate.getTime().before(Calendar.getInstance().getTime())) {
             throw new IllegalValueException(getString(R.string.startDateBeforeTodayError));
         }
 
