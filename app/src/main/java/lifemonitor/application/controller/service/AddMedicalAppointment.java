@@ -56,7 +56,7 @@ public class AddMedicalAppointment extends Fragment {
         super.onCreate(savedInstanceState);
         this.chosenHour = this.chosenMinute = 0;
         this.chosenDate = Calendar.getInstance();
-        this.doctors = new LinkedList<>();
+        this.doctors = new LinkedList<Doctor>();
         this.adapter = new DoctorAdapter(this.getActivity(), android.R.layout.simple_list_item_1);
     }
 

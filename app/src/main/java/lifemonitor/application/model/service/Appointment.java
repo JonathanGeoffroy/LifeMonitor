@@ -22,6 +22,15 @@ public class Appointment {
      * Is the appointment's date formatted according to this following format YYYY-MM-DDTHH:MM
      */
     private Calendar date;
+
+    /**
+     * Id of the patient
+     */
+    private int patient_id;
+    /**
+     * Confirmed state of the appointment
+     */
+    private boolean confirmed;
     /**
      * Is the date format used to convert date to string and vice versa
      */
@@ -57,5 +66,21 @@ public class Appointment {
 
     public void setDate(Calendar newDate) {
         this.date = newDate;
+    }
+
+    public int getPatient_id() {
+        return patient_id;
+    }
+
+    public void setPatient_id(int patient_id) {
+        this.patient_id = patient_id;
+    }
+
+    public boolean isConfirmed() {
+        return confirmed;
+    }
+
+    public void setConfirmed(boolean confirmed) {
+        this.confirmed = confirmed;
     }
 }
