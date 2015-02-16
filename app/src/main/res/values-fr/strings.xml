@@ -124,6 +124,12 @@
     <string name="chooseDateAppointmentDoctor">Date du rendez-vous :</string>
     <string name="doctorNotChosenError">Veuillez choisir un docteur</string>
 
+    <!-- medical record legend -->
+    <string name="dialog_title_legend_medrecord">Légende</string>
+    <string name="legend_allergy">Allergie</string>
+    <string name="legend_illness">Maladie</string>
+    <string name="legend_treatment">Traitement</string>
+
     <!-- SLIDER MENU -->
     <!-- Nav Drawer Menu Items -->
     <string-array name="nav_drawer_items">

@@ -18,6 +18,7 @@ import java.util.List;
 
 import lifemonitor.application.R;
 import lifemonitor.application.controller.medicalRecord.adapter.MedicalRecordAdapter;
+import lifemonitor.application.controller.medicalRecord.widget.LegendMedicalRecordDialog;
 import lifemonitor.application.helper.rest.listeners.SingleResultRESTListener;
 import lifemonitor.application.model.medicalRecord.MedicalRecord;
 import lifemonitor.application.model.medicalRecord.MedicalRecordItem;
@@ -96,10 +97,19 @@ public class ShowMedicalRecordActivity extends Fragment {
         });
     }
 
+    /**
+     * Creates an instance of LegendMedicalRecordDialog and displays it
+     * @see lifemonitor.application.controller.medicalRecord.widget.LegendMedicalRecordDialog
+     */
+    public void showLegend() {
+        LegendMedicalRecordDialog dialog = LegendMedicalRecordDialog.newInstance();
+        dialog.show(this.getFragmentManager(), "Legend of Medical Record (Dialog)");
+    }
+
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         // Inflate the menu items for use in the action bar
-       inflater.inflate(R.menu.menu_show_medical_record, menu);
+        inflater.inflate(R.menu.menu_show_medical_record, menu);
         super.onCreateOptionsMenu(menu,inflater);
     }
 
@@ -109,6 +119,9 @@ public class ShowMedicalRecordActivity extends Fragment {
             // When user clicked on "refresh" button
             case R.id.refresh_medical_record_list:
                 refreshListView();
+                return true;
+            case R.id.show_legend_medical_record:
+                this.showLegend();
                 return true;
             default:
                 return super.onOptionsItemSelected(item);

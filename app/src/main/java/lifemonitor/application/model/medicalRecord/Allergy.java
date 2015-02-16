@@ -1,8 +1,10 @@
 package lifemonitor.application.model.medicalRecord;
 
+import android.content.res.Resources;
 import android.support.v4.app.DialogFragment;
 import android.content.Context;
-import android.graphics.Color;
+
+import lifemonitor.application.R;
 
 /**
  * @author Jonathan Geoffroy
@@ -47,7 +49,7 @@ public class Allergy implements MedicalRecordItem {
 
     @Override
     public int getColor() {
-        return Color.argb(255, 242, 222, 222);
+        return R.color.allergy_color;
     }
 
     @Override

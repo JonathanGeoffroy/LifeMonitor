@@ -74,7 +74,7 @@ public class MedicalRecordAdapter extends BaseAdapter {
         MedicalRecordItem medicalRecord = medicalRecords.get(position);
         viewHolder.title.setText(medicalRecord.getTitle(context));
         viewHolder.subtitle.setText(medicalRecord.getSubTitle(context));
-        convertView.setBackgroundColor(medicalRecord.getColor());
+        convertView.setBackgroundColor(this.context.getResources().getColor(medicalRecord.getColor()));
 
         return convertView;
     }

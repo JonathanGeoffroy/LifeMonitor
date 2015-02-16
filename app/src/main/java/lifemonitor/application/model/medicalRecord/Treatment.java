@@ -1,9 +1,8 @@
 package lifemonitor.application.model.medicalRecord;
 
+import android.content.res.Resources;
 import android.support.v4.app.DialogFragment;
 import android.content.Context;
-import android.graphics.Color;
-import android.util.Log;
 
 import java.io.Serializable;
 import java.text.SimpleDateFormat;
@@ -252,7 +251,7 @@ public class Treatment implements MedicalRecordItem, Serializable {
 
     @Override
     public int getColor() {
-        return Color.argb(255, 223, 240, 216);
+        return R.color.treatment_color;
     }
 
     @Override

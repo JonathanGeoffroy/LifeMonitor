@@ -1,11 +1,12 @@
 package lifemonitor.application.model.medicalRecord;
 
+import android.content.res.Resources;
 import android.support.v4.app.DialogFragment;
 import android.content.Context;
-import android.graphics.Color;
 
 import java.io.Serializable;
-import java.util.Comparator;
+
+import lifemonitor.application.R;
 
 /**
  * @author Jonathan Geoffroy
@@ -49,7 +50,7 @@ public class Illness implements MedicalRecordItem, Serializable, Comparable<Illn
 
     @Override
     public int getColor() {
-        return Color.argb(255, 252, 248, 227);
+        return R.color.illness_color;
     }
 
     @Override
