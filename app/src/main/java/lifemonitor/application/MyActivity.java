@@ -195,7 +195,7 @@ public class MyActivity extends FragmentActivity {
     /**
      * Diplaying fragment view for selected nav drawer list item
      */
-    private void displayView(int position) {
+    public void displayView(int position) {
         this.position = position;
         // update the main content by replacing fragments
         Fragment fragment = null;

@@ -55,7 +55,8 @@ public class TreatmentInformationDialog extends DialogFragment {
         LayoutInflater inflater = getActivity().getLayoutInflater();
         View dialogLayout = inflater.inflate(R.layout.dialog_treatment_information, null);
         builder.setView(dialogLayout)
-                .setPositiveButton("Voir Médicament", new DialogInterface.OnClickListener() {
+                .setTitle(treatment.getTitle(getActivity()))
+                .setPositiveButton(getString(R.string.see_medicine_button), new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         Intent intent = new Intent(getActivity(), ShowMedicineActivity.class);
@@ -64,10 +65,6 @@ public class TreatmentInformationDialog extends DialogFragment {
                     }
                 })
                 .setNegativeButton(android.R.string.cancel, null);
-
-        // name
-        TextView nameTextView = (TextView) dialogLayout.findViewById(R.id.treatment_name);
-        nameTextView.setText(treatment.getTitle(getActivity()));
 
         SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/y");
         // start date
